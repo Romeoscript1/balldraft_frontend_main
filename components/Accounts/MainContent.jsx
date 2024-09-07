@@ -16,7 +16,7 @@ const MainContent = (props) => {
         {/* <RewardBanner /> */}
         <Referal />
         <div className="flex text-black items-center justify-between p-[1rem] w-full">
-          <h2 className="text-2xl">Recent Transactions </h2> <p>See all</p>
+          <h2 className="text-2xl">Recent transactions </h2> <p>See all</p>
         </div>
 
         <TransactionTable />
