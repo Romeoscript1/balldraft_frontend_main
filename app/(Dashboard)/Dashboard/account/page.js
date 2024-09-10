@@ -12,11 +12,7 @@ import { getAccessToken } from "@/constants/constants";
 
 const Page = () => {
   const router = useRouter();
-     const userAuth = isAuthenticated();
-
-  if (!userAuth) {
-    router.push("/Auth/login");
-  }
+  const userAuth = isAuthenticated();
 
   const [loading, setLoading] = useState(true);
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -24,15 +20,19 @@ const Page = () => {
 
   const apiUrl = `${url}/profile`;
   useEffect(() => {
+    if (typeof window !== "undefined" && !userAuth) {
+      router.push("/Auth/login");
+    }
+
     const fetchData = async () => {
       try {
         const response = await axios.get(apiUrl, {
-            'headers': {
-                'Authorization': `Bearer ${getAccessToken()}`
-            }
+          headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+          },
         });
         setProfile(response.data);
-        setLoading(false)
+        setLoading(false);
       } catch (error) {
         toast.error("Error fetching profile");
       }
@@ -41,19 +41,19 @@ const Page = () => {
     fetchData();
   }, []);
 
-  if(loading){
+  if (loading) {
     return (
-        <section className="w-[100%] h-[100vh] z-10 absolute top-0 flex items-center justify-center bg-white">
-            <LoadingTemplate/>
-        </section>
-    )
+      <section className="w-[100%] h-[100vh] z-10 absolute top-0 flex items-center justify-center bg-white">
+        <LoadingTemplate />
+      </section>
+    );
   }
 
   return (
     <section>
       <Toaster />
       <div className="flex gap-4 p-[1rem] justify-around bg-white">
-        <Sider className={"max-[878px]:hidden"} profile={profile}/>
+        <Sider className={"max-[878px]:hidden"} profile={profile} />
         <MainContent profile={profile} />
       </div>
     </section>
