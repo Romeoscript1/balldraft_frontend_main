@@ -24,6 +24,7 @@ import * as Yup from "yup";
 import { Toaster, toast } from "react-hot-toast";
 import usePostRequest from "@/Hooks/usepostRequest";
 import Loader from "@/components/Loader";
+import { clearSessionStorage } from "@/constants/constants";
 
 const MuiFormikCheckbox = ({ label, ...props }) => {
   const [field] = useField(props);
@@ -126,7 +127,8 @@ const Deactivate = () => {
       {
         onSuccess: () => {
           toast.success("Account deactivated successfully");
-          sessionStorage.clear();
+          // sessionStorage.clear();
+          clearSessionStorage();
           router.push("/Auth/join");
           setSubmitting(false);
         },

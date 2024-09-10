@@ -19,6 +19,7 @@ import styled from "@emotion/styled";
 import * as Yup from "yup";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
+import { getAccessToken } from "@/constants/constants";
 
 const MuiFormikCheckbox = ({ label, ...props }) => {
   const [field] = useField(props);
@@ -118,13 +119,13 @@ const ChangePassword = () => {
         {
           password: values.newPassword,
           confirm_password: values.confirmPassword,
-        //   token: 1,
-        //   uidb64: 1
+          //   token: 1,
+          //   uidb64: 1
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+            Authorization: `Bearer ${getAccessToken()}`,
           },
         }
       );

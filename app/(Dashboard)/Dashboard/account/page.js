@@ -8,9 +8,10 @@ import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { isAuthenticated } from "@/constants/constants";
 import LoadingTemplate from "@/components/LoadingTemplate";
+import { getAccessToken } from "@/constants/constants";
 
 const Page = () => {
-//   const router = useRouter();
+  const router = useRouter();
      const userAuth = isAuthenticated();
 
   if (!userAuth) {
@@ -27,7 +28,7 @@ const Page = () => {
       try {
         const response = await axios.get(apiUrl, {
             'headers': {
-                'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`
+                'Authorization': `Bearer ${getAccessToken()}`
             }
         });
         setProfile(response.data);

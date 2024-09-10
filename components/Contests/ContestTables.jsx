@@ -4,6 +4,7 @@ import logo from "@/public/images/logo.png";
 import toast from "react-hot-toast";
 import usePostRequest from "@/Hooks/usepostRequest";
 import { data } from "autoprefixer";
+import { getAccessToken } from "@/constants/constants";
 
 function ContestTables({ card, leagueName }) {
   const [availablePlayers, setAvailablePlayers] = useState([]);
@@ -17,7 +18,7 @@ function ContestTables({ card, leagueName }) {
   const [totalSalary, setTotalSalary] = useState(100000);
   const [amountSpent, setAmountSpent] = useState(0);
   const [lineUpLoading, setLineupLoading] = useState(false);
-  const postRequest = usePostRequest()
+  const postRequest = usePostRequest();
   /**Generate a random number between 1 and 10 */
   const generateRandomFppg = () => {
     return Math.floor(Math.random() * 10) + 1;
@@ -47,14 +48,19 @@ function ContestTables({ card, leagueName }) {
     setAvailablePlayers(players);
   }, [players]);
 
-
   const url = process.env.NEXT_PUBLIC_API_URL;
-  const apiUrl = `${url}/contest/contest-history/`;   
+  const apiUrl = `${url}/contest/contest-history/`;
 
-  const { mutate: mutateConfirmLineup, isPending, isSuccess, isError, error } = postRequest(apiUrl);
+  const {
+    mutate: mutateConfirmLineup,
+    isPending,
+    isSuccess,
+    isError,
+    error,
+  } = postRequest(apiUrl);
 
   const handleConfirmLineUp = () => {
-    if (card && selectedPlayers.length > 0){
+    if (card && selectedPlayers.length > 0) {
       setLineupLoading(true);
       const playerList = selectedPlayers.map((player) => ({
         player_id: player.id,
@@ -63,53 +69,52 @@ function ContestTables({ card, leagueName }) {
         team_id: player.team_id,
         fixture_id: card?.fixture_id,
         points: player.fppg,
-        position: player.position
+        position: player.position,
       }));
-  
+
       const body = {
         players: playerList,
-        "name": card?.title,
-        "game_id": card?.id,
-        "fixture_id":card.fixture_id ,
-        "entry_amount": card.entry_amount,
-        "league_name": leagueName,
-        "pending": true,
-        "completed": false,
-        "profit": true,
-        "total_points": 0,
-        "positions": true,
-        "position": 0,
-        "max_entry": card.max_entry,
-        "won_amount": 0,
-        "pool_price": card.total_to_win,
-        "profile": 1
-      }
+        name: card?.title,
+        game_id: card?.id,
+        fixture_id: card.fixture_id,
+        entry_amount: card.entry_amount,
+        league_name: leagueName,
+        pending: true,
+        completed: false,
+        profit: true,
+        total_points: 0,
+        positions: true,
+        position: 0,
+        max_entry: card.max_entry,
+        won_amount: 0,
+        pool_price: card.total_to_win,
+        profile: 1,
+      };
 
       fetch(apiUrl, {
-        method: 'POST', 
+        method: "POST",
         body: JSON.stringify(body),
         headers: {
-          'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`,
+          Authorization: `Bearer ${getAccessToken()}`,
           "Content-Type": "application/json",
-        }
-      }).then(response=>{
-        if(response.ok){
-          toast.success('Lineup confrimation successful')
-        }
-        return response.json()
+        },
       })
-      .then(data=>{
-        console.log(data)
-      })
-      .catch(error=>{
-        console.error("Error confirming lineup", error)
-        toast.error('Error confirming lineup, please try again')
-      }).finally(
-        setLineupLoading(false)
-      )
+        .then((response) => {
+          if (response.ok) {
+            toast.success("Lineup confrimation successful");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error("Error confirming lineup", error);
+          toast.error("Error confirming lineup, please try again");
+        })
+        .finally(setLineupLoading(false));
 
-
-      // mutateConfirmLineup(JSON.stringify(body), 
+      // mutateConfirmLineup(JSON.stringify(body),
       //   {
       //     onSuccess: ()=>{
       //     toast.success('Linup confirmation successful')
@@ -120,9 +125,7 @@ function ContestTables({ card, leagueName }) {
       // })
 
       // setLineupLoading(false)
-
     }
-
   };
 
   const handleButtonClick = (buttonName) => {
@@ -185,8 +188,6 @@ function ContestTables({ card, leagueName }) {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
-
 
   const handleResetSelection = () => {
     setAvailablePlayers((available) => [

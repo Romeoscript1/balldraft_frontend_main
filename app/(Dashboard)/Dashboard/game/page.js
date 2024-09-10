@@ -11,7 +11,6 @@ import { useFetchDataPlans } from "@/Hooks/useFetch";
 export default function Home() {
   const url = process.env.NEXT_PUBLIC_MICROSERVICE_URL;
   const apiUrl = `${url}get-fixtures?total_to_win=false&single_game=false&limit=10`
-  console.log(apiUrl, 'mehnnn')
   const { data: contests } = useFetchDataPlans(apiUrl);
   useEffect(() => {
     Aos.init({
@@ -37,7 +36,6 @@ export default function Home() {
   //   setAvailableContest(filteredContests)
   // }, [filters])
 
-  console.log(filters);
   
   return (
     <div>

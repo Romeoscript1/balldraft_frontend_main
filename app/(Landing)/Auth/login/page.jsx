@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, useField } from "formik";
 import {
   TextField,
@@ -27,6 +27,8 @@ import usePostRequest from "@/Hooks/usepostRequest";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { getAccessToken } from "@/constants/constants";
+import { setAccessToken } from "@/constants/constants";
 
 const MuiFormikCheckbox = ({ label, ...props }) => {
   const [field] = useField(props);
@@ -109,7 +111,6 @@ const MuiFormikDatePicker = ({ label, ...props }) => {
 };
 
 const Page = () => {
-
   const router = useRouter();
 
   const validationSchema = Yup.object().shape({
@@ -133,7 +134,8 @@ const Page = () => {
     (response) => {
       console.log("Success:", response);
       const accessToken = response.data.access;
-      sessionStorage.setItem("access_token", accessToken);
+      // sessionStorage.setItem("access_token", accessToken);
+      setAccessToken(accessToken);
       toast.success("login was successful!");
     },
     (error) => {
@@ -148,8 +150,8 @@ const Page = () => {
     // Handle form submission
   };
 
-   useEffect(() => {
-    const accessToken = sessionStorage.getItem("access_token");
+  useEffect(() => {
+    const accessToken = getAccessToken();
     if (accessToken) {
       router.push("/Dashboard");
     }
@@ -214,7 +216,10 @@ const Page = () => {
             <div className="mb-[2rem]">
               <p className="text-center mt-[1rem]">
                 Yet to Create an account?{" "}
-                <Link href="/Auth/join" className="text-[#012C51] hover:underline">
+                <Link
+                  href="/Auth/join"
+                  className="text-[#012C51] hover:underline"
+                >
                   Sign up
                 </Link>
               </p>

@@ -7,10 +7,11 @@ import { useFetchDataPlans } from "@/Hooks/useFetch";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "@/components/Loader";
+import { getAccessToken } from "@/constants/constants";
 
 const ProfileForm = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
-  const apiUrl = `${url}/profile`; 
+  const apiUrl = `${url}/profile`;
 
   const { data, isLoading, error } = useFetchDataPlans(apiUrl);
   const [formData, setFormData] = useState({
@@ -72,7 +73,7 @@ const ProfileForm = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${sessionStorage.getItem("access_token")}`,
+            Authorization: `Bearer ${getAccessToken()}`,
           },
         }
       );

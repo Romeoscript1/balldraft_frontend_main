@@ -39,17 +39,37 @@ export const formatunixTime = (unixTime, format = "time") => {
   }
 };
 
+export const getAccessToken = () => {
+  let accessToken = null;
+  if (typeof window !== "undefined") {
+    accessToken = sessionStorage.getItem("access_token");
+  }
+  return accessToken;
+};
+
+export const setAccessToken = (accessToken) => {
+  if (typeof window !== "undefined") {
+    sessionStorage.setItem("access_token", accessToken);
+  }
+};
+
 export const isAuthenticated = () => {
-  if (sessionStorage.getItem("access_token")) return true;
+  if (getAccessToken()) return true;
   return false;
+};
+
+export const clearSessionStorage = () => {
+  if (typeof window !== "undefined") {
+    sessionStorage.clear();
+  }
 };
 
 export function generateRandomOdds() {
   // Random over/under value between 40 and 60
   const overUnder = (Math.random() * (60 - 40) + 40).toFixed(1);
-  
+
   // Random point spread between -10 and +10
   const pointSpread = (Math.random() * 20 - 10).toFixed(1);
-  
+
   return { overUnder, pointSpread };
 }
