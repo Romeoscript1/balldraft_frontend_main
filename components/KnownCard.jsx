@@ -1,5 +1,5 @@
 import React from 'react'
-import vector  from '@/public/images/vector10.png'
+// import vector  from '/public/images/vector10.png'
 
 const KnownCard = ({title, desc, img, bg, color}) => {
   return (
