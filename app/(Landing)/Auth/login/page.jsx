@@ -134,7 +134,6 @@ const Page = () => {
       console.log("Success:", response);
       const accessToken = response.data.access;
       sessionStorage.setItem("access_token", accessToken);
-      //TODO: set the redux state
       toast.success("login was successful!");
     },
     (error) => {

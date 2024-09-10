@@ -2,8 +2,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Table, Avatar, Modal } from "antd";
 import logo from "@/public/images/logo.png";
 import toast from "react-hot-toast";
+import usePostRequest from "@/Hooks/usepostRequest";
+import { data } from "autoprefixer";
 
-function ContestTables({ card }) {
+function ContestTables({ card, leagueName }) {
   const [availablePlayers, setAvailablePlayers] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [activeButton, setActiveButton] = useState("All");
@@ -15,6 +17,7 @@ function ContestTables({ card }) {
   const [totalSalary, setTotalSalary] = useState(100000);
   const [amountSpent, setAmountSpent] = useState(0);
   const [lineUpLoading, setLineupLoading] = useState(false);
+  const postRequest = usePostRequest()
   /**Generate a random number between 1 and 10 */
   const generateRandomFppg = () => {
     return Math.floor(Math.random() * 10) + 1;
@@ -27,11 +30,15 @@ function ContestTables({ card }) {
       ...player,
       team: home_team[0].team.name,
       fppg: generateRandomFppg(),
+      team_id: home_team[0].team.id,
+      position: player.position,
     }));
     const transformAwayTeam = away_team[0]?.players.map((player) => ({
       ...player,
       team: away_team[0].team.name,
       fppg: generateRandomFppg(),
+      team_id: away_team[0].team.id,
+      position: player.position,
     }));
     return [...transformHomeTeam, ...transformAwayTeam];
   }, [away_team, home_team]);
@@ -39,6 +46,84 @@ function ContestTables({ card }) {
   useEffect(() => {
     setAvailablePlayers(players);
   }, [players]);
+
+
+  const url = process.env.NEXT_PUBLIC_API_URL;
+  const apiUrl = `${url}/contest/contest-history/`;   
+
+  const { mutate: mutateConfirmLineup, isPending, isSuccess, isError, error } = postRequest(apiUrl);
+
+  const handleConfirmLineUp = () => {
+    if (card && selectedPlayers.length > 0){
+      setLineupLoading(true);
+      const playerList = selectedPlayers.map((player) => ({
+        player_id: player.id,
+        name: player.name,
+        image_url: player.photo,
+        team_id: player.team_id,
+        fixture_id: card?.fixture_id,
+        points: player.fppg,
+        position: player.position
+      }));
+  
+      const body = {
+        players: playerList,
+        "name": card?.title,
+        "game_id": card?.id,
+        "fixture_id":card.fixture_id ,
+        "entry_amount": card.entry_amount,
+        "league_name": leagueName,
+        "pending": true,
+        "completed": false,
+        "profit": true,
+        "total_points": 0,
+        "positions": true,
+        "position": 0,
+        "max_entry": card.max_entry,
+        "won_amount": 0,
+        "pool_price": card.total_to_win,
+        "profile": 1
+      }
+
+      fetch(apiUrl, {
+        method: 'POST', 
+        body: JSON.stringify(body),
+        headers: {
+          'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`,
+          "Content-Type": "application/json",
+        }
+      }).then(response=>{
+        if(response.ok){
+          toast.success('Lineup confrimation successful')
+        }
+        return response.json()
+      })
+      .then(data=>{
+        console.log(data)
+      })
+      .catch(error=>{
+        console.error("Error confirming lineup", error)
+        toast.error('Error confirming lineup, please try again')
+      }).finally(
+        setLineupLoading(false)
+      )
+
+
+      // mutateConfirmLineup(JSON.stringify(body), 
+      //   {
+      //     onSuccess: ()=>{
+      //     toast.success('Linup confirmation successful')
+      //   },
+      //   onError: ()=>{
+      //     toast.error('An error occured, please try again.')
+      //   }
+      // })
+
+      // setLineupLoading(false)
+
+    }
+
+  };
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
@@ -101,7 +186,7 @@ function ContestTables({ card }) {
     setIsModalVisible(false);
   };
 
-  const handleConfirmLineUp = () => {};
+
 
   const handleResetSelection = () => {
     setAvailablePlayers((available) => [

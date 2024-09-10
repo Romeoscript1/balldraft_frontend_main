@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import axios from "axios";
 import Sport from "@/public/images/Sport.svg";
 import GameCard from "@/Reusable/GameCard";
@@ -4578,26 +4578,27 @@ const Page = () => {
   const getCards = (league) => {
     return league.fixtures.find((fixture) => (fixture.id = id));
   };
-  useEffect(() => {
-    setLeagues(dummyLeague);
-    setCards(getCards(dummyLeague));
-    console.log("CARDS", getCards(dummyLeague));
-    setLoading(false);
-    // const fetchData = async () => {
-    //   console.log("REQUEST STARTED");
-    //   try {
-    //     console.log("MAKING REQUEST");
-    //     const response = await axios.get(apiUrl);
-    //     // setLeagues(response.data); //get the league
-    //     setCards(response.data.fixtures.find((fixture) => fixture.id === id)); ///get the particular fixture from the league
-    //     setLoading(false);
-    //   } catch (error) {
-    //     console.error("Error fetching data:", error);
-    //     setLoading(false);
-    //   }
-    // };
 
-    // fetchData();
+  useEffect(() => {
+    // setLeagues(dummyLeague);
+    // setCards(getCards(dummyLeague));
+    // console.log("CARDS", getCards(dummyLeague));
+    // setLoading(false);
+    const fetchData = async () => {
+      try {
+        console.log("MAKING REQUEST");
+        const response = await axios.get(apiUrl);
+        console.log(response);
+        setLeagues(response.data); //get the league
+        setCards(response.data.fixtures.find((fixture) => fixture.id === id)); ///get the particular fixture from the league
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   function scrollContainerLeftByWidth() {
@@ -4781,7 +4782,7 @@ const Page = () => {
         </div>
       </div>
 
-      {cards && <ContestTables card={cards} />}
+      {cards && <ContestTables card={cards} leagueName={leagues.league_name} />}
     </div>
   );
 };
