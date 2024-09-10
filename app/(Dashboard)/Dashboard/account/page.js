@@ -9,7 +9,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { isAuthenticated } from "@/constants/constants";
 import LoadingTemplate from "@/components/LoadingTemplate";
 
-const page = () => {
+const Page = () => {
 //   const router = useRouter();
      const userAuth = isAuthenticated();
 
@@ -59,4 +59,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
