@@ -1,8 +1,8 @@
 import React from 'react'
 import KnownCard from './KnownCard'
-import vector from '@/public/images/vector 10.png'
-import vector1 from '@/public/images/vector 11.png'
-import vector2 from '@/public/images/vector 12.png'
+import vector from '@/public/images/vector10.png'
+import vector1 from '@/public/images/vector11.png'
+import vector2 from '@/public/images/vector12.png'
 
 const Known = () => {
     const knownInfo = [
