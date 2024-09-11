@@ -79,9 +79,9 @@ const ProfileBalance = (props) => {
                   </div>
                 </aside>
                 <aside className="flex justify-between text-white cursor-pointer">
-                  <div className="bg-[#012C51] rounded-full flex gap-2 w-[54px] h-[54px] items-center justify-center">
+                  <a className="bg-[#012C51] rounded-full flex gap-2 w-[54px] h-[54px] items-center justify-center" href="/transaction/withdraw/">
                     <Icon type="withdraw" />
-                  </div>
+                  </a>
                 </aside>
               </div>
             )}
@@ -129,9 +129,9 @@ const ProfileBalance = (props) => {
                 </div>
               </aside>
               <aside className="flex justify-between p-[1rem]  text-white cursor-pointer">
-                <div className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2">
+                <a className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2"  href="/transaction/withdraw/">
                   <Icon type="withdraw" /> Withdraw
-                </div>
+                </a>
               </aside>
             </div>
           )}

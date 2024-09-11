@@ -106,6 +106,9 @@ function ContestTables({ card, leagueName }) {
           return response.json();
         })
         .then((data) => {
+          if (data.detail) {
+            toast.error(data.detail);
+          }
           console.log(data);
         })
         .catch((error) => {
