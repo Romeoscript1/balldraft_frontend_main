@@ -4576,31 +4576,39 @@ const Page = () => {
   const apiUrl = `https://microservice.balldraft.com/get-league/${lid}`;
 
   const getCards = (league) => {
+    if (id == "l") {
+      const lowestEntryFixture = league.fixtures.reduce((lowest, fixture) => {
+        return lowest === null || fixture.entry_amount < lowest.entry_amount
+          ? fixture
+          : lowest;
+      }, null);
+
+      return lowestEntryFixture;
+    }
     return league.fixtures.find((fixture) => fixture.id == id);
   };
 
   useEffect(() => {
-    // console.log("RUNNING HTE USE EFFECT ");
-    // setLeagues(dummyLeague);
-    // setCards(getCards(dummyLeague));
-    // console.log("CARDS", getCards(dummyLeague));
-    // setLoading(false);
-    const fetchData = async () => {
-      try {
-        console.log("MAKING REQUEST");
-        const response = await axios.get(apiUrl);
-        console.log(response);
-        setLeagues(response.data); //get the league
-        setCards(response.data.fixtures.find((fixture) => fixture.id == id)); ///get the particular fixture from the league
-        setLoading(false);
-      } catch (error) {
-        toast.error("Error fetching games, please try again");
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+    console.log("RUNNING HTE USE EFFECT ");
+    setLeagues(dummyLeague);
+    setCards(getCards(dummyLeague));
+    console.log("CARDS", getCards(dummyLeague));
+    setLoading(false);
+    // const fetchData = async () => {
+    //   try {
+    //     console.log("MAKING REQUEST");
+    //     const response = await axios.get(apiUrl);
+    //     console.log(response);
+    //     setLeagues(response.data); //get the league
+    //     setCards(response.data.fixtures.find((fixture) => fixture.id == id)); ///get the particular fixture from the league
+    //     setLoading(false);
+    //   } catch (error) {
+    //     toast.error("Error fetching games, please try again");
+    //     console.error("Error fetching data:", error);
+    //     setLoading(false);
+    //   }
+    // };
+    // fetchData();
   }, []);
 
   function scrollContainerLeftByWidth() {

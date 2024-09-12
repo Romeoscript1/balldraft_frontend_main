@@ -11,6 +11,7 @@ function ContestTables({ card, leagueName }) {
   const [availablePlayers, setAvailablePlayers] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [selectplayers, setselectplayers] = useState([]);
+  const [photoUrls, setPhotoUrls] = useState([]);
   const [activeButton, setActiveButton] = useState("All");
   const [searchText, setSearchText] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -35,6 +36,7 @@ function ContestTables({ card, leagueName }) {
       fppg: generateRandomFppg(),
       team_id: home_team[0].team.id,
       position: player.position,
+      photo: player.photo,
     }));
     const transformAwayTeam = away_team[0]?.players.map((player) => ({
       ...player,
@@ -42,6 +44,7 @@ function ContestTables({ card, leagueName }) {
       fppg: generateRandomFppg(),
       team_id: away_team[0].team.id,
       position: player.position,
+      photo: player.photo,
     }));
     return [...transformHomeTeam, ...transformAwayTeam];
   }, [away_team, home_team]);
@@ -49,6 +52,14 @@ function ContestTables({ card, leagueName }) {
   useEffect(() => {
     setAvailablePlayers(players);
     setselectplayers([...new Set(players.map((player) => player.position))]);
+    setPhotoUrls(
+      players.map((player) => {
+        return {
+          name: player.name,
+          photo: player.photo,
+        };
+      })
+    );
   }, [players]);
 
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -240,12 +251,20 @@ function ContestTables({ card, leagueName }) {
       title: "NAME",
       dataIndex: "name",
       key: "name",
-      render: (text) => (
-        <span>
-          <Avatar style={{ marginRight: 8 }}>P</Avatar>
-          {text}
-        </span>
-      ),
+      render: (text) => {
+        console.log("the text", text);
+        return (
+          <span className="flex flex-row gap-2 flex-wrap">
+            {/* <Avatar style={{ marginRight: 8 }}>P</Avatar> */}
+            <img
+              src={photoUrls.find((instance) => instance.name == text).photo}
+              className="w-[30px] h-[30px] rounded-full "
+              alt=""
+            />
+            {text}
+          </span>
+        );
+      },
     },
     { title: "POSITION", dataIndex: "position", key: "position" },
     { title: "TEAM", dataIndex: "team", key: "team" },
