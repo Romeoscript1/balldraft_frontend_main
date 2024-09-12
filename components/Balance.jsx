@@ -111,16 +111,16 @@ const Balance = (props) => {
             </div>
           )}
           <div>
-            <p> last Spent</p>
-            <p className="text-xl font-bold mt-[1rem]">January 4, 2023</p>
+            <p className="text-sm max-[360px]:text-[0.7rem]"> last Spent</p>
+            <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">January 4, 2023</p>
           </div>
           <div className="border-x-[1px] px-[1rem] border-gray-500">
-            <p> last Spent</p>
-            <p className="text-xl font-bold mt-[1rem]">January 4, 2023</p>
+            <p className="text-sm max-[360px]:text-[0.7rem]"> last Spent</p>
+            <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">January 4, 2023</p>
           </div>
           <div>
-            <p>Payment Method</p>
-            <p className="text-xl font-bold mt-[1rem]">
+            <p className="text-sm max-[360px]:text-[0.7rem]">Payment Method</p>
+            <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">
               {maskAccountNumber(userProfile?.account_number)}
             </p>
           </div>

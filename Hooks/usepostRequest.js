@@ -2,12 +2,13 @@
 
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { getAccessToken } from "@/constants/constants";
 
 const usePostRequest = () => {
   return (url, onSuccess, onError) => {
     const mutation = useMutation({
       mutationFn: async (data) => {
-        const accessToken = sessionStorage.getItem("access_token");
+        const accessToken = getAccessToken();
 
         const headers = {
           "Content-Type": "application/json",

@@ -5,10 +5,12 @@ import toast from "react-hot-toast";
 import usePostRequest from "@/Hooks/usepostRequest";
 import { data } from "autoprefixer";
 import { getAccessToken } from "@/constants/constants";
+import Loader from "../Loader";
 
 function ContestTables({ card, leagueName }) {
   const [availablePlayers, setAvailablePlayers] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [selectplayers, setselectplayers] = useState([]);
   const [activeButton, setActiveButton] = useState("All");
   const [searchText, setSearchText] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -46,21 +48,23 @@ function ContestTables({ card, leagueName }) {
 
   useEffect(() => {
     setAvailablePlayers(players);
+    setselectplayers([...new Set(players.map((player) => player.position))]);
   }, [players]);
 
   const url = process.env.NEXT_PUBLIC_API_URL;
   const apiUrl = `${url}/contest/contest-history/`;
 
-  const {
-    mutate: mutateConfirmLineup,
-    isPending,
-    isSuccess,
-    isError,
-    error,
-  } = postRequest(apiUrl);
+  // const {
+  //   mutate: mutateConfirmLineup,
+  //   isPending,
+  //   isSuccess,
+  //   isError,
+  //   error,
+  // } = postRequest(apiUrl);
 
   const handleConfirmLineUp = () => {
     if (card && selectedPlayers.length > 0) {
+      console.log("LINEUP CONFIR");
       setLineupLoading(true);
       const playerList = selectedPlayers.map((player) => ({
         player_id: player.id,
@@ -109,7 +113,6 @@ function ContestTables({ card, leagueName }) {
           if (data.detail) {
             toast.error(data.detail);
           }
-          console.log(data);
         })
         .catch((error) => {
           console.error("Error confirming lineup", error);
@@ -128,6 +131,10 @@ function ContestTables({ card, leagueName }) {
       // })
 
       // setLineupLoading(false)
+    } else {
+      toast.error(
+        "Minimum of one player is required, please select more players"
+      );
     }
   };
 
@@ -254,10 +261,11 @@ function ContestTables({ card, leagueName }) {
     },
   ];
 
-  const selectplayers = ["LW", "CM", "WR", "LB", "FLEX", "DEF", "CF", "CDM"];
+  // const selectplayers = ["LW", "CM", "WR", "LB", "FLEX", "DEF", "CF", "CDM"];
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
+      {lineUpLoading && <Loader />}
       <div className=" hidden sm:block flex-[1.5] order-2 sm:order-1">
         <div className="flex mb-[1.5rem] max-[760px]:justify-between">
           <button
@@ -463,7 +471,7 @@ function ContestTables({ card, leagueName }) {
           <Table
             columns={selectedColumns}
             dataSource={selectedPlayers}
-            className="blue-header no-border"
+            className="blue-header no-border overflow-scroll no-scrollbar"
             rowKey="key"
           />
         }

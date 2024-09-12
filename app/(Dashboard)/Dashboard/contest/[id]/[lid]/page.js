@@ -4580,7 +4580,7 @@ const Page = () => {
   };
 
   useEffect(() => {
-    console.log("RUNNING HTE USE EFFECT ");
+    // console.log("RUNNING HTE USE EFFECT ");
     // setLeagues(dummyLeague);
     // setCards(getCards(dummyLeague));
     // console.log("CARDS", getCards(dummyLeague));

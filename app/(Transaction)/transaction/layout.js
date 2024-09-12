@@ -7,7 +7,7 @@ import { ReactQueryProvider } from "@/app/ReactQueryprovider";
 import { useRouter } from "next/navigation";
 import Nav from "@/components/Nav";
 import TransactionNav from "@/components/TransactionNav";
-
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,6 +33,7 @@ export default function RootLayout({ children }) {
           <div className="center-max-width">
             <div className="content-container">
               <Nav />
+              <Toaster/>
               <TransactionNav/>
               {children}
               <Footer />

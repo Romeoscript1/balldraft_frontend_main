@@ -10,7 +10,7 @@ import ContextSwiper from "@/components/Contests/contextswiper";
 export default function Home() {
   const [leagues, setLeagues] = useState([]);
   const url = process.env.NEXT_PUBLIC_MICROSERVICE_URL;
-  const apiUrl = `${url}get-leagues/?total_to_win=true`;
+  const apiUrl = `${url}get-leagues/?total_to_win=false`;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

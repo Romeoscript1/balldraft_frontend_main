@@ -6759,8 +6759,6 @@ const SportsBook = (props) => {
     return <LoadingTemplate/>
   }
 
-
-
   const sportsCards = urlLeagues.leagues?.map((league) => {
     return {
       id: league.league_id,

@@ -74,9 +74,9 @@ const ProfileBalance = (props) => {
             {isAccount && (
               <div className="flex s-3:hidden gap-3 max-[400px]:gap-2">
                 <aside className="flex text-white cursor-pointer">
-                  <div className="bg-[#012C51] w-[54px] h-[54px] rounded-full flex gap-2 items-center justify-center">
+                  <a className="bg-[#012C51] w-[54px] h-[54px] rounded-full flex gap-2 items-center justify-center" href="/transaction/deposit/">
                     <Icon type="topup" />
-                  </div>
+                  </a>
                 </aside>
                 <aside className="flex justify-between text-white cursor-pointer">
                   <a className="bg-[#012C51] rounded-full flex gap-2 w-[54px] h-[54px] items-center justify-center" href="/transaction/withdraw/">
@@ -107,14 +107,14 @@ const ProfileBalance = (props) => {
             ) : (
               <div>
                 <div className="bg-[#012C51] p-5 lg:p-[1rem] lg:px-[2rem] rounded-full flex gap-2">
-                  <span className="flex">
+                  <a className="flex" href="/transaction/deposit/">
                     <Icon type="topup" />
                     <span className="hidden lg:flex">Top up</span>
-                  </span>
+                  </a>
                 </div>
-                <span className="font-medium lg:hidden flex text-[#012C51]">
+                <a className="font-medium lg:hidden flex text-[#012C51]" href="/transaction/deposit/">
                   Top up
-                </span>
+                </a>
               </div>
             )}
           </aside>
@@ -124,9 +124,9 @@ const ProfileBalance = (props) => {
           {isAccount && (
             <div className="flex max-s-3:hidden">
               <aside className="flex justify-between p-[1rem]  text-white cursor-pointer">
-                <div className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2">
+                <a className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2" href="/transaction/deposit/">
                   <Icon type="topup" /> Top up
-                </div>
+                </a>
               </aside>
               <aside className="flex justify-between p-[1rem]  text-white cursor-pointer">
                 <a className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2"  href="/transaction/withdraw/">
