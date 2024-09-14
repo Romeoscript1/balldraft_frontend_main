@@ -5,15 +5,12 @@ import { FcEmptyFilter } from "react-icons/fc";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 
 const SearchGamesModal = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchFixtures, setSearchFixtures] = useState([]);
+  const [searchFixtures, setSearchFixtures] = useState([])
   const fixtures = props.fixtures;
 
   useEffect(() => {
@@ -33,6 +30,8 @@ const SearchGamesModal = (props) => {
     const value = event.target.value;
     setSearchTerm(value);
   };
+
+
   return (
     <div>
       <Dialog>
@@ -71,9 +70,11 @@ const SearchGamesModal = (props) => {
               <div className="flex flex-col w-full gap-2">
                 {searchFixtures.map((fixture) => {
                   return (
-                    <div
+                    <a
                       className="w-full px-4 py-6 bg-slate-50 cursor-pointer rounded-md flex flex-col"
                       key={`la-f-${fixture.fixture_id}`}
+                      // onClick={routeToFixture.bind(null, fixture.fixture_id, fixture.league_id)}
+                      href={`/Dashboard/contest/${fixture.id}/${fixture.league_id}`}
                     >
                       <p className="text-denary text-sm">{fixture.title}</p>
                       <p className="text-slate-700 text-[0.8rem] mt-1">
@@ -82,7 +83,7 @@ const SearchGamesModal = (props) => {
                         </span>{" "}
                         {`₦${fixture.entry_amount}`}
                       </p>
-                    </div>
+                    </a>
                   );
                 })}
               </div>

@@ -275,7 +275,7 @@ const Page = () => {
               <TableRow>
                 {columnNames.map((name) => {
                   return (
-                    <TableHead className="bg-denary text-white">
+                    <TableHead className="bg-denary text-white" key={`gaga-${name}`}>
                       {name}
                     </TableHead>
                   );
@@ -286,7 +286,7 @@ const Page = () => {
             <TableBody>
               {contestHistory.map((history) => {
                 return (
-                  <TableRow>
+                  <TableRow key={`row-${history.name}`}>
                     <TableCell className="text-black">{history.name}</TableCell>
                     <TableCell className="text-black">{history.entryTime}</TableCell>
 

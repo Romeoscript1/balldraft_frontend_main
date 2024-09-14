@@ -16,16 +16,18 @@ const SeachFixturesPopover = ({ searchFixtures }) => {
     <div className="flex flex-col w-full gap-2">
       {searchFixtures.map((fixture) => {
         return (
-          <div
+          <a
             className="w-full p-2 bg-slate-50 cursor-pointer rounded-md flex flex-col"
             key={`la-f-${fixture.fixture_id}`}
+            href={`/Dashboard/contest/${fixture.id}/${fixture.league_id}`}
+
           >
             <p className="text-denary text-sm">{fixture.title}</p>
             <p className="text-slate-700 text-[0.8rem] mt-1">
               <span className="font-semibold text-denary ">Entry:</span>{" "}
               {`₦${fixture.entry_amount}`}
             </p>
-          </div>
+          </a>
         );
       })}
     </div>

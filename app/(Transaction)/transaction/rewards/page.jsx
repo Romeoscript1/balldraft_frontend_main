@@ -106,7 +106,7 @@ const Page = () => {
           <div className="w-full flex flex-col gap-5 mt-5">
             {howToList.map((item, index) => {
               return (
-                <div className="bg-[#F2F2F2] overflow-hidden flex flex-col rounded-lg p-8 relative">
+                <div className="bg-[#F2F2F2] overflow-hidden flex flex-col rounded-lg p-8 relative" key={`howto-${item.subject}`}>
                   <p className="font-medium text-black">{item.subject}</p>
                   <p className="text-slate-900 text-sm">{item.message}</p>
 
@@ -138,9 +138,9 @@ const Page = () => {
 
           <div className="flex flex-row flex-wrap mt-7 items-center gap-4">
             <p className="text-black font-medium text-xl">Share link via:</p>
-            {socials.map((social) => {
+            {socials.map((social, index) => {
               return (
-                <a href="">
+                <a href="" key={`social-links-${index}`}>
                   <img src={social.src}></img>
                 </a>
               );
@@ -166,7 +166,7 @@ const Page = () => {
 
                     {referralTableColumns.map((column) => {
                       return (
-                        <TableHead className="bg-denary text-white">
+                        <TableHead className="bg-denary text-white" key={`agcolumn-${column}`}>
                           {column}
                         </TableHead>
                       );
@@ -176,7 +176,7 @@ const Page = () => {
                 <TableBody>
                   {referalList.map((referral) => {
                     return (
-                      <TableRow>
+                      <TableRow key={`ref-${referral.name}`}>
                         <TableCell className="text-black">
                           <div className="flex flex-row items-center">
                             <img src={beardAvater.src} alt="" />
