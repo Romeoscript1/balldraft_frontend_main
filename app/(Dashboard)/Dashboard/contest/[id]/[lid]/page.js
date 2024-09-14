@@ -4569,6 +4569,7 @@ const Page = () => {
   const [cards, setCards] = useState(null);
   const [leagues, setLeagues] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [fatalError, setFatalError] = useState(false);
   const oddsContainer = useRef();
 
   //  const apiUrl = `https://microservice.balldraft.com/get-fixture/${id}`;
@@ -4603,10 +4604,12 @@ const Page = () => {
         setLeagues(response.data); //get the league
         setCards(getCards(response.data)); ///get the particular fixture from the league
         setLoading(false);
+        setFatalError(false);
       } catch (error) {
         toast.error("Error fetching games, please try again");
         console.error("Error fetching data:", error);
         setLoading(false);
+        setFatalError(true);
       }
     };
     fetchData();
@@ -4636,6 +4639,16 @@ const Page = () => {
 
   if (loading) {
     return <LoadingTemplate />;
+  }
+
+  if (fatalError) {
+    return (
+      <div className="w-full h-[40vh] flex items-center justify-center">
+        <p className="text-red-500">
+          Fatal: An error occured, please try again.
+        </p>
+      </div>
+    );
   }
 
   return (
