@@ -25,8 +25,8 @@ module.exports = {
         ballgray: "#F2F2F2",
         denary: "#012C51",
         skyish: "#FFD700",
-        mblue100:"#5C9BD1",
-        mgreen100: 'rgba(0, 128, 0, 0.2)'
+        mblue100: "#5C9BD1",
+        mgreen100: "rgba(0, 128, 0, 0.2)",
       },
       backgroundColor: {
         "sky-200": "#0F93FC",
@@ -45,15 +45,16 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "line-bg": "url('/images/lines.svg')",
-        "refer-bg": "url('/images/referrectangle.png')"
+        "refer-bg": "url('/images/referrectangle.png')",
       },
       screens: {
         "s-1": "600px",
         "s-2": "480px",
         "s-3": "540px",
-        's4': "1000px",
-        's5': "689px",
-        "s6": "675px"
+        s4: "1000px",
+        s5: "689px",
+        s6: "675px",
+        s7: "1023px",
       },
     },
   },

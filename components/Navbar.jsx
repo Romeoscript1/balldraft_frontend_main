@@ -4,14 +4,44 @@ import logo from "@/public/images/logo.png";
 import { usePathname, useRouter } from "next/navigation";
 import { useFetchDataPlans } from "@/Hooks/useFetch";
 import Link from "next/link";
+import navham from "@/public/images/navham.svg";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { Button } from "antd";
 
 const Navbar = () => {
   const router = usePathname();
   const isAuthRoute = router.includes("/Auth");
   const url = process.env.NEXT_PUBLIC_API_URL;
-  const apiUrl = `${url}/profile`; 
+  const apiUrl = `${url}/profile`;
   const { data, isLoading, error } = useFetchDataPlans(apiUrl);
 
+  const navLinks = [
+    {
+      title: "What We Offer",
+      route: "/",
+    },
+    {
+      title: "About us",
+      route: "/about",
+    },
+    {
+      title: "What We Offer",
+      route: "/",
+    },
+    {
+      title: "Blog",
+      route: "/blog",
+    },
+  ];
 
   return (
     <>
@@ -21,7 +51,7 @@ const Navbar = () => {
           style={{ zIndex: "999px" }}
         >
           <div className="navbar-start">
-            <div className="dropdown">
+            {/* <div className="dropdown">
               <div
                 tabIndex={0}
                 role="button"
@@ -64,7 +94,7 @@ const Navbar = () => {
                   <a>Item 3</a>
                 </li>
               </ul>
-            </div>
+            </div> */}
             <a className="btn btn-ghost text-xl">
               <img src={logo.src} alt="" srcset="" className=" w-[110px]" />
             </a>
@@ -95,8 +125,47 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <div className="navbar-end ">
-            <Link href={'/Dashboard'} className="btn bg-[#012C51] rounded-[30px]">Play now</Link>
+          <div className="navbar-end flex flex-row gap-8 items-center">
+            <Link
+              href={"/Dashboard"}
+              className="btn bg-[#012C51] rounded-[30px]"
+            >
+              Play now
+            </Link>
+            <Drawer>
+              <DrawerTrigger>
+                <img src={navham.src} alt="" className="hidden max-s7:flex" />
+              </DrawerTrigger>
+              <DrawerContent className="bg-white">
+                <DrawerHeader className={"gap-4 flex flex-col "}>
+                  {navLinks.map((link) => {
+                    return (
+                      <a
+                        href={link.route}
+                        className="text-denary"
+                        key={`route-${link.route}`}
+                      >
+                        {link.title}
+                      </a>
+                    );
+                  })}
+                </DrawerHeader>
+                <DrawerFooter className={"flex flex-col items-center"}>
+                  <a
+                    href="/Auth/join/"
+                    className="py-3 px-6 bg-denary rounded-full text-white w-[200px] text-center"
+                  >
+                    Sign up
+                  </a>
+                  <a
+                    href="/Auth/login/"
+                    className="py-3 px-6 bg-whiite border border-denary bg-white rounded-full text-denary w-[200px] text-center"
+                  >
+                    Login
+                  </a>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
           </div>
         </div>
       )}
