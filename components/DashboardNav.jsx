@@ -104,7 +104,7 @@ const DashboardNav = () => {
         </aside>
 
         <aside className="flex items-center gap-8">
-          <p className="lg:flex items-center gap-3 hidden">
+          <a className="lg:flex items-center gap-3 hidden" href="/transaction/rewards/">
             {" "}
             <svg
               width="24"
@@ -154,7 +154,7 @@ const DashboardNav = () => {
               </defs>
             </svg>
             Rewards
-          </p>
+          </a>
           <p className="lg:flex items-center gap-3 hidden">
             <svg
               width="34"

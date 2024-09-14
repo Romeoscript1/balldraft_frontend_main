@@ -7,6 +7,7 @@ import DashboardNav from "@/components/DashboardNav";
 import { ReactQueryProvider } from "@/app/ReactQueryprovider";
 import { useRouter } from 'next/navigation';
 import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
       <ReactQueryProvider>
         <html lang="en">
           <body className={inter.className}>
+            <Toaster></Toaster>
             <div className="center-max-width">
               <div className="content-container">
                 <DashboardNav />

@@ -6,6 +6,7 @@ import usePostRequest from "@/Hooks/usepostRequest";
 import { data } from "autoprefixer";
 import { getAccessToken } from "@/constants/constants";
 import Loader from "../Loader";
+import { useRouter } from "next/navigation";
 
 function ContestTables({ card, leagueName }) {
   const [availablePlayers, setAvailablePlayers] = useState([]);
@@ -22,6 +23,7 @@ function ContestTables({ card, leagueName }) {
   const [amountSpent, setAmountSpent] = useState(0);
   const [lineUpLoading, setLineupLoading] = useState(false);
   const postRequest = usePostRequest();
+  const router = useRouter()
   /**Generate a random number between 1 and 10 */
   const generateRandomFppg = () => {
     return Math.floor(Math.random() * 10) + 1;
@@ -117,6 +119,7 @@ function ContestTables({ card, leagueName }) {
         .then((response) => {
           if (response.ok) {
             toast.success("Lineup confrimation successful");
+            router.push('/Dashboard/history/')
           }
           return response.json();
         })
