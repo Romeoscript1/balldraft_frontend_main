@@ -158,10 +158,10 @@ const Navbar = () => {
                     Sign up
                   </a>
                   <a
-                    href="/Auth/login/"
+                    href="/Dashboard"
                     className="py-3 px-6 bg-whiite border border-denary bg-white rounded-full text-denary w-[200px] text-center"
                   >
-                    Login
+                    Play now
                   </a>
                 </DrawerFooter>
               </DrawerContent>
