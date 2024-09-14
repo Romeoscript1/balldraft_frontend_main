@@ -496,7 +496,7 @@ function ContestTables({ card, leagueName }) {
         }
 
         <div className="flex flex-col mt-4">
-          <p>Lineup completed</p>
+          {/* <p>Lineup completed</p> */}
           <div className="flex flex-row mt-5 flex-wrap gap-3">
             <button
               className="bg-sky-900 py-3 px-4 rounded-full text-white cursor-pointer disabled:bg-slate-400 disabled:cursor-not-allowed"
