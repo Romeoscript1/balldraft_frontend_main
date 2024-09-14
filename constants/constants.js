@@ -47,9 +47,23 @@ export const getAccessToken = () => {
   return accessToken;
 };
 
+export const getRefreshToken = () => {
+  let accessToken = null;
+  if (typeof window !== "undefined") {
+    accessToken = sessionStorage.getItem("refresh_token");
+  }
+  return accessToken;
+};
+
 export const setAccessToken = (accessToken) => {
   if (typeof window !== "undefined") {
     sessionStorage.setItem("access_token", accessToken);
+  }
+};
+
+export const setRefreshToken = (accessToken) => {
+  if (typeof window !== "undefined") {
+    sessionStorage.setItem("refresh_token", accessToken);
   }
 };
 

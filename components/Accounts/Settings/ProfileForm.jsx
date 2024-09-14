@@ -108,7 +108,7 @@ const ProfileForm = () => {
         Edit Profile
       </div>
 
-      <div className="space-y-4 text-black">
+      <div className="space-y-4 text-black  w-full">
         <div className="flex flex-col items-start">
           <label className="w- font-medium">User Name:</label>
           <div className="flex items-center w-full border rounded-lg">
@@ -120,13 +120,17 @@ const ProfileForm = () => {
               className="flex-grow p-3 bg-transparent focus:outline-none"
             />
             <button
-              className={`p-3 text-white bg-[#012C51] rounded-full flex gap-2 ${
+              className={`p-2 text-white bg-[#012C51] rounded-full flex gap-2 ${
                 changes.username ? "bg-blue-600" : "bg-gray-600"
               }`}
               onClick={() => handleUpdate("username")}
               disabled={!changes.username}
             >
-              <Icon type="edit" /> {changes.username ? "Save" : "Edit"}
+              <Icon type="edit" />{" "}
+              <p className="max-[420px]:hidden">
+                {" "}
+                {changes.username ? "Save" : "Edit"}
+              </p>
             </button>
           </div>
         </div>
@@ -147,7 +151,10 @@ const ProfileForm = () => {
               onClick={() => handleUpdate("email")}
               disabled={!changes.email}
             >
-              <Icon type="edit" /> {changes.email ? "Save" : "Change"}
+              <Icon type="edit" />{" "}
+              <p className="max-[420px]:hidden">
+                {changes.email ? "Save" : "Change"}
+              </p>
             </button>
           </div>
         </div>
@@ -168,7 +175,10 @@ const ProfileForm = () => {
               onClick={() => handleUpdate("dob")}
               disabled={!changes.dob}
             >
-              <Icon type="edit" /> {changes.dob ? "Save" : "Edit"}
+              <Icon type="edit" />{" "}
+              <p className="max-[420px]:hidden">
+                {changes.dob ? "Save" : "Edit"}
+              </p>
             </button>
           </div>
         </div>
@@ -190,7 +200,10 @@ const ProfileForm = () => {
                 onClick={() => handleUpdate("address")}
                 disabled={!changes.address}
               >
-                <Icon type="edit" /> {changes.address ? "Save" : "Edit"}
+                <Icon type="edit" />{" "}
+                <p className="max-[420px]:hidden">
+                  {changes.address ? "Save" : "Edit"}
+                </p>
               </button>
             </div>
           ) : (
@@ -221,7 +234,10 @@ const ProfileForm = () => {
                 onClick={() => handleUpdate("mobile_number")}
                 disabled={!changes.mobile_number}
               >
-                <Icon type="edit" /> {changes.mobile_number ? "Save" : "Edit"}
+                <Icon type="edit" />{" "}
+                <p className="max-[420px]:hidden">
+                  {changes.mobile_number ? "Save" : "Edit"}
+                </p>
               </button>
             </div>
           ) : (

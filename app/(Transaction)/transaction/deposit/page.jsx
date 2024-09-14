@@ -5,7 +5,6 @@ import { Checkbox, Menu } from "antd";
 import TransactionSider from "@/components/transaction/TransactionSider";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import useSendPost from "@/Hooks/useSendPost";
 import Loader from "@/components/Loader";
 import { getAccessToken } from "@/constants/constants";
 import usePostData from "@/Hooks/usePostData";
@@ -13,11 +12,8 @@ import usePostData from "@/Hooks/usePostData";
 const Page = () => {
   const router = useRouter();
   const [ngnAmmount, setNgnAmount] = useState("");
-  // const {data, postData} = useSendPost()
 
   const { loading, postData } = usePostData();
-
-  // const [loading, setLoading] = useState(false)
 
   const onInputChange = (e) => {
     setNgnAmount(e.target.value);
@@ -39,30 +35,11 @@ const Page = () => {
       return;
     }
     const apiUrl = `${url}/profile/payments/create/`;
-
-    // fetch(apiUrl, {
-    //   method: "POST",
-    //   headers: {
-    //     Authorization: `Bearer ${getAccessToken()}`,
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     ngn_amount: ngnAmmount,
-    //   }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .finally(() => {
-    //     setLoading(false);
-    //   });
-
     postData(
       apiUrl,
       { ngn_amount: ngnAmmount },
       (data) => {
-        openPopupWindow(data.payment_url)
+        openPopupWindow(data.payment_url);
       },
       (error) => {
         toast.error(error);

@@ -9,6 +9,7 @@ import ContestTables from "@/components/Contests/ContestTables";
 import { useParams } from "next/navigation";
 import LoadingTemplate from "@/components/LoadingTemplate";
 import toast, { Toaster } from "react-hot-toast";
+import { formatunixTime } from "@/constants/constants";
 
 const Page = () => {
   const dummyLeague = {
@@ -4589,26 +4590,26 @@ const Page = () => {
   };
 
   useEffect(() => {
-    // console.log("RUNNING HTE USE EFFECT ");
-    // setLeagues(dummyLeague);
-    // setCards(getCards(dummyLeague));
-    // console.log("CARDS", getCards(dummyLeague));
-    // setLoading(false);
-    const fetchData = async () => {
-      try {
-        console.log("MAKING REQUEST");
-        const response = await axios.get(apiUrl);
-        console.log(response);
-        setLeagues(response.data); //get the league
-        setCards(response.data.fixtures.find((fixture) => fixture.id == id)); ///get the particular fixture from the league
-        setLoading(false);
-      } catch (error) {
-        toast.error("Error fetching games, please try again");
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-    };
-    fetchData();
+    setLeagues(dummyLeague);
+    setCards(getCards(dummyLeague));
+    console.log("CARDS", getCards(dummyLeague));
+    setLoading(false);
+
+    // const fetchData = async () => {
+    //   try {
+    //     console.log("MAKING REQUEST");
+    //     const response = await axios.get(apiUrl);
+    //     console.log(response);
+    //     setLeagues(response.data); //get the league
+    //     setCards(response.data.fixtures.find((fixture) => fixture.id == id)); ///get the particular fixture from the league
+    //     setLoading(false);
+    //   } catch (error) {
+    //     toast.error("Error fetching games, please try again");
+    //     console.error("Error fetching data:", error);
+    //     setLoading(false);
+    //   }
+    // };
+    // fetchData();
   }, []);
 
   function scrollContainerLeftByWidth() {
@@ -4652,7 +4653,8 @@ const Page = () => {
                 $15,000 - $3K To 1st
               </button>
               <button className="text-gray-700 tracking-tight">
-                8:30 PM | Today
+                {formatunixTime(cards.timestamp)} |{" "}
+                {formatunixTime(cards.timestamp, "day")}
               </button>
             </div>
             <div className="flex gap-4 items-center tracking-tight text-[12px] sm:text-[15px]">

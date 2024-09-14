@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import logo from "@/public/images/logo.png";
 import sportseat from "@/public/images/sportseat.svg";
@@ -9,14 +9,92 @@ import Image from "next/image";
 import useAuthentication from "@/Hooks/useAuthentication";
 import { IoPower } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
+import SeachFixturesPopover from "./SeachFixturesPopover";
+import SearchGamesModal from "./SearchGamesModal";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { useEffect } from "react";
 
 const DashboardNav = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
+  const microUrl = process.env.NEXT_PUBLIC_MICROSERVICE_URL;
+
   const apiUrl = `${url}/profile`;
   const { data, isLoading, error } = useFetchDataPlans(apiUrl);
-  console.log(data, isLoading, "fuck");
   const firstname = data?.full_name?.split(" ")[0];
   const { isAuthenticated } = useAuthentication();
+
+  const [popoverOpen, setPopoverOpen] = useState(false);
+  const [fixtures, setFixtures] = useState([]);
+
+  const [searchFixtures, setSearchFixtures] = useState([]);
+
+  const [fixturesLoading, setFixturesLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const leaguesUrl = `${microUrl}get-leagues/?total_to_win=false`;
+  const constructFixtures = (leagues) => {
+    const fixturesMap =
+      leagues.leagues
+        ?.map((league) =>
+          league.fixtures.map((fixture) => {
+            return {
+              ...fixture,
+              league_id: league.league_id,
+            };
+          })
+        )
+        .flat() || [];
+    setFixtures(fixturesMap);
+  };
+
+  useEffect(() => {
+    setFixturesLoading(true);
+    fetch(leaguesUrl, {
+      method: "GET",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        constructFixtures(data);
+      })
+      .finally(() => {
+        setFixturesLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    const searchDebouncer = setTimeout(() => {
+      const searchMatch = fixtures.filter((fixture) =>
+        fixture.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setSearchFixtures(searchMatch);
+    }, 200);
+
+    return () => {
+      clearTimeout(searchDebouncer);
+    };
+  }, [searchTerm]);
+
+  const searchChangeHandler = (event) => {
+    const value = event.target.value;
+    if (!popoverOpen) {
+      setPopoverOpen(true);
+    }
+    setSearchTerm(value);
+  };
+
+  const closeSearchPopover = (event) => {
+    setPopoverOpen(false);
+  };
+
+  const showSearchModalHandler = () => {
+    console.log("showing");
+  };
 
   return (
     <section>
@@ -170,7 +248,7 @@ const DashboardNav = () => {
                         </a>
                       </li>
                       <li>
-                        <a>
+                        <a href="/Auth/logout/">
                           <IoPower className="fill-red-600" />
                           Logout
                         </a>
@@ -195,20 +273,25 @@ const DashboardNav = () => {
       <div className="py-[1rem]">
         <aside className="flex items-center justify-around">
           <IoMdMenu className="text-5xl text-black hidden lg:flex" />
-          <div className="bg-[#F2F2F2] rounded-full p-2 lg:hidden flex">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              className="w-4 h-4 opacity-70"
+          <SearchGamesModal fixtures={fixtures}>
+            <div
+              className="bg-[#F2F2F2] rounded-full p-2 lg:hidden flex"
+              onClick={showSearchModalHandler}
             >
-              <path
-                fillRule="evenodd"
-                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                className="w-4 h-4 opacity-70"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          </SearchGamesModal>
           <div className="flex">
             <figure className="bg-[#012C51] rounded-full text-white lg:flex gap-4 p-[1rem] hidden">
               <img src={starcup.src} alt="" />
@@ -221,25 +304,41 @@ const DashboardNav = () => {
           </div>
           <img src={logo.src} className="lg:w-[150px] w-[80px]" alt="" />
 
-          <label className="input input-bordered lg:flex items-center gap-2 bg-white rounded-full hidden">
-            <input
-              type="text"
-              className="grow rounded-full"
-              placeholder="Search for games"
-            />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              className="w-4 h-4 opacity-70"
-            >
-              <path
-                fillRule="evenodd"
-                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                clipRule="evenodd"
+          <div className="flex flex-col">
+            <label className="input input-bordered lg:flex items-center gap-2 bg-white rounded-full hidden">
+              <input
+                type="text"
+                className="grow rounded-full"
+                placeholder="Search for games"
+                onChange={searchChangeHandler}
               />
-            </svg>
-          </label>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                className="w-4 h-4 opacity-70"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </label>
+
+            <Popover open={popoverOpen}>
+              <PopoverTrigger className="flex"></PopoverTrigger>
+              <PopoverContent
+                className="mt-3 bg-white p-2"
+                onOpenAutoFocus={(e) => e.preventDefault()}
+                onFocusOutside={closeSearchPopover}
+                onInteractOutside={closeSearchPopover}
+              >
+                <SeachFixturesPopover searchFixtures={searchFixtures} />
+              </PopoverContent>
+            </Popover>
+          </div>
+
           <IoMdMenu className="text-5xl text-gray-500 border rounded-2 lg:hidden flex" />
         </aside>
       </div>

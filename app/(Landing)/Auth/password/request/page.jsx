@@ -117,28 +117,24 @@ const Page = () => {
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
-    password: Yup.string().required("Password is required"),
   });
 
   const initialValues = {
     email: "",
-    password: "",
-    rememberMe: false,
   };
   const postRequest = usePostRequest();
 
   const url = process.env.NEXT_PUBLIC_API_URL;
 
   const { mutate, isPending, isSuccess, isError, error } = postRequest(
-    `${url}/auth/login/`,
+    `${url}/auth/password-reset/`,
     (response) => {
-      console.log("Success:", response);
-      const accessToken = response.data.access;
-      const refreshToken = response.data.refresh;
-      // sessionStorage.setItem("access_token", accessToken);
-      setAccessToken(accessToken);
-      setRefreshToken(refreshToken);
-      toast.success("login was successful!");
+      toast.success(
+        "Password reset link has been sent to your email!. please follow the instructions in your email to reset your password",
+        {
+          duration: 5000,
+        }
+      );
     },
     (error) => {
       console.error("Error:", error);
@@ -152,12 +148,12 @@ const Page = () => {
     // Handle form submission
   };
 
-  useEffect(() => {
-    const accessToken = getAccessToken();
-    if (accessToken) {
-      router.push("/Dashboard");
-    }
-  }, [isSuccess, router]);
+  // useEffect(() => {
+  //   const accessToken = getAccessToken();
+  //   if (accessToken) {
+  //     router.push("/Dashboard");
+  //   }
+  // }, [isSuccess, router]);
 
   return (
     <AuthLayout>
@@ -172,8 +168,12 @@ const Page = () => {
         {({ isSubmitting }) => (
           <Form>
             <div className="text-center my-[1rem]">
-              <h2 className="font-bold text-2xl">Sign In</h2>
-              <p>Welcome back! Please enter your details</p>
+              <h2 className="font-medium text-denary text-2xl">
+                Password reset
+              </h2>
+              <p className="text-black text-sm">
+                Please fill the details below to reset your password
+              </p>
             </div>
             <Field
               name="email"
@@ -184,36 +184,13 @@ const Page = () => {
               icon={<EmailIcon />}
             />
 
-            <Field
-              name="password"
-              component={MuiFormikField}
-              label="Password"
-              type="password"
-              variant="outlined"
-              margin="normal"
-              icon={<LockIcon />}
-            />
-            <MuiFormikCheckbox name="rememberMe" label="Remember me" />
             <br />
             <Button
               type="submit"
               className="bg-[#012C51] w-full text-white p-[1rem] hover:bg-[#4096FF] rounded-[30px]"
             >
-              Sign in <ArrowForwardIcon />
+              Submit <ArrowForwardIcon />
             </Button>
-            <div className="flex gap-4 my-[1.5rem] items-center justify-center">
-              <aside className="w-2/5 border-[1px] border-[black] h-[2px]"></aside>
-              or
-              <aside className="w-2/5 border-[1px] border-[black] h-[2px]"></aside>
-            </div>
-            <button
-              type="submit"
-              className=" flex items-center justify-center text-[black] border-[2px] border-[#012C51] w-full text-denary p-[0.7rem] bg-white hover:bg-white rounded-[30px]"
-              disabled={isSubmitting}
-            >
-              Continue with{" "}
-              <Image src={google} height={20} className="ml-[0.5rem]" alt="" />
-            </button>
 
             <div className="mb-[2rem]">
               <p className="text-center mt-[1rem]">

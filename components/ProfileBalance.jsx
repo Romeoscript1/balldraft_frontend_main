@@ -68,18 +68,24 @@ const ProfileBalance = (props) => {
             <p> Total Balance</p>
           </aside>
           <aside className="flex flex-wrap gap-3 justify-between p-[1rem]  text-white cursor-pointer">
-            <p className="text-2xl text-black font-bold flex-shrink-0">
+            <p className="max-[436px]:text-[1rem] max-[330px]:text-sm text-2xl text-black font-bold flex-shrink-0">
               ${userProfile?.account_balance || "0"}.00 USD
             </p>
             {isAccount && (
               <div className="flex s-3:hidden gap-3 max-[400px]:gap-2">
                 <aside className="flex text-white cursor-pointer">
-                  <a className="bg-[#012C51] w-[54px] h-[54px] rounded-full flex gap-2 items-center justify-center" href="/transaction/deposit/">
+                  <a
+                    className="bg-[#012C51] w-[54px] h-[54px] rounded-full flex gap-2 items-center justify-center"
+                    href="/transaction/deposit/"
+                  >
                     <Icon type="topup" />
                   </a>
                 </aside>
                 <aside className="flex justify-between text-white cursor-pointer">
-                  <a className="bg-[#012C51] rounded-full flex gap-2 w-[54px] h-[54px] items-center justify-center" href="/transaction/withdraw/">
+                  <a
+                    className="bg-[#012C51] rounded-full flex gap-2 w-[54px] h-[54px] items-center justify-center"
+                    href="/transaction/withdraw/"
+                  >
                     <Icon type="withdraw" />
                   </a>
                 </aside>
@@ -112,7 +118,10 @@ const ProfileBalance = (props) => {
                     <span className="hidden lg:flex">Top up</span>
                   </a>
                 </div>
-                <a className="font-medium lg:hidden flex text-[#012C51]" href="/transaction/deposit/">
+                <a
+                  className="font-medium lg:hidden flex text-[#012C51]"
+                  href="/transaction/deposit/"
+                >
                   Top up
                 </a>
               </div>
@@ -124,12 +133,18 @@ const ProfileBalance = (props) => {
           {isAccount && (
             <div className="flex max-s-3:hidden">
               <aside className="flex justify-between p-[1rem]  text-white cursor-pointer">
-                <a className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2" href="/transaction/deposit/">
+                <a
+                  className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2"
+                  href="/transaction/deposit/"
+                >
                   <Icon type="topup" /> Top up
                 </a>
               </aside>
               <aside className="flex justify-between p-[1rem]  text-white cursor-pointer">
-                <a className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2"  href="/transaction/withdraw/">
+                <a
+                  className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2"
+                  href="/transaction/withdraw/"
+                >
                   <Icon type="withdraw" /> Withdraw
                 </a>
               </aside>

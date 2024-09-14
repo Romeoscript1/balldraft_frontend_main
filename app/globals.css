@@ -43,6 +43,16 @@ html {
   }
 }
 
+.fill-grid {
+  width: 100%;
+  margin: auto;
+  padding: auto;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
 /* CSS */
 
 .blue-header .ant-table-thead > tr > th {

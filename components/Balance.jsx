@@ -66,7 +66,7 @@ const Balance = (props) => {
             <p> Total Balance</p>
           </aside>
           <aside className="flex justify-between p-[1rem]  text-white cursor-pointer">
-            <p className="text-2xl text-black font-bold">
+            <p className="max-[436px]:text-[1rem] max-[330px]:text-sm text-2xl text-black font-bold">
               ${userProfile?.account_balance || "0"}.00 USD
             </p>
             {isAccount ? (
@@ -83,10 +83,10 @@ const Balance = (props) => {
             ) : (
               <div>
                 <div className="bg-[#012C51] p-5 lg:p-[1rem] lg:px-[2rem] rounded-full flex gap-2">
-                  <span className="flex">
+                  <a className="flex" href="transaction/deposit">
                     <Icon type="topup" />
                     <span className="hidden lg:flex">Top up</span>
-                  </span>
+                  </a>
                 </div>
                 <span className="font-medium lg:hidden flex text-[#012C51]">
                   Top up
@@ -99,9 +99,12 @@ const Balance = (props) => {
           {isAccount && (
             <div className="flex">
               <aside className="flex justify-between p-[1rem]  text-white cursor-pointer">
-                <div className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2">
+                <a
+                  className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2"
+                  href="transaction/deposit"
+                >
                   <Icon type="topup" /> Top up
-                </div>
+                </a>
               </aside>
               <aside className="flex justify-between p-[1rem]  text-white cursor-pointer">
                 <div className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2">
@@ -112,11 +115,15 @@ const Balance = (props) => {
           )}
           <div>
             <p className="text-sm max-[360px]:text-[0.7rem]"> last Spent</p>
-            <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">January 4, 2023</p>
+            <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">
+              January 4, 2023
+            </p>
           </div>
           <div className="border-x-[1px] px-[1rem] border-gray-500">
             <p className="text-sm max-[360px]:text-[0.7rem]"> last Spent</p>
-            <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">January 4, 2023</p>
+            <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">
+              January 4, 2023
+            </p>
           </div>
           <div>
             <p className="text-sm max-[360px]:text-[0.7rem]">Payment Method</p>
