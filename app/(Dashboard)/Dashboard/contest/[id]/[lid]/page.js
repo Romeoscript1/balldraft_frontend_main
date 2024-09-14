@@ -4601,7 +4601,7 @@ const Page = () => {
         const response = await axios.get(apiUrl);
         console.log(response);
         setLeagues(response.data); //get the league
-        setCards(response.data.fixtures.find((fixture) => fixture.id == id)); ///get the particular fixture from the league
+        setCards(getCards(response.data)); ///get the particular fixture from the league
         setLoading(false);
       } catch (error) {
         toast.error("Error fetching games, please try again");
