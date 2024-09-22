@@ -29,8 +29,8 @@ function ContestTables({ card, leagueName }) {
     return Math.floor(Math.random() * 10) + 1;
   };
 
-  const home_team = card?.home_team;
-  const away_team = card?.away_team;
+  const home_team = card?.home_team_players || card?.home_team;
+  const away_team = card?.away_team_players || card?.home_team;
   const players = useMemo(() => {
     const transformHomeTeam = home_team[0]?.players.map((player) => ({
       ...player,

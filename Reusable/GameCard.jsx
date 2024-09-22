@@ -1,10 +1,20 @@
 import React from "react";
 import { generateRandomOdds } from "@/constants/constants";
 
-const GameCard = ({ homeTeam, awayTeam, homeScore, awayScore, time }) => {
-  const {overUnder, pointSpread} = generateRandomOdds()
+const GameCard = ({
+  homeTeam,
+  awayTeam,
+  homeScore,
+  awayScore,
+  time,
+  detailUrl,
+}) => {
+  const { overUnder, pointSpread } = generateRandomOdds();
   return (
-    <div className="rounded-xl shadow-md inline-block mb-10 py-2 px-5">
+    <a
+      className="rounded-xl shadow-md inline-block mb-10 py-2 px-5"
+      href={detailUrl}
+    >
       <div className="flex items-center justify-between mb-5 gap-3">
         <span className="text-sm text-black">{homeTeam}</span>
         <div className="flex gap-2 items-center">
@@ -50,7 +60,7 @@ const GameCard = ({ homeTeam, awayTeam, homeScore, awayScore, time }) => {
         </div>
       </div>
       <p className="text-sm text-center text-slate-800">{time}</p>
-    </div>
+    </a>
   );
 };
 

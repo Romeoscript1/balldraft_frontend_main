@@ -5211,6 +5211,7 @@ const Page = () => {
       setFatalError(false);
       // return lowestEntryFixture;
       setCards(lowestEntryFixture);
+      return;
     }
     // return league.fixtures.find((fixture) => fixture.id == id);
     getFixture(id);
@@ -5220,7 +5221,6 @@ const Page = () => {
     // setLeagues(dummyLeague);
     // setCards(fixture);
     // setLoading(false);
-    
 
     const fetchData = async () => {
       try {
@@ -5367,6 +5367,7 @@ const Page = () => {
                   homeScore={card.homeScore}
                   awayScore={card.awayScore}
                   time={card.time}
+                  detailUrl={`/Dashboard/contest/${card.id}/${leagues.league_id}`}
                 />
               ))}
           </div>
