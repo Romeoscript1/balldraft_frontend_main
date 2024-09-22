@@ -37,7 +37,7 @@ const Sider = ({ setActiveComponent, activeComponent }) => {
           >
             <Icon type="passwordChange" /> Change Password
           </li>
-          <li
+          {/* <li
             className={`cursor-pointer flex items-center gap-3 text-[#012C51] py-[0.5rem] hover:text-white hover:bg-[#012c51] rounded-md ${
               activeComponent === "TwoFactorAuth"
                 ? "bg-[#012c51] text-white"
@@ -46,7 +46,7 @@ const Sider = ({ setActiveComponent, activeComponent }) => {
             onClick={() => handleClick("TwoFactorAuth")}
           >
             <Icon type="twofactor" /> 2-Factor Authentication
-          </li>
+          </li> */}
           <li
             className={`cursor-pointer flex items-center gap-3 text-[#FF0000] py-[0.5rem] hover:text-white hover:bg-[#012c51] rounded-md ${
               activeComponent === "DeactivateAccount"

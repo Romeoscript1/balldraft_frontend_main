@@ -36,14 +36,14 @@ const Sider = (props) => {
           </li>
         </ul>
       </div>
-      <div className="flex items-center gap-4 text-[#012C51]">
+      <a className="flex items-center gap-4 text-[#012C51]" href="/Dashboard/settings">
         <img
           className=" w-14 h-14 rounded-full object-cover"
           src="https://via.placeholder.com/80"
           alt="Avatar"
         />
         Account Settings
-      </div>
+      </a>
     </div>
   );
 };

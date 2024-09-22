@@ -115,11 +115,11 @@ const ChangePassword = () => {
     const url = process.env.NEXT_PUBLIC_API_URL;
     try {
       const response = await axios.patch(
-        `${url}set-new-password/`,
+        `${url}/auth/set-new-password/`,
         {
           password: values.newPassword,
           confirm_password: values.confirmPassword,
-          //   token: 1,
+            token: getAccessToken(),
           //   uidb64: 1
         },
         {
@@ -129,6 +129,7 @@ const ChangePassword = () => {
           },
         }
       );
+      console.log('THE RERSPON', response)
       toast.success("Password updated successfully");
     } catch (error) {
       console.error("Error updating password:", error);

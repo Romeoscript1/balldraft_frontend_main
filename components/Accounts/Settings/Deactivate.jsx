@@ -104,7 +104,7 @@ const Deactivate = () => {
   const postRequest = usePostRequest();
   const url = process.env.NEXT_PUBLIC_API_URL;
   const { mutate, isPending, isSuccess, isError, error } = postRequest(
-    `${url}account/deactivate/`
+    `${url}/auth/account/deactivate/`
   );
 
   const toggleShowPassword = () => {
