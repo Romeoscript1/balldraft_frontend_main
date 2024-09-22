@@ -6,6 +6,7 @@ import Balance from "@/components/Balance";
 import SportsBook from "@/components/SportsBook";
 import MoreContext from "@/components/Contests/MoreContextTabs";
 import ContextSwiper from "@/components/Contests/contextswiper";
+import ContestList from "@/components/Contests/ContestList";
 
 export default function Home() {
   const [leagues, setLeagues] = useState([]);
@@ -43,6 +44,7 @@ export default function Home() {
       <SportsBook leagues={leagues} loading={loading} />
       <ContextSwiper />
       <MoreContext leagues={leagues} />
+      {/* <ContestList leagues={leagues} /> */}
     </div>
   );
 }
