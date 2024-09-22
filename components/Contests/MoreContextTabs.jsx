@@ -357,12 +357,14 @@ const MoreContext = (props) => {
       <Tabs defaultActiveKey="1" items={items} onChange={onChange} centered />
 
       <div className="w-full flex items-center justify-center">
-        <button
-          className="bg-denary rounded-full px-4 py-3 my-5 cursor-pointer"
-          onClick={loadMoreHandler}
-        >
-          Load more
-        </button>
+        {numberFixtures.length <= fixtures.length && (
+          <button
+            className="bg-denary rounded-full px-4 py-3 my-5 cursor-pointer"
+            onClick={loadMoreHandler}
+          >
+            Load more
+          </button>
+        )}
       </div>
     </>
   );

@@ -6750,26 +6750,26 @@ const SportsBook = (props) => {
   // console.log('the leagues', contests.leagues)
 
   const [filter, setFilter] = useState("all");
-  
-  const urlLeagues = props.leagues
-  const loading = props.loading
 
+  const urlLeagues = props.leagues;
+  const loading = props.loading;
 
-  if (loading){
-    return <LoadingTemplate/>
+  if (loading) {
+    return <LoadingTemplate />;
   }
 
-  const sportsCards = urlLeagues.leagues?.map((league) => {
-    return {
-      id: league.league_id,
-      type: league.league_name,
-      lowestEntry: league.lowest_entry_price,
-      highestEntry: league.highest_entry_price,
-      startTime: league.starting_time,
-      aggregateMaxEntry: league.aggregate_max_entry,
-      aggregateCurrentEntry: league.aggregate_current_entry
-    };
-  }) || [];
+  const sportsCards =
+    urlLeagues.leagues?.map((league) => {
+      return {
+        id: league.league_id,
+        type: league.league_name,
+        lowestEntry: league.lowest_entry_price,
+        highestEntry: league.highest_entry_price,
+        startTime: league.starting_time,
+        aggregateMaxEntry: league.aggregate_max_entry,
+        aggregateCurrentEntry: league.aggregate_current_entry,
+      };
+    }) || [];
 
   const filteredSportsCards = sportsCards.filter(
     (card) => filter === "all" || card.type === filter
@@ -6777,13 +6777,13 @@ const SportsBook = (props) => {
   const uniqueLeagues = [...new Set(sportsCards.map((card) => card.type))];
 
   const getButtonClass = (type) => {
-    return `px-[1.5rem] py-[0.3rem] rounded-full m-1 ${
+    return `px-[1.5rem] py-[0.3rem] rounded-full m-1 flex-shrink-0 ${
       filter === type ? "bg-[#808080] text-white" : "bg-gray-200 text-black"
     }`;
   };
   return (
     <section className="p-[1rem]">
-      <div className="flex lg:gap-4 gap-2 p-[1rem] my-[1rem] border-b-[2px]   ">
+      <div className="flex lg:gap-4 gap-2 p-[1rem] my-[1rem] border-b-[2px]  overflow-x-scroll no-scrollbar">
         <button
           className={getButtonClass("all")}
           onClick={() => setFilter("all")}
