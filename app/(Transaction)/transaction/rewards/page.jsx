@@ -9,7 +9,7 @@ import telegram from "@/public/images/socials/telegram.png";
 import whatsapp from "@/public/images/socials/whatsapp.png";
 import linkedIn from "@/public/images/socials/linkedin.png";
 import twitter from "@/public/images/socials/twitter.png";
-import beardAvater from '@/public/images/beardAvater.png'
+import beardAvater from "@/public/images/beardAvater.png";
 import {
   Table,
   TableBody,
@@ -33,13 +33,13 @@ const Page = () => {
         "You and the new user each have to ensure that you’ve verified your ID’s with Balldraft.",
     },
     {
-      subject: "Play Through $5 Or Moreter",
+      subject: "Play Through ₦5 Or Moreter",
       message:
-        "Within 30 days of registering on Balldraft, the new is expected to play through $5 or more",
+        "Within 30 days of registering on Balldraft, the new is expected to play through ₦5 or more",
     },
     {
       subject: "Get Rewarded",
-      message: "You both get a $15 bonus to play on Balldraft",
+      message: "You both get a ₦15 bonus to play on Balldraft",
     },
   ];
 
@@ -90,11 +90,11 @@ const Page = () => {
             <span className="font-medium">Refer A Friend</span> And{" "}
             <span className="text-mblue100 font-bold">Earn</span>{" "}
             <span className="font-semibold">A Bonus Of</span>{" "}
-            <span className="text-mblue100 font-bold">$15</span>
+            <span className="text-mblue100 font-bold">₦15</span>
           </h1>
           <p className="text-start text-black">
             For every friend you refer who registers for Balldraft, you’ll
-            receive a $15 bonus
+            receive a ₦15 bonus
           </p>
         </div>
       </div>
@@ -106,7 +106,10 @@ const Page = () => {
           <div className="w-full flex flex-col gap-5 mt-5">
             {howToList.map((item, index) => {
               return (
-                <div className="bg-[#F2F2F2] overflow-hidden flex flex-col rounded-lg p-8 relative" key={`howto-${item.subject}`}>
+                <div
+                  className="bg-[#F2F2F2] overflow-hidden flex flex-col rounded-lg p-8 relative"
+                  key={`howto-${item.subject}`}
+                >
                   <p className="font-medium text-black">{item.subject}</p>
                   <p className="text-slate-900 text-sm">{item.message}</p>
 
@@ -166,7 +169,10 @@ const Page = () => {
 
                     {referralTableColumns.map((column) => {
                       return (
-                        <TableHead className="bg-denary text-white" key={`agcolumn-${column}`}>
+                        <TableHead
+                          className="bg-denary text-white"
+                          key={`agcolumn-${column}`}
+                        >
                           {column}
                         </TableHead>
                       );
@@ -188,7 +194,15 @@ const Page = () => {
                         </TableCell>
 
                         <TableCell className="text-black">
-                          <div className={`${referral.status=='complete'? 'bg-mgreen100': 'bg-red-300'} w-max p-3 rounded-full border-[0.4px] border-black`}>{referral.status}</div>
+                          <div
+                            className={`${
+                              referral.status == "complete"
+                                ? "bg-mgreen100"
+                                : "bg-red-300"
+                            } w-max p-3 rounded-full border-[0.4px] border-black`}
+                          >
+                            {referral.status}
+                          </div>
                         </TableCell>
                       </TableRow>
                     );

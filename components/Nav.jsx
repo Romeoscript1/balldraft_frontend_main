@@ -73,7 +73,7 @@ const Nav = () => {
             </svg>
             Rewards
           </a>
-          <p className="lg:flex items-center gap-3 hidden">
+          <a className="lg:flex items-center gap-3 hidden" href="/transaction/activity/">
             <svg
               width="34"
               height="34"
@@ -105,7 +105,7 @@ const Nav = () => {
               />
             </svg>
             Notifications
-          </p>
+          </a>
           <p className="lg:flex items-center gap-3 hidden">
             <svg
               width="25"

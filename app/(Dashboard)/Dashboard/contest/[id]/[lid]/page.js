@@ -4561,6 +4561,612 @@ const Page = () => {
     ],
   };
 
+  const fixture = {
+    id: 1158322,
+    title: "Estudiantes de Rio Cuarto vs Temperley | Primera Nacional",
+    date: "2024-09-14T00:00:00+00:00",
+    timezone: "UTC",
+    timestamp: "1726272000",
+    entry_amount: 1000,
+    max_entry: 1000,
+    home: "Estudiantes de Rio Cuarto",
+    home_id: "2424",
+    home_logo: "https://media.api-sports.io/football/teams/2424.png",
+    away: "Temperley",
+    away_id: "454",
+    away_logo: "https://media.api-sports.io/football/teams/454.png",
+    venue:
+      "Estadio Ciudad de Río Cuarto | Ciudad de Río Cuarto, Provincia de Córdoba",
+    league_name: "Primera Nacional",
+    league_logo: "https://media.api-sports.io/football/leagues/129.png",
+    league_country: "Argentina",
+    live: false,
+    upcoming: true,
+    total_to_win: 1000000,
+    home_team: [
+      {
+        team: {
+          id: 2424,
+          name: "Estudiantes de Rio Cuarto",
+          logo: "https://media.api-sports.io/football/teams/2424.png",
+        },
+        players: [
+          {
+            id: 6666,
+            name: "P. Albornoz",
+            age: 23,
+            number: null,
+            position: "Goalkeeper",
+            photo: "https://media.api-sports.io/football/players/6666.png",
+          },
+          {
+            id: 289461,
+            name: "W. Barlasina",
+            age: 25,
+            number: null,
+            position: "Goalkeeper",
+            photo: "https://media.api-sports.io/football/players/289461.png",
+          },
+          {
+            id: 311557,
+            name: "J. Strumia",
+            age: 24,
+            number: null,
+            position: "Goalkeeper",
+            photo: "https://media.api-sports.io/football/players/311557.png",
+          },
+          {
+            id: 481149,
+            name: "R. Veliz",
+            age: null,
+            number: null,
+            position: "Goalkeeper",
+            photo: "https://media.api-sports.io/football/players/481149.png",
+          },
+          {
+            id: 58486,
+            name: "I. Abraham",
+            age: 25,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/58486.png",
+          },
+          {
+            id: 126870,
+            name: "L. Angelini",
+            age: 28,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/126870.png",
+          },
+          {
+            id: 310717,
+            name: "G. Arturia",
+            age: 24,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/310717.png",
+          },
+          {
+            id: 288695,
+            name: "Y. De Vito",
+            age: 22,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/288695.png",
+          },
+          {
+            id: 58579,
+            name: "N. Foglia",
+            age: 37,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/58579.png",
+          },
+          {
+            id: 58933,
+            name: "M. Gómez",
+            age: 23,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/58933.png",
+          },
+          {
+            id: 75580,
+            name: "G. Maffini",
+            age: 30,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/75580.png",
+          },
+          {
+            id: 355277,
+            name: "Agustín Tomás Solveyra",
+            age: 22,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/355277.png",
+          },
+          {
+            id: 415234,
+            name: "F. Álvarez",
+            age: 22,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/415234.png",
+          },
+          {
+            id: 6614,
+            name: "F. Belluschi",
+            age: 40,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/6614.png",
+          },
+          {
+            id: 58584,
+            name: "V. Beraldi",
+            age: 37,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/58584.png",
+          },
+          {
+            id: 5491,
+            name: "J. Blanco",
+            age: 36,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/5491.png",
+          },
+          {
+            id: 428238,
+            name: "N. Brito",
+            age: 19,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/428238.png",
+          },
+          {
+            id: 58586,
+            name: "N. Cainelli",
+            age: 29,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/58586.png",
+          },
+          {
+            id: 312376,
+            name: "T.  Correa",
+            age: 21,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/312376.png",
+          },
+          {
+            id: 363398,
+            name: "M. Gatani",
+            age: 20,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/363398.png",
+          },
+          {
+            id: 411414,
+            name: "T. González",
+            age: 25,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/411414.png",
+          },
+          {
+            id: 52044,
+            name: "W. Machado",
+            age: 29,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/52044.png",
+          },
+          {
+            id: 424201,
+            name: "A. Mainero",
+            age: 23,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/424201.png",
+          },
+          {
+            id: 354676,
+            name: "J. Messi",
+            age: 21,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/354676.png",
+          },
+          {
+            id: 75896,
+            name: "F. Romero",
+            age: 24,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/75896.png",
+          },
+          {
+            id: 194596,
+            name: "M. Rosales",
+            age: 24,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/194596.png",
+          },
+          {
+            id: 58327,
+            name: "W. Acuña",
+            age: 31,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/58327.png",
+          },
+          {
+            id: 270484,
+            name: "I. Escalante",
+            age: 24,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/270484.png",
+          },
+          {
+            id: 422672,
+            name: "V. Fenoglio",
+            age: 20,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/422672.png",
+          },
+          {
+            id: 289469,
+            name: "F. Galván",
+            age: 24,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/289469.png",
+          },
+          {
+            id: 5220,
+            name: "F. Pons",
+            age: 28,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/5220.png",
+          },
+          {
+            id: 76114,
+            name: "R. Reynaga",
+            age: 24,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/76114.png",
+          },
+          {
+            id: 469305,
+            name: "S. Romero",
+            age: null,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/469305.png",
+          },
+          {
+            id: 5957,
+            name: "M. Tévez",
+            age: 27,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/5957.png",
+          },
+          {
+            id: 6253,
+            name: "M. Valiente",
+            age: 23,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/6253.png",
+          },
+          {
+            id: 58493,
+            name: "G. Villalba",
+            age: 27,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/58493.png",
+          },
+        ],
+      },
+    ],
+    away_team: [
+      {
+        team: {
+          id: 454,
+          name: "Temperley",
+          logo: "https://media.api-sports.io/football/teams/454.png",
+        },
+        players: [
+          {
+            id: 456174,
+            name: "V. Diaz",
+            age: null,
+            number: null,
+            position: "Goalkeeper",
+            photo: "https://media.api-sports.io/football/players/456174.png",
+          },
+          {
+            id: 59207,
+            name: "F. Rago",
+            age: 35,
+            number: null,
+            position: "Goalkeeper",
+            photo: "https://media.api-sports.io/football/players/59207.png",
+          },
+          {
+            id: 253697,
+            name: "A. Aguirre",
+            age: 24,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/253697.png",
+          },
+          {
+            id: 363626,
+            name: "J. Busto",
+            age: 22,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/363626.png",
+          },
+          {
+            id: 472169,
+            name: "M. Calzón",
+            age: null,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/472169.png",
+          },
+          {
+            id: 358592,
+            name: "P. Casarico",
+            age: 22,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/358592.png",
+          },
+          {
+            id: 210132,
+            name: "M. Guzmán",
+            age: 24,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/210132.png",
+          },
+          {
+            id: 5431,
+            name: "R. Mazur",
+            age: 31,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/5431.png",
+          },
+          {
+            id: 456173,
+            name: "Iván  Peralta",
+            age: 18,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/456173.png",
+          },
+          {
+            id: 58466,
+            name: "J. Scolari",
+            age: 34,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/58466.png",
+          },
+          {
+            id: 13176,
+            name: "J. Segovia",
+            age: 34,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/13176.png",
+          },
+          {
+            id: 5547,
+            name: "A. Sosa",
+            age: 23,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/5547.png",
+          },
+          {
+            id: 314391,
+            name: "P. Souto",
+            age: 23,
+            number: null,
+            position: "Defender",
+            photo: "https://media.api-sports.io/football/players/314391.png",
+          },
+          {
+            id: 129989,
+            name: "F. Ayunta",
+            age: 21,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/129989.png",
+          },
+          {
+            id: 410080,
+            name: "F. Camejo",
+            age: 20,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/410080.png",
+          },
+          {
+            id: 6547,
+            name: "H. Da Campo",
+            age: 29,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/6547.png",
+          },
+          {
+            id: 351549,
+            name: "J. Frías",
+            age: 22,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/351549.png",
+          },
+          {
+            id: 472170,
+            name: "S. Gutiérrez",
+            age: null,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/472170.png",
+          },
+          {
+            id: 59047,
+            name: "E. Ibáñez",
+            age: 30,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/59047.png",
+          },
+          {
+            id: 5685,
+            name: "J. Imbert",
+            age: 33,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/5685.png",
+          },
+          {
+            id: 456370,
+            name: "L. Lucero",
+            age: null,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/456370.png",
+          },
+          {
+            id: 459133,
+            name: "M. Lugo",
+            age: null,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/459133.png",
+          },
+          {
+            id: 422464,
+            name: "J. Mavilla",
+            age: 23,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/422464.png",
+          },
+          {
+            id: 393101,
+            name: "N. Melgarejo",
+            age: 19,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/393101.png",
+          },
+          {
+            id: 467088,
+            name: "L. Richarte",
+            age: null,
+            number: null,
+            position: "Midfielder",
+            photo: "https://media.api-sports.io/football/players/467088.png",
+          },
+          {
+            id: 6249,
+            name: "M. Arturia",
+            age: 25,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/6249.png",
+          },
+          {
+            id: 5351,
+            name: "L. Baldunciel",
+            age: 31,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/5351.png",
+          },
+          {
+            id: 408191,
+            name: "J. Carrasco",
+            age: 21,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/408191.png",
+          },
+          {
+            id: 473429,
+            name: "T. Coria",
+            age: null,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/473429.png",
+          },
+          {
+            id: 462704,
+            name: "L. Gaona",
+            age: null,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/462704.png",
+          },
+          {
+            id: 6731,
+            name: "F. Ilarregui",
+            age: 26,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/6731.png",
+          },
+          {
+            id: 75471,
+            name: "L. López",
+            age: 36,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/75471.png",
+          },
+          {
+            id: 388158,
+            name: "E. Saliadarre",
+            age: 21,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/388158.png",
+          },
+          {
+            id: 459132,
+            name: "L. Torres",
+            age: null,
+            number: null,
+            position: "Attacker",
+            photo: "https://media.api-sports.io/football/players/459132.png",
+          },
+        ],
+      },
+    ],
+  };
+
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(4); // Increased visible cards to 4
   const { id } = useParams();
@@ -4577,6 +5183,23 @@ const Page = () => {
 
   const apiUrl = `https://microservice.balldraft.com/get-league/${lid}`;
 
+  const getFixture = async (fixture_id) => {
+    const fixtureUrl = `https://microservice.balldraft.com/get-fixture/${fixture_id}`;
+    try {
+      const response = await axios.get(fixtureUrl);
+      console.log(response);
+      // setLeagues(response.data); //get the league
+      setCards(response.data); ///get the particular fixture from the league
+      setLoading(false);
+      setFatalError(false);
+    } catch (error) {
+      toast.error("Error fetching games, please try again");
+      console.error("Error fetching data:", error);
+      setLoading(false);
+      setFatalError(true);
+    }
+  };
+
   const getCards = (league) => {
     if (id == "l") {
       const lowestEntryFixture = league.fixtures.reduce((lowest, fixture) => {
@@ -4584,17 +5207,20 @@ const Page = () => {
           ? fixture
           : lowest;
       }, null);
-
-      return lowestEntryFixture;
+      setLoading(false);
+      setFatalError(false);
+      // return lowestEntryFixture;
+      setCards(lowestEntryFixture);
     }
-    return league.fixtures.find((fixture) => fixture.id == id);
+    // return league.fixtures.find((fixture) => fixture.id == id);
+    getFixture(id);
   };
 
   useEffect(() => {
     // setLeagues(dummyLeague);
-    // setCards(getCards(dummyLeague));
-    // console.log("CARDS", getCards(dummyLeague));
+    // setCards(fixture);
     // setLoading(false);
+    
 
     const fetchData = async () => {
       try {
@@ -4602,9 +5228,7 @@ const Page = () => {
         const response = await axios.get(apiUrl);
         console.log(response);
         setLeagues(response.data); //get the league
-        setCards(getCards(response.data)); ///get the particular fixture from the league
-        setLoading(false);
-        setFatalError(false);
+        getCards(response.data); ///get the particular fixture
       } catch (error) {
         toast.error("Error fetching games, please try again");
         console.error("Error fetching data:", error);

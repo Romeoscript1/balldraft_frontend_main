@@ -144,7 +144,7 @@ const Page = () => {
       console.error("Error:", error);
       const errorMessage =
         error.response?.data?.email?.[0] || error?.response?.data.error;
-      toast.error(errorMessage);
+      toast.error(errorMessage || "Login was unsuccessful");
     }
   );
   const onSubmit = (values) => {
@@ -172,8 +172,8 @@ const Page = () => {
         {({ isSubmitting }) => (
           <Form>
             <div className="text-center my-[1rem]">
-              <h2 className="font-bold text-2xl">Sign In</h2>
-              <p>Welcome back! Please enter your details</p>
+              <h2 className="font-bold text-2xl text-black">Sign In</h2>
+              <p className="text-black">Welcome back! Please enter your details</p>
             </div>
             <Field
               name="email"
