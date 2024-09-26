@@ -5218,25 +5218,25 @@ const Page = () => {
   };
 
   useEffect(() => {
-    // setLeagues(dummyLeague);
-    // setCards(fixture);
-    // setLoading(false);
+    setLeagues(dummyLeague);
+    setCards(fixture);
+    setLoading(false);
 
-    const fetchData = async () => {
-      try {
-        console.log("MAKING REQUEST");
-        const response = await axios.get(apiUrl);
-        console.log(response);
-        setLeagues(response.data); //get the league
-        getCards(response.data); ///get the particular fixture
-      } catch (error) {
-        toast.error("Error fetching games, please try again");
-        console.error("Error fetching data:", error);
-        setLoading(false);
-        setFatalError(true);
-      }
-    };
-    fetchData();
+    // const fetchData = async () => {
+    //   try {
+    //     console.log("MAKING REQUEST");
+    //     const response = await axios.get(apiUrl);
+    //     console.log(response);
+    //     setLeagues(response.data); //get the league
+    //     getCards(response.data); ///get the particular fixture
+    //   } catch (error) {
+    //     toast.error("Error fetching games, please try again");
+    //     console.error("Error fetching data:", error);
+    //     setLoading(false);
+    //     setFatalError(true);
+    //   }
+    // };
+    // fetchData();
   }, []);
 
   function scrollContainerLeftByWidth() {

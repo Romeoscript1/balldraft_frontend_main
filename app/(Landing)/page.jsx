@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <div className="bg-white">
       <Hero />
-      <Promotions />
+      {/* <Promotions /> */}
       <Explore />
       <Getstarted />
       <Partners />
