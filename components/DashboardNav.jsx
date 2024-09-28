@@ -51,29 +51,38 @@ const DashboardNav = () => {
     setFixtures(fixturesMap);
   };
 
-  useEffect(() => {
-    setFixturesLoading(true);
-    fetch(leaguesUrl, {
-      method: "GET",
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        constructFixtures(data);
-      })
-      .finally(() => {
-        setFixturesLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   setFixturesLoading(true);
+  //   fetch(leaguesUrl, {
+  //     method: "GET",
+  //   })
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       constructFixtures(data);
+  //     })
+  //     .finally(() => {
+  //       setFixturesLoading(false);
+  //     });
+  // }, []);
 
   useEffect(() => {
+    setFixturesLoading(true);
+
     const searchDebouncer = setTimeout(() => {
-      const searchMatch = fixtures.filter((fixture) =>
-        fixture.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setSearchFixtures(searchMatch);
-    }, 200);
+      fetch(`${microUrl}search-fixtures?keyword=${searchTerm}`, {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("endpointata");
+          setSearchFixtures(data?.fixtures || []);
+        })
+        .finally(() => {
+          setFixturesLoading(false);
+        });
+    }, 700);
 
     return () => {
       clearTimeout(searchDebouncer);
@@ -104,7 +113,10 @@ const DashboardNav = () => {
         </aside>
 
         <aside className="flex items-center gap-8">
-          <a className="lg:flex items-center gap-3 hidden" href="/transaction/rewards/">
+          <a
+            className="lg:flex items-center gap-3 hidden"
+            href="/transaction/rewards/"
+          >
             {" "}
             <svg
               width="24"
@@ -155,7 +167,10 @@ const DashboardNav = () => {
             </svg>
             Rewards
           </a>
-          <a href="/transaction/activity/" className="lg:flex items-center gap-3 hidden">
+          <a
+            href="/transaction/activity/"
+            className="lg:flex items-center gap-3 hidden"
+          >
             <svg
               width="34"
               height="34"
@@ -272,12 +287,9 @@ const DashboardNav = () => {
       </div>
       <div className="py-[1rem]">
         <aside className="flex items-center justify-around">
-          <IoMdMenu className="text-5xl text-black hidden lg:flex" />
-          <SearchGamesModal fixtures={fixtures}>
-            <div
-              className="bg-[#F2F2F2] rounded-full p-2 lg:hidden flex"
-              onClick={showSearchModalHandler}
-            >
+          {/* <IoMdMenu className="text-5xl text-black hidden lg:flex" /> */}
+          <SearchGamesModal className="lg:hidden">
+            <div className="bg-[#F2F2F2] rounded-full p-2 lg:hidden flex">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -292,6 +304,7 @@ const DashboardNav = () => {
               </svg>
             </div>
           </SearchGamesModal>
+
           <div className="flex">
             <figure className="bg-[#012C51] rounded-full text-white lg:flex gap-4 p-[1rem] hidden">
               <img src={starcup.src} alt="" />
@@ -302,29 +315,33 @@ const DashboardNav = () => {
               Sports
             </figure>
           </div>
-          <img src={logo.src} className="lg:w-[150px] w-[80px]" alt="" />
+          <a href="/">
+            <img src={logo.src} className="lg:w-[150px] w-[80px]" alt="" />
+          </a>
 
           <div className="flex flex-col">
-            <label className="input input-bordered lg:flex items-center gap-2 bg-white rounded-full hidden">
-              <input
-                type="text"
-                className="grow rounded-full"
-                placeholder="Search for games"
-                onChange={searchChangeHandler}
-              />
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                className="w-4 h-4 opacity-70"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                  clipRule="evenodd"
+            <SearchGamesModal>
+              <label className="input input-bordered lg:flex items-center gap-2 bg-white rounded-full hidden">
+                <input
+                  type="text"
+                  className="grow rounded-full"
+                  placeholder="Search for games"
+                  // onChange={searchChangeHandler}
                 />
-              </svg>
-            </label>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  className="w-4 h-4 opacity-70"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </label>
+            </SearchGamesModal>
 
             <Popover open={popoverOpen}>
               <PopoverTrigger className="flex"></PopoverTrigger>

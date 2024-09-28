@@ -5,7 +5,6 @@ const useAuthentication = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userToken, setUserToken] = useState(null);
   const sessionToken = getAccessToken();
-  // const sessionToken = sessionStorage.getItem('access_token')
 
   useEffect(() => {
     setIsAuthenticated(sessionToken ? true : false);

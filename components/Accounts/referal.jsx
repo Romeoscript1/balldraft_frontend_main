@@ -3,8 +3,10 @@ import React from "react";
 import logo from "@/public/images/logo.png";
 import Icon from "@/Reusable/Icons/Icons";
 import toast from "react-hot-toast";
-const Referal = () => {
-  const referralLink = "https://referral-balldraft-com/bonus?...";
+import { getAccessToken } from "@/constants/constants";
+const Referal = (props) => {
+  const url = process.env.NEXT_PUBLIC_BASE_URL;
+  const referralLink = `${url}/Auth/join?ref=${props.profile.username}`;
 
   const copyToClipboard = () => {
     navigator.clipboard

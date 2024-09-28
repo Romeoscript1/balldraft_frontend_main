@@ -4,9 +4,8 @@ import { useState } from "react";
 const usePostData = () => {
   const [loading, setLoading] = useState(false);
 
-  const postData = async (apiUrl, payload, onSuccess=()=>{}, onError=()=>{}) => {
+  const postData = async (apiUrl, payload, onSuccess=()=>{}, onError=()=>{}, method="POST") => {
     setLoading(true);
-    console.log('is loading is now true')
     const accessToken = getAccessToken()
     const headers = {
         "Content-Type": "application/json",
@@ -18,7 +17,7 @@ const usePostData = () => {
 
     try {
       const response = await fetch(apiUrl, {
-        method: "POST",
+        method: method,
         headers,
         body: JSON.stringify(payload),
       });
@@ -26,7 +25,7 @@ const usePostData = () => {
       if (!response.ok) {
         const errData = await response.json();
         throw new Error(
-          `An error occured. ${errData.message || JSON.stringify(errData)}`
+          errData.message || JSON.stringify(errData)
         );
       }
 

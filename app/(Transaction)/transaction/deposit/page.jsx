@@ -1,25 +1,55 @@
 "use client";
 
 import React, { useState } from "react";
-import { Checkbox, Menu } from "antd";
+// import { Checkbox, Menu } from "antd";
 import TransactionSider from "@/components/transaction/TransactionSider";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Loader from "@/components/Loader";
 import { getAccessToken } from "@/constants/constants";
 import usePostData from "@/Hooks/usePostData";
+import axios from "axios";
+import { useEffect } from "react";
+import { isAuthenticated } from "@/constants/constants";
 
 const Page = () => {
   const router = useRouter();
   const [ngnAmmount, setNgnAmount] = useState("");
 
   const { loading, postData } = usePostData();
+  const [profile, setProfile] = useState({});
+
+  const userAuth = isAuthenticated();
+
+  const url = process.env.NEXT_PUBLIC_API_URL;
+
+
+  //TODO: implement a central place for loading profile
+  const profileUrl = `${url}/profile`;
+  useEffect(() => {
+    if (typeof window !== "undefined" && !userAuth) {
+      router.push("/Auth/login");
+    }
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(profileUrl, {
+          headers: {
+            Authorization: `Bearer ${getAccessToken()}`,
+          },
+        });
+        setProfile(response.data);
+      } catch (error) {
+        toast.error("Error fetching profile");
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const onInputChange = (e) => {
     setNgnAmount(e.target.value);
   };
 
-  const url = process.env.NEXT_PUBLIC_API_URL;
 
   const openPopupWindow = (url) => {
     if (typeof window != "undefined") {
@@ -43,19 +73,21 @@ const Page = () => {
       },
       (error) => {
         toast.error(error);
-      }
+      },
     );
   };
+
+
 
   return (
     <div className="p-[1rem]">
       {loading && <Loader />}
       <div>
-        <p className="text-black text-[0.9rem] leading-6">{`Secure your competitive edge with a quick and seamless deposit process. Our system allows you to focus uninterrupted on building your dream team. Deposit $50 and receive a $10 bonus, deposit $100 for an additional $25, or deposit $200 to earn a whopping $60 bonus. Don't miss out on these incredible offers to enhance your fantasy sports experience. Start depositing now to secure extra funds.`}</p>
+        <p className="text-black text-[0.9rem] leading-6">{`Secure your competitive edge with a quick and seamless deposit process. Our system allows you to focus uninterrupted on building your dream team. Deposit ₦50 and receive a ₦10 bonus, deposit ₦100 for an additional ₦25, or deposit ₦200 to earn a whopping ₦60 bonus. Don't miss out on these incredible offers to enhance your fantasy sports experience. Start depositing now to secure extra funds.`}</p>
       </div>
 
       <section className="w-full mt-7 flex flex-col-reverse sm:flex-row gap-4">
-        <TransactionSider totalBalance={10.0} />
+        <TransactionSider totalBalance={profile?.account_balance || 0} />
 
         <div className="w-full sm:w-[60%] flex flex-col items-center">
           <div className="text-center flex flex-col items-center">

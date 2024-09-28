@@ -8,14 +8,34 @@ import {
 } from "@/components/ui/popover";
 import { RxDownload } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
-
-
+import { formatDistanceToNow, parseISO } from "date-fns";
+import usePostData from "@/Hooks/usePostData";
+import toast from "react-hot-toast";
 
 const ActivityCard = (props) => {
-  const iconType = props.type == "deposit" ? "topup" : "withdraw";
-  console.log("hello");
-  console.log(iconType);
-  console.log(iconType);
+  const url = process.env.NEXT_PUBLIC_API_URL;
+
+  const { loading, postData } = usePostData();
+
+  const deleteNotificationHandler= (id)=>{
+    const apiUrl = `${url}/profile/notifications/${id}/delete/`;
+    postData(apiUrl, {}, (data)=>{
+      props.onDelete(id)
+      toast.success('Notification deleted sucessfully')
+    }, (error)=>{
+      toast.error(error)
+    }, 'DELETE')
+  }
+
+  let iconType= 'notify'
+  if (props.type == "deposit") {
+    iconType = 'topup'
+  }
+
+  if (props.type == 'withdrawal'){
+    iconType = 'withdraw'
+  }
+
   return (
     <div className="w-full flex flex-row justify-between">
       <div className="flex flex-row gap-2 items-center">
@@ -29,7 +49,7 @@ const ActivityCard = (props) => {
 
         <div className="flex flex-col">
           <p className="text-black font-medium">{props.subject}</p>
-          <p className="text-sm">8:30pm | Today</p>
+          <p className="text-sm">{formatDistanceToNow(parseISO(props.date), { addSuffix: true })}</p>
         </div>
       </div>
 
@@ -42,12 +62,12 @@ const ActivityCard = (props) => {
 
         <PopoverContent className="bg-white rounded-md w-max">
           <div className="w-full flex flex-col gap-3">
-            <div className="flex flex-row cursor-pointer items-center gap-2">
+            {/* <div className="flex flex-row cursor-pointer items-center gap-2">
                 <RxDownload className="fill-black" color="#000000"/>
                 <p className="text-black">Archive</p>
-            </div>
+            </div> */}
 
-            <div className="flex flex-row cursor-pointer items-center gap-2">
+            <div className="flex flex-row cursor-pointer items-center gap-2" onClick={deleteNotificationHandler.bind(null, props.id)}>
                 <RiDeleteBin6Line className="fill-[#FF0000]" color="#FF0000"/>
                 <p className="text-black">Delete activity</p>
             </div>

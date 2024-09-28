@@ -1,5 +1,7 @@
+"use client";
+
 import ActivityCard from "@/components/transaction/ActivityCard";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import {
@@ -9,68 +11,102 @@ import {
 } from "@/components/ui/popover";
 // import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import LoadingTemplate from "@/components/LoadingTemplate";
+import { getAccessToken } from "@/constants/constants";
 
 const Page = () => {
-  const activityList = [
-    {
-      subject: "Funds Deposit Of “$50”",
-      date: "2023-11-11 11:11:11",
-      type: "deposit",
-    },
-    {
-      subject: "Funds Withdrawal Of “$30”",
-      date: "2023-11-12 09:45:00",
-      type: "withdraw",
-    },
-    {
-      subject: "Funds Deposit Of “$200”",
-      date: "2023-11-14 10:15:00",
-      type: "deposit",
-    },
-    {
-      subject: "Funds Withdrawal Of “$150”",
-      date: "2023-11-16 18:50:20",
-      type: "withdraw",
-    },
-    {
-      subject: "Funds Deposit Of “$500”",
-      date: "2023-11-17 13:00:00",
-      type: "deposit",
-    },
-    {
-      subject: "Funds Withdrawal Of “$60”",
-      date: "2023-11-19 12:30:00",
-      type: "withdraw",
-    },
-    {
-      subject: "Funds Deposit Of “$120”",
-      date: "2023-11-20 09:05:30",
-      type: "deposit",
-    },
-    {
-      subject: "Funds Withdrawal Of “$20”",
-      date: "2023-11-22 14:10:05",
-      type: "withdraw",
-    },
-    {
-      subject: "Funds Deposit Of “$300”",
-      date: "2023-11-23 10:20:15",
-      type: "deposit",
-    },
-    {
-      subject: "Funds Withdrawal Of “$25”",
-      date: "2023-11-24 17:00:30",
-      type: "withdraw",
-    },
-  ];
+  const url = process.env.NEXT_PUBLIC_API_URL;
+  const apiUrl = `${url}/profile/notifications/`;
+  const [activityList, setActivityList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState("all");
+  const accessToken = getAccessToken()
+  const [displayList, setDisplayList] = useState([])
 
-  const activityTypeList = [
-    "All",
-    "Deposit",
-    "Withdrawal",
-    "Account settings",
-    "Game play",
-  ];
+  const getNotificationType = (notification) =>{
+    if(notification.toLowerCase().includes('withdrawal')){
+      return 'withdrawal'
+    }
+    if(notification.toLowerCase().includes('deposit')){
+      return 'deposit'
+    }
+
+    return 'other'
+  }
+
+
+  const constructActivityList = (notifications) => {
+    const activityList = notifications?.map((notification)=>{
+      return {
+        subject: notification.action,
+        date: notification.time,
+        type: getNotificationType(notification.action),
+        id: notification.id
+      }
+    })
+
+    setActivityList(activityList)    
+    setDisplayList(activityList)
+  }
+
+
+  useEffect(() => {
+    const fetchData = () => {
+      fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+        .then((response) => {
+          return response.json()
+        })
+        .then((data) => {
+          constructActivityList(data)
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    };
+    fetchData()
+  }, []);
+
+
+
+  const handleDeleteNotification = (id)=>{
+      setDisplayList((notification)=> {
+        return notification.filter((notification)=> notification.id != id)
+      })
+  }
+
+  const activityTypeList = ['All', ...new Set(activityList.map((card) => card.type))];
+
+  
+//  const displayActivity = filter.toLowerCase() == 'all'? activityList: activityList.filter((card)=> card.type.toLowerCase() === filter.toLowerCase())
+
+
+  const onSelectChangedHandler = (value)=>{
+    console.log(value)
+    setDisplayList(value.toLowerCase() == 'all'? activityList: activityList.filter((card)=> card.type.toLowerCase() === value.toLowerCase()))
+  }
+
+  if (loading) {
+    return <LoadingTemplate />;
+  }
+
+  if (!loading && activityList.length <= 0) {
+    return (
+      <section className="w-full h-[80vh] flex flex-col p-[1rem] items-center justify-center">
+        <p className="text-black text-[1rem] text-center font-poppins">
+          No activity found
+        </p>
+      </section>
+    )
+  }
+
   return (
     <section className="w-full flex flex-col p-[1rem]">
       <p className="text-black text-[1rem]">
@@ -90,11 +126,14 @@ const Page = () => {
             </div>
           </PopoverTrigger>
           <PopoverContent className="bg-white w-max">
-            <RadioGroup defaultValue="option-one">
+            <RadioGroup defaultValue="All" onValueChange={onSelectChangedHandler}>
               {activityTypeList.map((activityType) => {
                 return (
-                  <div className="flex items-center space-x-2 flex-row" key={`type-${activityType}`}>
-                    <RadioGroupItem value={activityType} id={activityType} />
+                  <div
+                    className="flex items-center space-x-2 flex-row"
+                    key={`type-${activityType}`}
+                  >
+                    <RadioGroupItem value={activityType} id={activityType}/>
                     <p className="text-black">{activityType}</p>
                   </div>
                 );
@@ -102,7 +141,7 @@ const Page = () => {
             </RadioGroup>
           </PopoverContent>
         </Popover>
-
+{/* 
         <div className="flex flex-row items-center gap-2 ">
           <p className="text-black text-[1.1rem] max-[320px]:text-sm">From</p>
           <IoIosArrowUp className="fill-black" size={20} />
@@ -110,13 +149,13 @@ const Page = () => {
         <div className="flex flex-row items-center gap-2">
           <p className="text-black text-[1.1rem] max-[320px]:text-sm">To</p>
           <IoIosArrowUp className="fill-black" size={20} />
-        </div>
+        </div> */}
       </div>
 
       <div className="w-full flex flex-col gap-5 mt-5">
-        {activityList.map((activity) => {
+        {displayList.map((activity) => {
           return (
-            <ActivityCard key={`activity-${activity.subject}`} {...activity} />
+            <ActivityCard key={`activity-${activity.subject}${activity.id}`} {...activity} onDelete={handleDeleteNotification}/>
           );
         })}
       </div>

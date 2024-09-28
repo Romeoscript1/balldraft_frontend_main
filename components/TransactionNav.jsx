@@ -6,7 +6,7 @@ import { useRouter, usePathname } from "next/navigation";
 
 const TransactionNav = () => {
   const router = useRouter();
-  const pathName = usePathname()
+  const pathName = usePathname();
 
   const [displayTitle, setDisplayTitle] = useState("");
   const navigateBack = () => {
@@ -18,11 +18,9 @@ const TransactionNav = () => {
       setDisplayTitle("Notification");
     } else if (pathName.includes("rewards")) {
       setDisplayTitle("Rewards");
-    } 
-    else if (pathName.includes('withdraw')){
-      setDisplayTitle("Withdraw")
-    }
-    else {
+    } else if (pathName.includes("withdraw")) {
+      setDisplayTitle("Withdraw");
+    } else {
       setDisplayTitle("Deposit");
     }
   }, []);
@@ -34,10 +32,12 @@ const TransactionNav = () => {
           className="fill-black cursor-pointer"
           onClick={navigateBack}
         />
-        <p className="font-medium text-xl text-black">{displayTitle}</p>
+        <p className="font-medium text-[0.9rem] sm:text-xl text-black">{displayTitle}</p>
       </div>
 
-      <img src={logo.src} className="lg:w-[150px] w-[80px]" alt="" />
+      <a href="/">
+        <img src={logo.src} className="lg:w-[150px] w-[80px]" alt="" />
+      </a>
 
       <div></div>
     </div>

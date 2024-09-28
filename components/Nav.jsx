@@ -5,6 +5,7 @@ import Image from "next/image";
 import useAuthentication from "@/Hooks/useAuthentication";
 import { IoPower } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
+import { getUserImageOrdefault } from "@/constants/constants";
 
 const Nav = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -144,7 +145,7 @@ const Nav = () => {
                         <Image
                           alt="Navbar component"
                           className="rounded-full bg-slate-500 object-cover object-center"
-                          src="https://via.placeholder.com/30"
+                          src={getUserImageOrdefault(data?.image)}
                           width={34}
                           height={34}
                         />

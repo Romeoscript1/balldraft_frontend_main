@@ -2,23 +2,41 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { FcEmptyFilter } from "react-icons/fc";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const SearchGamesModal = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchFixtures, setSearchFixtures] = useState([])
-  const fixtures = props.fixtures;
+  const [searchFixtures, setSearchFixtures] = useState([]);
+  const [searchCount, setSearchCount] = useState(0)
+
+  //TODO: utilizet this to inticate loading
+  const [fixturesLoading, setFixturesLoading] = useState(true);
+
+
+  const contructSetSearchFixtures = (data)=>{
+      setSearchFixtures(data?.fixtures || []);
+  }
 
   useEffect(() => {
+    setFixturesLoading(true);
+    const microUrl = process.env.NEXT_PUBLIC_MICROSERVICE_URL;
     const searchDebouncer = setTimeout(() => {
-      const searchMatch = fixtures.filter((fixture) =>
-        fixture.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setSearchFixtures(searchMatch);
+      fetch(`${microUrl}search-fixtures?keyword=${searchTerm}`, {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          contructSetSearchFixtures(data);
+          setSearchCount(data?.total_fixtures || 0);
+        })
+        .catch((error)=>{
+          setSearchFixtures([])
+
+        })
+        .finally(() => {
+          setFixturesLoading(false);
+        });
     }, 200);
 
     return () => {
@@ -30,7 +48,6 @@ const SearchGamesModal = (props) => {
     const value = event.target.value;
     setSearchTerm(value);
   };
-
 
   return (
     <div>
@@ -58,8 +75,11 @@ const SearchGamesModal = (props) => {
             </svg>
           </label>
 
+          <div><p className="font-poppins mx-3">{searchCount} Results</p> </div>
+
+
           <div className="w-full max-h-[500px] overflow-y-scroll">
-            {searchFixtures.length == 0 ? (
+            {searchCount == 0 ? (
               <div className="w-full h-[100px] flex items-center justify-center">
                 <div className="flex flex-row gap-2 items-center">
                   <FcEmptyFilter size={25} />
@@ -71,7 +91,7 @@ const SearchGamesModal = (props) => {
                 {searchFixtures.map((fixture) => {
                   return (
                     <a
-                      className="w-full px-4 py-6 bg-slate-50 cursor-pointer rounded-md flex flex-col"
+                      className="flex flex-col w-full px-4 py-6 bg-slate-50 cursor-pointer rounded-md"
                       key={`la-f-${fixture.fixture_id}`}
                       // onClick={routeToFixture.bind(null, fixture.fixture_id, fixture.league_id)}
                       href={`/Dashboard/contest/${fixture.id}/${fixture.league_id}`}

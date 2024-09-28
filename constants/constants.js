@@ -87,3 +87,8 @@ export function generateRandomOdds() {
 
   return { overUnder, pointSpread };
 }
+
+
+export function getUserImageOrdefault(image){
+  return image ? image : "/images/default-user.png"
+}

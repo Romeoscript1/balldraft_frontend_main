@@ -12,14 +12,14 @@ const MainContent = (props) => {
       {/* <Balance /> */}
       <ProfileBalance profile={props.profile}/>
       <figure className="w-full flex flex-col">
-        <RewardBannerTwo />
+        <RewardBannerTwo profile={props.profile}/>
         {/* <RewardBanner /> */}
-        <Referal />
+        <Referal profile={props.profile} />
         <div className="flex text-black items-center justify-between p-[1rem] w-full">
           <h2 className="text-2xl">Recent transactions </h2> <p>See all</p>
         </div>
 
-        <TransactionTable />
+        <TransactionTable profile={props.profile} />
       </figure>
     </div>
   );

@@ -10,33 +10,40 @@ const Sider = (props) => {
       <div className="flex flex-col gap-20 justify-between">
         <UserProfile profile={props.profile} />
         <ul>
-          <li className="flex items-center gap-3 text-[#012C51] py-[0.5rem] hover:text-white hover:bg-[#012c51] rounded-md">
+          <li className="flex items-center gap-3 text-[#012C51] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
             {" "}
             <Icon type="tickets" /> Tickets
           </li>
-          <li className="flex items-center gap-3 text-[#012C51] py-[0.5rem] hover:text-white hover:bg-[#012c51] rounded-md">
-            <Icon type="log" />
-            Activity Log
+          <li className="flex items-center gap-3 text-[#012C51] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
+            <a href="/transaction/activity" className="flex gap-3">
+              <Icon type="log" />
+              Activity Log
+            </a>
           </li>
-          <li className="flex items-center gap-3 text-[#012C51] py-[0.5rem] hover:text-white hover:bg-[#012c51] rounded-md">
+          {/* <li className="flex items-center gap-3 text-[#012C51] py-[0.5rem] hover:text-white hover:bg-[#012c51] rounded-md">
             <Icon type="game" />
             Responsible Gambling
+          </li> */}
+          <li className="flex items-center text-[#012C51] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
+            <a href="/transaction/activity" className="flex gap-3">
+              <Icon type="history" />
+              Transaction History
+            </a>
           </li>
-          <li className="flex items-center gap-3 text-[#012C51] py-[0.5rem] hover:text-white hover:bg-[#012c51] rounded-md">
-            <Icon type="history" />
-            Transaction History
-          </li>
-          <li className="flex items-center gap-3 text-[#012C51] py-[0.5rem] hover:text-white hover:bg-[#012c51] rounded-md">
+          {/* <li className="flex items-center gap-3 text-[#012C51] py-[0.5rem] hover:text-white hover:bg-[#012c51] rounded-md">
             <Icon type="tax" />
             Taxing & Forms
-          </li>
-          <li className="flex items-center gap-3 text-[#ff0000] py-[0.5rem] hover:text-white hover:bg-[#012c51] rounded-md">
+          </li> */}
+          <li className="flex items-center gap-3 text-[#ff0000] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
             <Icon type="logout" />
             Sign Out
           </li>
         </ul>
       </div>
-      <a className="flex items-center gap-4 text-[#012C51]" href="/Dashboard/settings">
+      <a
+        className="flex items-center gap-4 text-[#012C51]"
+        href="/Dashboard/settings"
+      >
         <img
           className=" w-14 h-14 rounded-full object-cover"
           src="https://via.placeholder.com/80"
