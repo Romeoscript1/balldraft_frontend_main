@@ -5176,6 +5176,7 @@ const Page = () => {
   const [leagues, setLeagues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [fatalError, setFatalError] = useState(false);
+  const [fixtureId, setFixtureId] = useState(0)
   const oddsContainer = useRef();
 
   //  const apiUrl = `https://microservice.balldraft.com/get-fixture/${id}`;
@@ -5187,7 +5188,7 @@ const Page = () => {
     const fixtureUrl = `https://microservice.balldraft.com/get-fixture/${fixture_id}`;
     try {
       const response = await axios.get(fixtureUrl);
-      console.log(response);
+      // console.log(response);
       // setLeagues(response.data); //get the league
       setCards(response.data); ///get the particular fixture from the league
       setLoading(false);
@@ -5209,11 +5210,11 @@ const Page = () => {
       }, null);
       setLoading(false);
       setFatalError(false);
-      // return lowestEntryFixture;
       setCards(lowestEntryFixture);
+      setFixtureId(lowestEntryFixture.id)
       return;
     }
-    // return league.fixtures.find((fixture) => fixture.id == id);
+    setFixtureId(id)
     getFixture(id);
   };
 
@@ -5226,7 +5227,7 @@ const Page = () => {
     //   try {
     //     console.log("MAKING REQUEST");
     //     const response = await axios.get(apiUrl);
-    //     console.log(response);
+    //     // console.log(response);
     //     setLeagues(response.data); //get the league
     //     getCards(response.data); ///get the particular fixture
     //   } catch (error) {
@@ -5286,9 +5287,9 @@ const Page = () => {
           </div>
           <div className="flex flex-col items-start sm:items-center md:flex-row gap-3 md:gap-10">
             <div className="flex gap-3 whitespace-nowrap text-[14px]">
-              <button className="bg-[#FF6D00] rounded-full whitespace-nowrap text-white px-5 tracking-tight py-3">
+              {/* <button className="bg-[#FF6D00] rounded-full whitespace-nowrap text-white px-5 tracking-tight py-3">
                 $15,000 - $3K To 1st
-              </button>
+              </button> */}
               <button className="text-gray-700 tracking-tight">
                 {formatunixTime(cards?.timestamp)} |{" "}
                 {formatunixTime(cards?.timestamp, "day")}
@@ -5358,7 +5359,6 @@ const Page = () => {
             ref={oddsContainer}
           >
             {leagues.fixtures
-              ?.slice(startIndex, startIndex + visibleCards)
               .map((card, index) => (
                 <GameCard
                   key={index}
@@ -5366,27 +5366,13 @@ const Page = () => {
                   awayTeam={card.away}
                   homeScore={card.homeScore}
                   awayScore={card.awayScore}
-                  time={card.time}
+                  time={card.date}
                   detailUrl={`/Dashboard/contest/${card.id}/${leagues.league_id}`}
                 />
               ))}
           </div>
 
-          {/* <div className="flex sm:hidden transition-transform duration-300 gap-5 ease-in-out transform">
-            {leagues.fixtures
-              ?.slice(startIndex, startIndex + 2)
-              .map((card, index) => (
-                <GameCard
-                  key={index}
-                  homeTeam={card.home}
-                  awayTeam={card.away}
-                  homeScore={card.homeScore}
-                  awayScore={card.awayScore}
-                  time={card.time}
-                />
-              ))}
-          </div> */}
-
+   
           <div className="rounded-xl flex gap-2 items-center mb-10 p-5">
             <button
               onClick={scrollContainerRightByWidth}
@@ -5432,7 +5418,7 @@ const Page = () => {
         </div>
       </div>
 
-      {cards && <ContestTables card={cards} leagueName={leagues.league_name} />}
+      {cards && <ContestTables card={cards} leagueName={leagues.league_name} fixtureId={fixtureId} />}
     </div>
   );
 };

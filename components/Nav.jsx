@@ -17,7 +17,7 @@ const Nav = () => {
 
   return (
     <section>
-      <div className="flex items-center justify-around text-white nav-bg">
+      <div className="flex items-center justify-between px-10 text-white nav-bg">
         <aside className="text-xs lg:text-lg">
           Welcome back, {firstname} 🦆
         </aside>
@@ -144,7 +144,7 @@ const Nav = () => {
                       <div className="w-10 rounded-full">
                         <Image
                           alt="Navbar component"
-                          className="rounded-full bg-slate-500 object-cover object-center"
+                          className="rounded-full bg-slate-500 object-cover object-center w-[34px] h-[34px]"
                           src={getUserImageOrdefault(data?.image)}
                           width={34}
                           height={34}

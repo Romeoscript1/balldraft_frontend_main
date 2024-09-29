@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import gift from "@/public/images/giftbox.png";
 import Icon from "@/Reusable/Icons/Icons";
 import toast from "react-hot-toast";
@@ -9,6 +9,7 @@ import telegram from "@/public/images/socials/telegram.png";
 import whatsapp from "@/public/images/socials/whatsapp.png";
 import linkedIn from "@/public/images/socials/linkedin.png";
 import twitter from "@/public/images/socials/twitter.png";
+import defaultImg from "@/public/images/default-user.png";
 import beardAvater from "@/public/images/beardAvater.png";
 import {
   Table,
@@ -19,6 +20,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { getAccessToken } from "@/constants/constants";
+import { formatDistanceToNow, parseISO } from "date-fns";
 
 const Page = () => {
   const howToList = [
@@ -43,29 +46,74 @@ const Page = () => {
     },
   ];
 
-  const referalList = [
-    {
-      name: "Gabe davis",
-      date: "5 days ago",
-      status: "complete",
-    },
-    {
-      name: "Gabe davis",
-      date: "5 days ago",
-      status: "complete",
-    },
-    {
-      name: "Gabe davis",
-      date: "5 days ago",
-      status: "complete",
-    },
-  ];
+  // const referalList = [
+  //   {
+  //     name: "Gabe davis",
+  //     date: "5 days ago",
+  //     status: "complete",
+  //   },
+  //   {
+  //     name: "Gabe davis",
+  //     date: "5 days ago",
+  //     status: "complete",
+  //   },
+  //   {
+  //     name: "Gabe davis",
+  //     date: "5 days ago",
+  //     status: "complete",
+  //   },
+  // ];
+
+  const url = process.env.NEXT_PUBLIC_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const apiUrl = `${url}/auth/referrals/`;
+  const [referalList, setReferrals] = useState([]);
+  const [referralLink, setRefLink] = useState("");
+
+  // const referralLink = "https://referral-balldraft-com/bonus?...";
+
+
+  const contructReferralList = (referrals) => {
+    return referrals.map((referral) => {
+      return {
+        name: referral.username,
+        date: formatDistanceToNow(parseISO(referral.date_joined), {
+          addSuffix: true,
+        }),
+        status: "complete",
+      };
+    });
+  };
+
+  const getReferralLink = (backendRef) => {
+    const urlFromString = new URL(backendRef);
+    // Use URLSearchParams to get the value of `referral_code`
+    const referralCode = urlFromString.searchParams.get("referral_code");
+    return `${baseUrl}/Auth/join?ref=${referralCode}`;
+  };
+
+  useEffect(() => {
+    fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${getAccessToken()}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setReferrals(contructReferralList(data.referrals));
+        setRefLink(getReferralLink(data.referral_link))
+      })
+      .catch((error) => {
+        toast.error(`Error fetching referrals ${error}`);
+        console.error(error);
+      });
+  }, []);
 
   const referralTableColumns = ["NAME", "DATE", "STATUS"];
 
   const socials = [facebook, whatsapp, twitter, linkedIn, telegram];
 
-  const referralLink = "https://referral-balldraft-com/bonus?...";
 
   const copyToClipboard = () => {
     navigator.clipboard
@@ -184,8 +232,12 @@ const Page = () => {
                     return (
                       <TableRow key={`ref-${referral.name}`}>
                         <TableCell className="text-black">
-                          <div className="flex flex-row items-center">
-                            <img src={beardAvater.src} alt="" />
+                          <div className="flex flex-row items-center gap-2">
+                            <img
+                              src={defaultImg.src}
+                              alt=""
+                              className="w-[30px] h-[30px]"
+                            />
                             {referral.name}
                           </div>
                         </TableCell>

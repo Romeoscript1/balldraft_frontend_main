@@ -50,10 +50,10 @@ const SearchGamesModal = (props) => {
   };
 
   return (
-    <div>
+    <div className={`${props.className}`}>
       <Dialog>
         <DialogTrigger>{props.children}</DialogTrigger>
-        <DialogContent className="bg-white rounded-lg">
+        <DialogContent className="bg-white rounded-lg flex flex-col ">
           <label className="input input-bordered flex items-center gap-2 bg-white rounded-full mt-4">
             <input
               type="text"
@@ -78,7 +78,7 @@ const SearchGamesModal = (props) => {
           <div><p className="font-poppins mx-3">{searchCount} Results</p> </div>
 
 
-          <div className="w-full max-h-[500px] overflow-y-scroll">
+          <div className="w-full max-h-[500px] overflow-y-scroll flex flex-col">
             {searchCount == 0 ? (
               <div className="w-full h-[100px] flex items-center justify-center">
                 <div className="flex flex-row gap-2 items-center">
@@ -94,7 +94,7 @@ const SearchGamesModal = (props) => {
                       className="flex flex-col w-full px-4 py-6 bg-slate-50 cursor-pointer rounded-md"
                       key={`la-f-${fixture.fixture_id}`}
                       // onClick={routeToFixture.bind(null, fixture.fixture_id, fixture.league_id)}
-                      href={`/Dashboard/contest/${fixture.id}/${fixture.league_id}`}
+                      href={`/Dashboard/contest/${fixture.fixture_id}/${fixture.id}`}
                     >
                       <p className="text-denary text-sm">{fixture.title}</p>
                       <p className="text-slate-700 text-[0.8rem] mt-1">

@@ -8,7 +8,7 @@ import { getAccessToken } from "@/constants/constants";
 import Loader from "../Loader";
 import { useRouter } from "next/navigation";
 
-function ContestTables({ card, leagueName }) {
+function ContestTables({ card, leagueName, fixtureId }) {
   const [availablePlayers, setAvailablePlayers] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [selectplayers, setselectplayers] = useState([]);
@@ -67,17 +67,17 @@ function ContestTables({ card, leagueName }) {
   const url = process.env.NEXT_PUBLIC_API_URL;
   const apiUrl = `${url}/contest/contest-history/`;
 
-  // const {
-  //   mutate: mutateConfirmLineup,
-  //   isPending,
-  //   isSuccess,
-  //   isError,
-  //   error,
-  // } = postRequest(apiUrl);
-
   const handleConfirmLineUp = () => {
+    const remaining = totalSalary - amountSpent;
+
+    if (remaining > 0) {
+      toast.error(
+        `You have a remaining salary balance of ${remaining}. Please select additional players to complete your lineup.`
+      );
+      return;
+    }
+
     if (card && selectedPlayers.length > 0) {
-      console.log("LINEUP CONFIR");
       setLineupLoading(true);
       const playerList = selectedPlayers.map((player) => ({
         player_id: player.id,
@@ -93,7 +93,7 @@ function ContestTables({ card, leagueName }) {
         players: playerList,
         name: card?.title,
         game_id: card?.id,
-        fixture_id: card.fixture_id,
+        fixture_id: parseInt(fixtureId, 10),
         entry_amount: card.entry_amount,
         league_name: leagueName,
         pending: true,
@@ -132,19 +132,9 @@ function ContestTables({ card, leagueName }) {
           console.error("Error confirming lineup", error);
           toast.error("Error confirming lineup, please try again");
         })
-        .finally(setLineupLoading(false));
-
-      // mutateConfirmLineup(JSON.stringify(body),
-      //   {
-      //     onSuccess: ()=>{
-      //     toast.success('Linup confirmation successful')
-      //   },
-      //   onError: ()=>{
-      //     toast.error('An error occured, please try again.')
-      //   }
-      // })
-
-      // setLineupLoading(false)
+        .finally(() => {
+          setLineupLoading(false);
+        });
     } else {
       toast.error(
         "Minimum of one player is required, please select more players"
@@ -186,7 +176,15 @@ function ContestTables({ card, leagueName }) {
     const remaining = totalSalary - amountSpent;
     const toRemain = remaining - player.fppg * 10000;
     if (toRemain < 0) {
-      toast.error("Cannot add more players");
+      if (remaining > 0) {
+        toast.error(
+          `Cannot select a player of ${
+            player.fppg * 10000
+          } with a remaining salary of ${remaining}`
+        );
+      } else {
+        toast.error("Cannot add more players, you have exhausted your salary");
+      }
     } else {
       setSelectedPlayers([...selectedPlayers, player]);
       setAvailablePlayers(availablePlayers.filter((p) => p.id !== player.id));
@@ -286,7 +284,7 @@ function ContestTables({ card, leagueName }) {
   // const selectplayers = ["LW", "CM", "WR", "LB", "FLEX", "DEF", "CF", "CDM"];
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8">
+    <div className="flex flex-row max-[1200px]:flex-col gap-8">
       {lineUpLoading && <Loader />}
       <div className=" hidden sm:block flex-[1.5] order-2 sm:order-1">
         <div className="flex mb-[1.5rem] max-[760px]:justify-between">
@@ -401,7 +399,7 @@ function ContestTables({ card, leagueName }) {
                   onClick={() => handleButtonClick(data)}
                   key={`player-${index}`}
                 >
-                  <p className="text-[#294d6c] text-[12px] font-[600]">
+                  <p className="text-[#294d6c] text-[12px] font-[600] font-poppins">
                     Select {data}
                   </p>
                   <button className="relative">
@@ -466,16 +464,20 @@ function ContestTables({ card, leagueName }) {
                   </div>
 
                   <div>
-                    <p className="w-[100px] rounded h-[7px] bg-[rgb(0,0,0,0.4)]"></p>
-                    <h2 className="text-[#000000] font-[600] text-[25px] text-center">
-                      select {gameName}
+                    <p className="w-[100px] rounded h-[7px]"></p>
+                    <h2 className="text-[#000000] font-[600] text-[25px] text-center font-poppins">
+                      Select {gameName}
                     </h2>
                   </div>
 
-                  <input
-                    type="search"
-                    className="outline-none border-[1.5px] border-[rgb(0,0,0,0.6)] rounded-[50px] w-[95%] h-[70px] mt-5"
-                  />
+                  <div className="w-full">
+                    <input
+                      type="text"
+                      className="outline-none border-[1.5px] rounded-[50px] w-full bg-white px-3 py-3"
+                      placeholder="Search players"
+                      onChange={handleSearch}
+                    />
+                  </div>
 
                   <Table
                     columns={columns}

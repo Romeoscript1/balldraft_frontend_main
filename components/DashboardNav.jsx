@@ -17,6 +17,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useEffect } from "react";
+import { getUserImageOrdefault } from "@/constants/constants";
 
 const DashboardNav = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -107,7 +108,7 @@ const DashboardNav = () => {
 
   return (
     <section>
-      <div className="flex items-center justify-around text-white nav-bg">
+      <div className="flex items-center justify-between px-10 text-white nav-bg">
         <aside className="text-xs lg:text-lg">
           Welcome back, {firstname} 🦆
         </aside>
@@ -240,8 +241,8 @@ const DashboardNav = () => {
                       <div className="w-10 rounded-full">
                         <Image
                           alt="Navbar component"
-                          className="rounded-full bg-slate-500 object-cover object-center"
-                          src="https://via.placeholder.com/30"
+                          className="rounded-full bg-slate-500 object-cover object-center w-[34px] h-[34px]"
+                          src={getUserImageOrdefault(data?.image)}
                           width={34}
                           height={34}
                         />
@@ -285,8 +286,11 @@ const DashboardNav = () => {
           </div>
         </aside>
       </div>
-      <div className="py-[1rem]">
-        <aside className="flex items-center justify-around">
+
+
+
+      <div className="py-[1rem] w-full">
+        <aside className="flex items-center justify-between px-10  w-full">
           {/* <IoMdMenu className="text-5xl text-black hidden lg:flex" /> */}
           <SearchGamesModal className="lg:hidden">
             <div className="bg-[#F2F2F2] rounded-full p-2 lg:hidden flex">

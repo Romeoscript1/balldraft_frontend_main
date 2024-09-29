@@ -28,6 +28,7 @@ import Verifyemail from '@/components/Verifyemail';
 import dayjs from 'dayjs'; // Import dayjs for date formatting
 import usePostRequest from '@/Hooks/usepostRequest';
 import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const MuiFormikCheckbox = ({ label, ...props }) => {
   const [field] = useField(props);
@@ -110,7 +111,7 @@ const MuiFormikDatePicker = ({ label, ...props }) => {
 const Page = () => {
   const [registrationComplete, setRegistrationComplete] = useState(false);
   const [registrationData, setRegistrationData] = useState(null);
-
+  const router = useRouter()
   const validationSchema = Yup.object().shape({
     first_name: Yup.string().required('First name is required'),
     last_name: Yup.string().required('Last name is required'),
@@ -138,8 +139,19 @@ const Page = () => {
 
   const url = process.env.NEXT_PUBLIC_API_URL;
 
+  const getReferralCode = ()=>{
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get('ref');
+    return ref
+  }
+
+  const getApiUrl = ()=>{
+    const referralCode = getReferralCode()
+    return referralCode? `${url}/auth/register/?referral_code=${referralCode}`: `${url}/auth/register/`
+  }
+
   const { mutate, isPending, isSuccess, isError, error } = postRequest(
-    `${url}/auth/register/`,
+    getApiUrl(),
     (response) => {
       console.log('Success:', response);
       toast.success('Registration was successful!');

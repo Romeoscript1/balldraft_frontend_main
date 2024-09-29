@@ -258,8 +258,8 @@ const Page = () => {
   return (
     <section className="p-7">
       <div className="">
-        <h1 className="font-medium text-black text-3xl md:text-4xl xl:text-6xl">
-          Contest history
+        <h1 className="font-medium text-denary font-poppins text-3xl md:text-4xl xl:text-6xl">
+          Fantasy drafts
         </h1>
       </div>
 
@@ -275,7 +275,7 @@ const Page = () => {
               <TableRow>
                 {columnNames.map((name) => {
                   return (
-                    <TableHead className="bg-denary text-white" key={`gaga-${name}`}>
+                    <TableHead className="bg-denary text-white py-4 font-poppins" key={`gaga-${name}`}>
                       {name}
                     </TableHead>
                   );
@@ -286,16 +286,16 @@ const Page = () => {
             <TableBody>
               {contestHistory.map((history) => {
                 return (
-                  <TableRow key={`row-${history.name}`}>
-                    <TableCell className="text-black">{history.name}</TableCell>
-                    <TableCell className="text-black">{history.entryTime}</TableCell>
+                  <TableRow key={`row-${history.name}`} className="font-poppins">
+                    <TableCell className="text-black py-5">{history.name}</TableCell>
+                    <TableCell className="text-black py-5">{history.entryTime}</TableCell>
 
-                    <TableCell className="text-black">{history.entryAmount}</TableCell>
+                    <TableCell className="text-black py-5">{history.entryAmount}</TableCell>
 
-                    <TableCell className="text-black">{history.leagueName}</TableCell>
+                    <TableCell className="text-black py-5">{history.leagueName}</TableCell>
 
-                    <TableCell className="text-black">{history.amountWon}</TableCell>
-                    <TableCell className="text-black">{history.profit}</TableCell>
+                    <TableCell className="text-black py-5">{history.amountWon}</TableCell>
+                    <TableCell className="text-black py-5">{history.profit}</TableCell>
                   </TableRow>
                 );
               })}

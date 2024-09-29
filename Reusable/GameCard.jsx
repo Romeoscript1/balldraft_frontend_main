@@ -1,5 +1,6 @@
+'use client'
 import React from "react";
-import { generateRandomOdds } from "@/constants/constants";
+import { generateRandomOdds, getFormattedDate, getFormattedTime } from "@/constants/constants";
 
 const GameCard = ({
   homeTeam,
@@ -9,15 +10,16 @@ const GameCard = ({
   time,
   detailUrl,
 }) => {
-  const { overUnder, pointSpread } = generateRandomOdds();
+  // const { overUnder, pointSpread } = generateRandomOdds();
+  console.log(time)
   return (
     <a
-      className="rounded-xl shadow-md inline-block mb-10 py-2 px-5"
+      className="rounded-xl shadow-md inline-block mb-10 py-2 px-5  min-w-[200px] bg-red-700"
       href={detailUrl}
     >
-      <div className="flex items-center justify-between mb-5 gap-3">
+      <div className="flex items-center justify-between gap-3">
         <span className="text-sm text-black">{homeTeam}</span>
-        <div className="flex gap-2 items-center">
+        {/* <div className="flex gap-2 items-center">
           <span className="text-sm">{overUnder}</span>
           <svg
             width="14"
@@ -35,11 +37,14 @@ const GameCard = ({
               strokeLinejoin="round"
             />
           </svg>
-        </div>
+        </div> */}
       </div>
-      <div className="flex items-center justify-between mb-5 gap-3">
+
+      <p className="my-2 text-sm">vs</p>
+
+      <div className="flex items-center justify-between mb-3 gap-3">
         <span className="text-sm text-black">{awayTeam}</span>
-        <div className="flex gap-2 items-center">
+        {/* <div className="flex gap-2 items-center">
           <span className="text-sm">{pointSpread}</span>
           <svg
             width="14"
@@ -57,9 +62,9 @@ const GameCard = ({
               strokeLinejoin="round"
             />
           </svg>
-        </div>
+        </div> */}
       </div>
-      <p className="text-sm text-center text-slate-800">{time}</p>
+      <p className="text-[0.8rem] text-slate-800 whitespace-nowrap">{`${getFormattedDate(new Date(time))} ${getFormattedTime(new Date(time))}`}</p>
     </a>
   );
 };
