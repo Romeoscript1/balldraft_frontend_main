@@ -5361,7 +5361,7 @@ const Page = () => {
             {leagues.fixtures
               .map((card, index) => (
                 <GameCard
-                  key={index}
+                  key={`gamecard-${index}`}
                   homeTeam={card.home}
                   awayTeam={card.away}
                   homeScore={card.homeScore}

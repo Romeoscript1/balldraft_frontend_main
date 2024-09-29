@@ -50,7 +50,7 @@ export default function ContextSwiper() {
       >
         {swipperItems.map((item) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={`swipper-${item.text}`}>
               <div className="flex items-center swiperimg h-[400px] relative rounded-[20px] p-[1rem] w-4/5 m-auto">
                 <img
                   src={item.image}
