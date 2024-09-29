@@ -40,6 +40,7 @@ export default function Home() {
 
   return (
     <div className="bg-white">
+      
       <Balance leagues={leagues} />
       <SportsBook leagues={leagues} loading={loading} />
       <ContextSwiper />

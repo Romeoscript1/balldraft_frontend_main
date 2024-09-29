@@ -21,7 +21,7 @@ const SearchGamesModal = (props) => {
     setFixturesLoading(true);
     const microUrl = process.env.NEXT_PUBLIC_MICROSERVICE_URL;
     const searchDebouncer = setTimeout(() => {
-      fetch(`${microUrl}search-fixtures?keyword=${searchTerm}`, {
+      fetch(`${microUrl}search-fixtures?keyword=${searchTerm}&limit=1000000000`, {
         method: "GET",
       })
         .then((response) => response.json())

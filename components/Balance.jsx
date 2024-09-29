@@ -45,7 +45,7 @@ const Balance = (props) => {
       id: 3,
       title: "Total Points Earned",
       image: map,
-      points: 50,
+      points: userProfile.total_points ||  0,
     },
   ];
 
