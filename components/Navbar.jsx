@@ -91,8 +91,8 @@ const Navbar = () => {
                 </li>
               </ul>
             </div> */}
-            <a className="btn btn-ghost text-xl">
-              <img src={logo.src} alt="" srcset="" className=" w-[110px]" />
+            <a className="btn btn-ghost text-xl max-sm:w-[110px]" href="/">
+              <img src={logo.src} alt="" srcset="" className=" w-[100px]" />
             </a>
           </div>
           <div className="navbar-center hidden lg:flex">
@@ -124,7 +124,7 @@ const Navbar = () => {
           <div className="navbar-end flex flex-row gap-8 items-center">
             <Link
               href={"/Dashboard"}
-              className="btn bg-[#012C51] rounded-[30px]"
+              className="btn bg-[#012C51] rounded-[30px] max-s7:hidden"
             >
               Play now
             </Link>
