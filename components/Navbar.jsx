@@ -27,15 +27,19 @@ const Navbar = () => {
   const navLinks = [
     {
       title: "What We Offer",
-      route: "#what-we-offer",
+      route: "/#what-we-offer",
     },
     {
       title: "About us",
       route: "/about",
     },
+    // {
+    //   title: "Blog",
+    //   route: "/blog",
+    // },
     {
-      title: "Blog",
-      route: "/blog",
+      title: "Contact",
+      route: "/help",
     },
   ];
 
@@ -98,7 +102,7 @@ const Navbar = () => {
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">
               <li>
-                <Link href="#what-we-offer">What We Offer</Link>
+                <Link href="/#what-we-offer">What We Offer</Link>
               </li>
               <li>
                 <Link href="/about">About us</Link>
@@ -117,14 +121,15 @@ const Navbar = () => {
                 </details>
               </li> */}
               <li>
-                <Link href="/blog">Blog</Link>
+                <Link href="/help">Contact</Link>
+                {/* <Link href="/blog">Blog</Link> */}
               </li>
             </ul>
           </div>
           <div className="navbar-end flex flex-row gap-8 items-center">
             <Link
               href={"/Dashboard"}
-              className="btn bg-[#012C51] rounded-[30px] max-s7:hidden"
+              className="btn bg-[#012C51] rounded-[30px] max-s7:hidden text-white font-medium"
             >
               Play now
             </Link>

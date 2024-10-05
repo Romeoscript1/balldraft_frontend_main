@@ -107,7 +107,7 @@ const Nav = () => {
             </svg>
             Notifications
           </a>
-          <p className="lg:flex items-center gap-3 hidden">
+          <a className="lg:flex items-center gap-3 hidden" href="/help">
             <svg
               width="25"
               height="24"
@@ -133,7 +133,7 @@ const Nav = () => {
               </defs>
             </svg>
             Help
-          </p>
+          </a>
 
           <div className="flex-none">
             <ul className="menu menu-horizontal px-1">

@@ -1,3 +1,4 @@
+import { getAccessToken } from "@/constants/constants";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -5,7 +6,7 @@ const fetchPackages = async (url) => {
   let accessToken = null;
 
   if (typeof window !== "undefined") {
-    accessToken = sessionStorage.getItem("access_token");
+    accessToken = getAccessToken()
   }
 
   const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};

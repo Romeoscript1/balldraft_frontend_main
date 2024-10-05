@@ -1,6 +1,11 @@
 import React from "react";
 import UserProfile from "./UserProfile";
 import Icon from "@/Reusable/Icons/Icons";
+import { FiActivity } from "react-icons/fi";
+import { LuHistory } from "react-icons/lu";
+import { IoIosLogOut } from "react-icons/io";
+import { LuSettings } from "react-icons/lu";
+
 
 const Sider = (props) => {
   return (
@@ -10,13 +15,13 @@ const Sider = (props) => {
       <div className="flex flex-col gap-20 justify-between">
         <UserProfile profile={props.profile} />
         <ul>
-          <li className="flex items-center gap-3 text-[#012C51] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
+          {/* <li className="flex items-center gap-3 text-[#012C51] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
             {" "}
             <Icon type="tickets" /> Tickets
-          </li>
+          </li> */}
           <li className="flex items-center gap-3 text-[#012C51] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
             <a href="/transaction/activity" className="flex gap-3">
-              <Icon type="log" />
+              <FiActivity/>
               Activity Log
             </a>
           </li>
@@ -25,9 +30,17 @@ const Sider = (props) => {
             Responsible Gambling
           </li> */}
           <li className="flex items-center text-[#012C51] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
-            <a href="/transaction/activity" className="flex gap-3">
-              <Icon type="history" />
+            <a href="/transaction/" className="flex gap-3 items-center">
+              {/* <Icon type="history" /> */}
+              <LuHistory size={20}/>
               Transaction History
+            </a>
+          </li>
+          <li className="flex items-center text-[#012C51] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
+            <a href="/Dashboard/settings" className="flex gap-3 items-center">
+              {/* <Icon type="history" /> */}
+              <LuSettings  size={20}/>
+              Account settings
             </a>
           </li>
           {/* <li className="flex items-center gap-3 text-[#012C51] py-[0.5rem] hover:text-white hover:bg-[#012c51] rounded-md">
@@ -35,12 +48,15 @@ const Sider = (props) => {
             Taxing & Forms
           </li> */}
           <li className="flex items-center gap-3 text-[#ff0000] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
-            <Icon type="logout" />
+            <IoIosLogOut />
+            {/* <Icon type="logout" /> */}
             Sign Out
           </li>
         </ul>
       </div>
-      <a
+
+      
+      {/* <a
         className="flex items-center gap-4 text-[#012C51]"
         href="/Dashboard/settings"
       >
@@ -50,7 +66,7 @@ const Sider = (props) => {
           alt="Avatar"
         />
         Account Settings
-      </a>
+      </a> */}
     </div>
   );
 };

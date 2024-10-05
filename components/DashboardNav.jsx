@@ -18,6 +18,16 @@ import {
 } from "@/components/ui/popover";
 import { useEffect } from "react";
 import { getUserImageOrdefault } from "@/constants/constants";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 const DashboardNav = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -106,8 +116,23 @@ const DashboardNav = () => {
     console.log("showing");
   };
 
+  const navLinks = [
+    {
+      title: "Rewards",
+      route: "/transaction/rewards",
+    },
+    {
+      title: "Notifications",
+      route: "/transaction/activity/",
+    },
+    {
+      title: "Help",
+      route: "/help",
+    },
+  ];
+
   return (
-    <section>
+    <section className="bg-white">
       <div className="flex items-center justify-between px-10 text-white nav-bg">
         <aside className="text-xs lg:text-lg">
           Welcome back, {firstname} 🦆
@@ -204,7 +229,7 @@ const DashboardNav = () => {
             </svg>
             Notifications
           </a>
-          <p className="lg:flex items-center gap-3 hidden">
+          <a className="lg:flex items-center gap-3 hidden" href="/help">
             <svg
               width="25"
               height="24"
@@ -230,7 +255,7 @@ const DashboardNav = () => {
               </defs>
             </svg>
             Help
-          </p>
+          </a>
 
           <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
@@ -286,8 +311,6 @@ const DashboardNav = () => {
           </div>
         </aside>
       </div>
-
-
 
       <div className="py-[1rem] w-full">
         <aside className="flex items-center justify-between px-10  w-full">
@@ -360,7 +383,19 @@ const DashboardNav = () => {
             </Popover>
           </div>
 
-          <IoMdMenu className="text-5xl text-gray-500 border rounded-2 lg:hidden flex" />
+          <Drawer>
+            <DrawerTrigger>
+              <IoMdMenu className="text-5xl text-gray-500 border rounded-2 lg:hidden flex" />
+            </DrawerTrigger>
+
+            <DrawerContent className="bg-white py-10">
+              <div className="flex w-full flex-col items-center justify-center gap-5">
+                {navLinks.map((item) => {
+                  return <a key={`dash-${item.title}`} className="text-slate-900 font-poppins underline" href={item.route}>{item.title}</a>;
+                })}
+              </div>
+            </DrawerContent>
+          </Drawer>
         </aside>
       </div>
     </section>

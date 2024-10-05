@@ -42,13 +42,13 @@ const Page = () => {
           </p>
 
           <a
-            href="mailto:info@willshomes.com"
+            href="mailto:info@balldraft.com"
             className="underline mt-6 font-medium"
           >
             info@balldraft.com
           </a>
           <a
-            href="mailto:info@willshomes.com"
+            href="mailto:info@balldraft.com"
             className="underline mt-3 font-medium"
           >
             0912 816 8542

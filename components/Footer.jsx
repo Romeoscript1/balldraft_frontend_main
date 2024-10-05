@@ -30,11 +30,11 @@ const Footer = () => {
         <footer className="bg-[#012C51]">
           <div className="md:hidden p-[2rem] mb-0">
             <img src={logo.src} className="w-[100px]" alt="" />
-            <p>
+            <p className="text-slate-300 text-sm mt-2">
               <EmailIcon />
               accounts@balldraft.com
             </p>
-            <p>
+            <p className="text-slate-300 text-sm mt-4">
               <LocationOnIcon />
               123 Ape Town, NY 11943, New York
             </p>
@@ -53,8 +53,8 @@ const Footer = () => {
                 </p>
               </div>
               <aside className="my-[1rem]">
-                <h2 className="footer-title">News Letter</h2>
-                <p>
+                <h2 className="footer-title font-poppins text-slate-300">News Letter</h2>
+                <p className="font-poppins text-slate-300">
                   Stay informed about the latest promotions, exclusive bonuses
                   and exciting events by subscribing tou our newsletter - your
                   gateway to the best in the world of online gaming

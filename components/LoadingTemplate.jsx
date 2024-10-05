@@ -1,10 +1,10 @@
 import React from "react";
 import loader from "@/public/images/loader.gif";
 
-const LoadingTemplate = () => {
+const LoadingTemplate = ({size=100, ...props}) => {
   return (
     <div className="w-full flex flex-col items-center justify-center p-9">
-      <img src={loader.src} alt="" className="w-[100px] h-[100px]" />
+      <img src={loader.src} alt="" className={`w-[${size}px] h-[${size}px] ${props.imgClass}`} />
     </div>
   );
 };

@@ -6,13 +6,13 @@ import system from "@/public/images/system.svg";
 import { usePathname } from "next/navigation";
 import Icon from "@/Reusable/Icons/Icons";
 import { useFetchDataPlans } from "@/Hooks/useFetch";
-import { getFormattedTime } from "@/constants/constants";
+import { getFormattedTime, getUserImageOrdefault, isAuthenticated } from "@/constants/constants";
 
 const Balance = (props) => {
   const url = process.env.NEXT_PUBLIC_API_URL;
   const apiUrl = `${url}/profile`;
   const { data: userProfile } = useFetchDataPlans(apiUrl);
-
+  const authenticated = isAuthenticated();
   const { leagues } = props;
   const fixtures = leagues?.leagues?.map((league) => league.fixtures).flat();
 
@@ -45,23 +45,23 @@ const Balance = (props) => {
       id: 3,
       title: "Total Points Earned",
       image: map,
-      points: userProfile.total_points ||  0,
+      points: userProfile.total_points || 0,
     },
   ];
 
   const isAccount = usePathname().includes("account");
   return (
-    <div className="flex flex-col lg:flex-row gap-4 p-[1rem]">
+    <div className="flex flex-col lg:flex-row gap-4 p-[1rem] lg:items-center">
       <figure
         className={`flex flex-col ${
           isAccount ? "basis-[100%]" : "basis-[40%]"
-        } bg-[#F5F5F5] shadow-md text-black p-[1rem] rounded-[20px]`}
+        } bg-[#F5F5F5] shadow-md text-black p-[1rem] rounded-[20px] h-max`}
       >
         <section className="flex  flex-col">
           <aside className="flex items-center gap-5 p-[1rem]">
             <div className="avatar">
               <div className="w-4 rounded-full ring ">
-                <img src="https://via.placeholder.com/80" />
+                <img src={getUserImageOrdefault(userProfile?.image)} />
               </div>
             </div>
             <p> Total Balance</p>
@@ -96,67 +96,72 @@ const Balance = (props) => {
             )}
           </aside>
         </section>
-        <aside className="flex gap-4  py-[1rem]">
-          {isAccount && (
-            <div className="flex">
-              <aside className="flex justify-between p-[1rem]  text-white cursor-pointer">
-                <a
-                  className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2"
-                  href="transaction/deposit"
-                >
-                  <Icon type="topup" /> Top up
-                </a>
-              </aside>
-              <aside className="flex justify-between p-[1rem]  text-white cursor-pointer">
-                <div className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2">
-                  <Icon type="withdraw" /> Withdraw
-                </div>
-              </aside>
+
+        {authenticated && (
+          <aside className="flex gap-4  py-[1rem]">
+            {isAccount && (
+              <div className="flex">
+                <aside className="flex justify-between p-[1rem]  text-white cursor-pointer">
+                  <a
+                    className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2"
+                    href="transaction/deposit"
+                  >
+                    <Icon type="topup" /> Top up
+                  </a>
+                </aside>
+                <aside className="flex justify-between p-[1rem]  text-white cursor-pointer">
+                  <div className="bg-[#012C51] p-[1rem] px-[2rem] rounded-full flex gap-2">
+                    <Icon type="withdraw" /> Withdraw
+                  </div>
+                </aside>
+              </div>
+            )}
+            <div>
+              <p className="text-sm max-[360px]:text-[0.7rem]"> last login</p>
+              <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">
+                {getFormattedTime(new Date(userProfile.last_login))}
+              </p>
             </div>
-          )}
-          <div>
-            <p className="text-sm max-[360px]:text-[0.7rem]"> last login</p>
-            <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">
-              {getFormattedTime(new Date(userProfile.last_login))}
-            </p>
-          </div>
-          <div className="border-x-[1px] px-[1rem] border-gray-500">
-            <p className="text-sm max-[360px]:text-[0.7rem]">
-              {" "}
-              last deposit time
-            </p>
-            <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">
-              {userProfile.recent_deposit_time == "No recent deposit made" ? (
-                <a
-                  href="/transaction/deposit"
-                  className="text-blue-500 underline"
-                >
-                  Topup
-                </a>
-              ) : (
-                getFormattedTime(new Date(userProfile.recent_deposit_time))
-              )}
-            </p>
-          </div>
-          <div>
-            <p className="text-sm max-[360px]:text-[0.7rem]">
-              Last deposit amount
-            </p>
-            <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">
-              {userProfile.recent_deposit_amount == "No recent deposit made" ? (
-                <a
-                  href="/transaction/deposit"
-                  className="text-blue-500 underline"
-                >
-                  Topup
-                </a>
-              ) : (
-                userProfile.recent_deposit_amount
-              )}
-            </p>
-          </div>
-        </aside>
+            <div className="border-x-[1px] px-[1rem] border-gray-500">
+              <p className="text-sm max-[360px]:text-[0.7rem]">
+                {" "}
+                last deposit time
+              </p>
+              <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">
+                {userProfile.recent_deposit_time == "No recent deposit made" ? (
+                  <a
+                    href="/transaction/deposit"
+                    className="text-blue-500 underline"
+                  >
+                    Topup
+                  </a>
+                ) : (
+                  getFormattedTime(new Date(userProfile.recent_deposit_time))
+                )}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm max-[360px]:text-[0.7rem]">
+                Last deposit amount
+              </p>
+              <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">
+                {userProfile.recent_deposit_amount ==
+                "No recent deposit made" ? (
+                  <a
+                    href="/transaction/deposit"
+                    className="text-blue-500 underline"
+                  >
+                    Topup
+                  </a>
+                ) : (
+                  userProfile.recent_deposit_amount || '--'
+                )}
+              </p>
+            </div>
+          </aside>
+        )}
       </figure>
+
       {!isAccount && (
         <figure className="flex items-center justify-around basis-[60%]">
           {data.map((item) => (

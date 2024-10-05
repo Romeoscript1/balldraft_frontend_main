@@ -20,10 +20,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAccessToken } from "@/constants/constants";
+import { getAccessToken, isAuthenticated } from "@/constants/constants";
 import { formatDistanceToNow, parseISO } from "date-fns";
+import { useRouter } from "next/navigation";
+import LoadingTemplate from "@/components/LoadingTemplate";
 
 const Page = () => {
+  const router = useRouter()
+  if(!isAuthenticated()){
+    router.push('/Auth/login')
+  }
+
+
+  const [loading, setLoading] = useState(true)
+
+
   const howToList = [
     {
       subject: "Register",
@@ -46,32 +57,11 @@ const Page = () => {
     },
   ];
 
-  // const referalList = [
-  //   {
-  //     name: "Gabe davis",
-  //     date: "5 days ago",
-  //     status: "complete",
-  //   },
-  //   {
-  //     name: "Gabe davis",
-  //     date: "5 days ago",
-  //     status: "complete",
-  //   },
-  //   {
-  //     name: "Gabe davis",
-  //     date: "5 days ago",
-  //     status: "complete",
-  //   },
-  // ];
-
   const url = process.env.NEXT_PUBLIC_API_URL;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const apiUrl = `${url}/auth/referrals/`;
   const [referalList, setReferrals] = useState([]);
   const [referralLink, setRefLink] = useState("");
-
-  // const referralLink = "https://referral-balldraft-com/bonus?...";
-
 
   const contructReferralList = (referrals) => {
     return referrals.map((referral) => {
@@ -93,6 +83,7 @@ const Page = () => {
   };
 
   useEffect(() => {
+    setLoading(true)
     fetch(apiUrl, {
       method: "GET",
       headers: {
@@ -102,18 +93,18 @@ const Page = () => {
       .then((response) => response.json())
       .then((data) => {
         setReferrals(contructReferralList(data.referrals));
-        setRefLink(getReferralLink(data.referral_link))
+        setRefLink(getReferralLink(data.referral_link));
       })
       .catch((error) => {
         toast.error(`Error fetching referrals ${error}`);
         console.error(error);
-      });
+      }).finally(()=>{
+        setLoading(false)
+      })
   }, []);
 
   const referralTableColumns = ["NAME", "DATE", "STATUS"];
-
   const socials = [facebook, whatsapp, twitter, linkedIn, telegram];
-
 
   const copyToClipboard = () => {
     navigator.clipboard
@@ -126,6 +117,17 @@ const Page = () => {
       });
   };
 
+  // if (referalList.length === 0) {
+  //   return (
+  //     <section className="w-full h-[60vh] bg-white flex flex-col items-center justify-center">
+  //       <p className="font-poppins">No referrals found</p>
+  //     </section>
+  //   );
+  // }
+
+  if(loading) {
+    return <LoadingTemplate/>
+  }
   return (
     <section className="pb-10">
       <div className="w-full min-h-[80vh] s4:h-[80vh] bg-refer-bg bg-bottom bg-no-repeat flex flex-row justify-between max-s4:flex-col-reverse">
@@ -206,67 +208,71 @@ const Page = () => {
             </div>
 
             <div className="w-full">
-              <Table className="mt-5 overflow-x-scroll max-[480px]:w-[450px]">
-                <TableCaption>A list of your recent referrals.</TableCaption>
-                <TableHeader>
-                  <TableRow>
-                    {/* <TableHead className="w-[100px]">Invoice</TableHead>
+              {referalList.length === 0 ? (
+                <p className="text-sm">No referrals found</p>
+              ) : (
+                <Table className="mt-5 overflow-x-scroll max-[480px]:w-[450px]">
+                  <TableCaption>A list of your recent referrals.</TableCaption>
+                  <TableHeader>
+                    <TableRow>
+                      {/* <TableHead className="w-[100px]">Invoice</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Method</TableHead>
                     <TableHead className="text-right">Amount</TableHead> */}
 
-                    {referralTableColumns.map((column) => {
+                      {referralTableColumns.map((column) => {
+                        return (
+                          <TableHead
+                            className="bg-denary text-white"
+                            key={`agcolumn-${column}`}
+                          >
+                            {column}
+                          </TableHead>
+                        );
+                      })}
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {referalList.map((referral) => {
                       return (
-                        <TableHead
-                          className="bg-denary text-white"
-                          key={`agcolumn-${column}`}
-                        >
-                          {column}
-                        </TableHead>
+                        <TableRow key={`ref-${referral.name}`}>
+                          <TableCell className="text-black">
+                            <div className="flex flex-row items-center gap-2">
+                              <img
+                                src={defaultImg.src}
+                                alt=""
+                                className="w-[30px] h-[30px]"
+                              />
+                              {referral.name}
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-black">
+                            {referral.date}
+                          </TableCell>
+
+                          <TableCell className="text-black">
+                            <div
+                              className={`${
+                                referral.status == "complete"
+                                  ? "bg-mgreen100"
+                                  : "bg-red-300"
+                              } w-max p-3 rounded-full border-[0.4px] border-black`}
+                            >
+                              {referral.status}
+                            </div>
+                          </TableCell>
+                        </TableRow>
                       );
                     })}
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {referalList.map((referral) => {
-                    return (
-                      <TableRow key={`ref-${referral.name}`}>
-                        <TableCell className="text-black">
-                          <div className="flex flex-row items-center gap-2">
-                            <img
-                              src={defaultImg.src}
-                              alt=""
-                              className="w-[30px] h-[30px]"
-                            />
-                            {referral.name}
-                          </div>
-                        </TableCell>
-                        <TableCell className="text-black">
-                          {referral.date}
-                        </TableCell>
-
-                        <TableCell className="text-black">
-                          <div
-                            className={`${
-                              referral.status == "complete"
-                                ? "bg-mgreen100"
-                                : "bg-red-300"
-                            } w-max p-3 rounded-full border-[0.4px] border-black`}
-                          >
-                            {referral.status}
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                  <TableRow>
-                    {/* <TableCell className="font-medium">INV001</TableCell>
+                    <TableRow>
+                      {/* <TableCell className="font-medium">INV001</TableCell>
                     <TableCell>Paid</TableCell>
                     <TableCell>Credit Card</TableCell>
                     <TableCell className="text-right">$250.00</TableCell> */}
-                  </TableRow>
-                </TableBody>
-              </Table>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              )}
             </div>
           </div>
         </div>

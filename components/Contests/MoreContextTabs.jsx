@@ -296,8 +296,6 @@ const MoreContext = (props) => {
 
   const numberFixtures = fixtures.slice(0, displayNumber);
 
-  console.log(numberFixtures.length);
-
   const uniqueEntryTypes = [
     ...new Set(fixtures.map((fixture) => fixture.entry_type)),
   ];
@@ -349,6 +347,8 @@ const MoreContext = (props) => {
     //     children: <Contests type='top' contests={contests?.fixtures} />,
     // },
   ];
+
+  
   return (
     <>
       <h2 className="text-2xl font-bold text-center my-[2rem] text-black">

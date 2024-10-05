@@ -11,7 +11,7 @@ import { getFormattedTime, getUserImageOrdefault } from "@/constants/constants";
 const ProfileBalance = (props) => {
   const url = process.env.NEXT_PUBLIC_API_URL;
   const apiUrl = `${url}/profile`;
-  const { data: userProfile } = useFetchDataPlans(apiUrl);
+  // const { data: userProfile } = useFetchDataPlans(apiUrl);
 
   const { leagues } = props;
   const fixtures = leagues?.leagues?.map((league) => league.fixtures).flat();
@@ -28,7 +28,7 @@ const ProfileBalance = (props) => {
     return maskedString;
   }
 
-  const accountNumber = userProfile?.account_number || "*******";
+  const accountNumber = props.profile?.account_number || "*******";
 
   const data = [
     {
@@ -51,7 +51,7 @@ const ProfileBalance = (props) => {
     },
   ];
 
-  const isAccount = usePathname().includes("account");
+  const isAccount =true;
   return (
     <div className="flex flex-col lg:flex-row gap-4 p-[1rem]">
       <figure
@@ -63,14 +63,14 @@ const ProfileBalance = (props) => {
           <aside className="flex items-center gap-5 p-[1rem]">
             <div className="avatar">
               <div className="w-4 rounded-full ring ">
-                <img src={getUserImageOrdefault(userProfile.image)} />
+                <img src={getUserImageOrdefault(props.profile.image)} />
               </div>
             </div>
             <p> Total Balance</p>
           </aside>
           <aside className="flex flex-wrap gap-3 justify-between p-[1rem]  text-white cursor-pointer">
             <p className="max-[436px]:text-[1rem] max-[330px]:text-sm text-2xl text-black font-bold flex-shrink-0">
-              ${userProfile?.account_balance || "0"}.00 USD
+              ${props.profile?.account_balance || "0"}.00 USD
             </p>
             {isAccount && (
               <div className="flex s-3:hidden gap-3 max-[400px]:gap-2">
@@ -99,17 +99,10 @@ const ProfileBalance = (props) => {
                     Referrals
                   </h2>
                   <p className="text-[#808080] text-xl s2:text-2xl">
-                    {userProfile.referral_people}
+                    {props.profile.referral_people}
                   </p>
                 </div>
-                {/* <div className="flex-shrink-0">
-                  <h2 className="text-[#012C51] text-sm s-2:text-[1.1rem] font-medium">
-                    Rewards earned
-                  </h2>
-                  <p className="text-[#808080] text-xl s2:text-2xl">
-                    $25.000 USD
-                  </p>
-                </div> */}
+
               </aside>
             ) : (
               <div>
@@ -156,13 +149,13 @@ const ProfileBalance = (props) => {
             <div>
               <p className="text-sm max-[360px]:text-[0.7rem]"> last login</p>
               <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">
-                {getFormattedTime(new Date(userProfile.last_login))}
+                {getFormattedTime(new Date(props.profile.last_login))}
               </p>
             </div>
             <div className="border-x-[1px] px-[1rem] border-gray-500">
               <p className="text-sm max-[360px]:text-[0.7rem]"> last deposit time</p>
               <p className="max-[360px]:text-[0.8rem] text-[1rem] sm:text-xl font-bold mt-[1rem]">
-                {userProfile.recent_deposit_time=='No recent deposit made'? <a href="/transaction/deposit" className="text-blue-500 underline">Topup</a>: getFormattedTime(new Date(userProfile.recent_deposit_time))}
+                {props.profile.recent_deposit_time=='No recent deposit made'? <a href="/transaction/deposit" className="text-blue-500 underline">Topup</a>: getFormattedTime(new Date(props.profile.recent_deposit_time))}
               </p>
             </div>
             <div>
@@ -170,7 +163,7 @@ const ProfileBalance = (props) => {
                 Last deposit amount
               </p>
               <p className="max-[360px]:text-[0.8rem] sm:text-xl font-bold mt-[1rem]">
-              {userProfile.recent_deposit_amount=='No recent deposit made'? <a href="/transaction/deposit" className="text-blue-500 underline">Topup</a>: (userProfile.recent_deposit_amount)}
+              {props.profile.recent_deposit_amount=='No recent deposit made'? <a href="/transaction/deposit" className="text-blue-500 underline">Topup</a>: (props.profile.recent_deposit_amount)}
               </p>
             </div>
           </div>

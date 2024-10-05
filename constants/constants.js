@@ -1,4 +1,7 @@
 export function getFormattedTime(date) {
+  if (!(date instanceof Date) || isNaN(date)) {
+    return "--"; // Return an empty string or any other default value
+  }
   return date.toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "numeric",
@@ -24,6 +27,7 @@ export function getFormattedDate(date, astime = true) {
   }
 }
 
+
 export const formatunixTime = (unixTime, format = "time") => {
   //unix time is the number of seconds since the Unix epoch
   const date = new Date(unixTime * 1000); //multiplying seconds by 1000 to get milliseconds
@@ -42,7 +46,8 @@ export const formatunixTime = (unixTime, format = "time") => {
 export const getAccessToken = () => {
   let accessToken = null;
   if (typeof window !== "undefined") {
-    accessToken = sessionStorage.getItem("access_token");
+    accessToken = localStorage.getItem("access_token");
+    // accessToken = sessionStorage.getItem("access_token");
   }
   return accessToken;
 };
@@ -50,20 +55,23 @@ export const getAccessToken = () => {
 export const getRefreshToken = () => {
   let accessToken = null;
   if (typeof window !== "undefined") {
-    accessToken = sessionStorage.getItem("refresh_token");
+    accessToken = localStorage.getItem("refresh_token");
+    // accessToken = sessionStorage.getItem("refresh_token");
   }
   return accessToken;
 };
 
 export const setAccessToken = (accessToken) => {
   if (typeof window !== "undefined") {
-    sessionStorage.setItem("access_token", accessToken);
+    localStorage.setItem('access_token', accessToken)
+    // sessionStorage.setItem("access_token", accessToken);
   }
 };
 
-export const setRefreshToken = (accessToken) => {
+export const setRefreshToken = (refreshToken) => {
   if (typeof window !== "undefined") {
-    sessionStorage.setItem("refresh_token", accessToken);
+    localStorage.setItem('refresh_token', refreshToken)
+    sessionStorage.setItem("refresh_token", refreshToken);
   }
 };
 
@@ -75,6 +83,7 @@ export const isAuthenticated = () => {
 export const clearSessionStorage = () => {
   if (typeof window !== "undefined") {
     sessionStorage.clear();
+    localStorage.clear()
   }
 };
 

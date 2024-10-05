@@ -19,7 +19,7 @@ const UserProfile = ({profile}) => {
       </div>
       <div>
         <h2 className="text-2xl text-black text-[1.14rem] font-medium font-poppins">
-          {profile.full_name}
+          {profile.username}
         </h2>
         <p className="font-[0.9rem] font-poppins">{profile.email}</p>
         {/* <p className="font-[0.9rem]">Your profile is 75% complete</p> */}

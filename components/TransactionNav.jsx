@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import logo from "@/public/images/logo.png";
 import { useRouter, usePathname } from "next/navigation";
+import { getFormattedDate, getFormattedTime } from "@/constants/constants";
 
 const TransactionNav = () => {
   const router = useRouter();
@@ -20,8 +21,12 @@ const TransactionNav = () => {
       setDisplayTitle("Rewards");
     } else if (pathName.includes("withdraw")) {
       setDisplayTitle("Withdraw");
-    } else {
-      setDisplayTitle("Deposit");
+    } 
+    else if (pathName.includes('deposit')){
+      setDisplayTitle("Deposit")
+    }
+    else {
+      setDisplayTitle("Transaction");
     }
   }, []);
   return (
@@ -39,7 +44,9 @@ const TransactionNav = () => {
         <img src={logo.src} className="lg:w-[150px] w-[80px]" alt="" />
       </a>
 
-      <div></div>
+      <div>
+        <a href="/Dashboard" className="px-4 py-3 text-sm font-poppins rounded-full bg-denary text-white">Play now</a>
+      </div>
     </div>
   );
 };

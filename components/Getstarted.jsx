@@ -105,7 +105,7 @@ const Getstarted = () => {
                 <aside>
                     <h1 className='text-skyish md:text-3xl text-2xl max-md:m-auto font-poppins'>Kickstart your journey now!</h1>
                     <div className='flex items-center '>
-                        <a href='/Dashboard' className='bg-[#012C51] text-black bg-white px-[5.5rem] block py-[0.7rem] my-[2rem] rounded-[30px] p-3 cursor-pointer relative z-100 mr-[1rem]'>Play Now</a>
+                        <a href='/Dashboard' className='bg-[#012C51] text-black bg-white px-[1rem] font-poppins sm:px-[5.5rem] block py-[0.7rem] my-[2rem] rounded-[30px] p-3 cursor-pointer relative z-100 mr-[1rem]'>Play Now</a>
                         <ArrowAnimation delay={0} />
                     </div>
                 </aside>

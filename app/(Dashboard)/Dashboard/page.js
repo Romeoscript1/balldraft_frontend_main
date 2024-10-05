@@ -7,6 +7,7 @@ import SportsBook from "@/components/SportsBook";
 import MoreContext from "@/components/Contests/MoreContextTabs";
 import ContextSwiper from "@/components/Contests/contextswiper";
 import ContestList from "@/components/Contests/ContestList";
+import { isAuthenticated } from "@/constants/constants";
 
 export default function Home() {
   const [leagues, setLeagues] = useState([]);
@@ -14,6 +15,7 @@ export default function Home() {
   const apiUrl = `${url}get-leagues?total_to_win=false&limit=100000000000000`;
 
   const [loading, setLoading] = useState(true);
+  const isLogedIn = isAuthenticated();
 
   useEffect(() => {
     Aos.init({
