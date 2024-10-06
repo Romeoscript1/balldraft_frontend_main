@@ -26,14 +26,15 @@ import { useRouter } from "next/navigation";
 import LoadingTemplate from "@/components/LoadingTemplate";
 
 const Page = () => {
-  const router = useRouter()
-  if(!isAuthenticated()){
-    router.push('/Auth/login')
-  }
+  const router = useRouter();
 
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      router.push("/Auth/login");
+    }
+  }, []);
 
-  const [loading, setLoading] = useState(true)
-
+  const [loading, setLoading] = useState(true);
 
   const howToList = [
     {
@@ -83,7 +84,7 @@ const Page = () => {
   };
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     fetch(apiUrl, {
       method: "GET",
       headers: {
@@ -98,9 +99,10 @@ const Page = () => {
       .catch((error) => {
         toast.error(`Error fetching referrals ${error}`);
         console.error(error);
-      }).finally(()=>{
-        setLoading(false)
       })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const referralTableColumns = ["NAME", "DATE", "STATUS"];
@@ -125,8 +127,8 @@ const Page = () => {
   //   );
   // }
 
-  if(loading) {
-    return <LoadingTemplate/>
+  if (loading) {
+    return <LoadingTemplate />;
   }
   return (
     <section className="pb-10">
