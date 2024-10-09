@@ -18,26 +18,27 @@ const SearchGamesModal = (props) => {
   }
 
   useEffect(() => {
-    setFixturesLoading(true);
+    // setFixturesLoading(true);
+    console.log('searching')
     const microUrl = process.env.NEXT_PUBLIC_MICROSERVICE_URL;
     const searchDebouncer = setTimeout(() => {
-      fetch(`${microUrl}search-fixtures?keyword=${searchTerm}&limit=1000000000`, {
-        method: "GET",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          contructSetSearchFixtures(data);
-          setSearchCount(data?.total_fixtures || 0);
-        })
-        .catch((error)=>{
-          setSearchFixtures([])
+      // fetch(`${microUrl}search-fixtures?keyword=${searchTerm}&limit=1000000000`, {
+      //   method: "GET",
+      // })
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     console.log(data);
+      //     contructSetSearchFixtures(data);
+      //     setSearchCount(data?.total_fixtures || 0);
+      //   })
+      //   .catch((error)=>{
+      //     setSearchFixtures([])
 
-        })
-        .finally(() => {
-          setFixturesLoading(false);
-        });
-    }, 200);
+      //   })
+      //   .finally(() => {
+      //     // setFixturesLoading(false);
+      //   });
+    }, 500);
 
     return () => {
       clearTimeout(searchDebouncer);

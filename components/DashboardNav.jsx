@@ -82,6 +82,7 @@ const DashboardNav = () => {
     setFixturesLoading(true);
 
     const searchDebouncer = setTimeout(() => {
+      console.log('sending request')
       fetch(`${microUrl}search-fixtures?keyword=${searchTerm}`, {
         method: "GET",
       })
@@ -347,13 +348,13 @@ const DashboardNav = () => {
           </a>
 
           <div className="flex flex-col">
-            <SearchGamesModal>
+            {/* <SearchGamesModal> */}
               <label className="input input-bordered lg:flex items-center gap-2 bg-white rounded-full hidden">
                 <input
                   type="text"
                   className="grow rounded-full"
                   placeholder="Search for games"
-                  // onChange={searchChangeHandler}
+                  onChange={searchChangeHandler}
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -368,7 +369,7 @@ const DashboardNav = () => {
                   />
                 </svg>
               </label>
-            </SearchGamesModal>
+            {/* </SearchGamesModal> */}
 
             <Popover open={popoverOpen}>
               <PopoverTrigger className="flex"></PopoverTrigger>
