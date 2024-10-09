@@ -113,11 +113,12 @@ const Page = () => {
 
   return (
     <section className="p-7">
-      <Dialog open={playerDialogOpen}>
+      <Dialog open={playerDialogOpen} onOpenChange={setPlayerDialogOpen}>
 
         <DialogContent
           className="bg-white pt-10"
           onInteractOutside={closePlayerDialog}
+          
         >
           {playerList.map((player) => {
             return (
