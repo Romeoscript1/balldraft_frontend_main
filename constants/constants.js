@@ -32,8 +32,6 @@ export const formatunixTime = (unixTime, format = "time") => {
   //unix time is the number of seconds since the Unix epoch
   const date = new Date(unixTime * 1000); //multiplying seconds by 1000 to get milliseconds
 
-  console.log("DATE", date, unixTime);
-
   if (format == "time") {
     return getFormattedTime(date);
   }
@@ -51,6 +49,19 @@ export const getAccessToken = () => {
   }
   return accessToken;
 };
+
+
+export const deleteAccessToken = () => {
+  let accessToken = null;
+  if (typeof window !== "undefined") {
+    localStorage.removeItem('access_token')
+    // accessToken = sessionStorage.getItem("access_token");
+  }
+  return true;
+};
+
+
+
 
 export const getRefreshToken = () => {
   let accessToken = null;

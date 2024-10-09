@@ -6,6 +6,8 @@ import { getAccessToken, getRefreshToken } from "@/constants/constants";
 import LoadingTemplate from "@/components/LoadingTemplate";
 import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
+import { deleteAccessToken } from "@/constants/constants";
+import Loader from "@/components/Loader";
 
 const Page = () => {
   const { loading, postData } = usePostData();
@@ -13,21 +15,23 @@ const Page = () => {
   const router = useRouter();
 
   useEffect(() => {
-    postData(
-      `${url}/auth/logout/`,
-      {
-        refresh_token: getRefreshToken(),
-        access_token: getAccessToken(),
-      },
-      (data) => {
-        router.push("/Auth/login/");
-      },
-      (error) => {
-        // router.back();
-        console.log(error);
-        toast.error(error);
-      }
-    );
+    deleteAccessToken()
+    router.push('/Auth/login')
+    // postData(
+    //   `${url}/auth/logout/`,
+    //   {
+    //     refresh_token: getRefreshToken(),
+    //     access_token: getAccessToken(),
+    //   },
+    //   (data) => {
+    //     router.push("/Auth/login/");
+    //   },
+    //   (error) => {
+    //     // router.back();
+    //     console.log(error);
+    //     toast.error(error);
+    //   }
+    // );
   }, []);
 
   if (loading) {
@@ -41,18 +45,15 @@ const Page = () => {
 
   return (
     <div>
+      <Loader/>
       <Toaster />
-      <div className="w-full h-[100vh] flex items-center justify-center">
+      
+      {/* <div className="w-full h-[100vh] flex items-center justify-center">
         <div className="flex flex-col">
-          <p className="text-xl">Fatal: An error occured..</p>
-          <a
-            href="/"
-            className="bg-denary p-3 rounded-full text-center text-white mt-5"
-          >
-            Home
-          </a>
+          <p className="text-xl">Logging you out, please wait...</p>
+
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

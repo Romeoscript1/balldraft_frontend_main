@@ -12,182 +12,27 @@ import {
 import LoadingTemplate from "@/components/LoadingTemplate";
 import toast from "react-hot-toast";
 import { getAccessToken } from "@/constants/constants";
+import {
+  Dialog,
+  DialogContent,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 const Page = () => {
-  const dummyContestHistory = [
-    {
-      name: "Weekly Jackpot",
-      entryAmount: "50000",
-      status: "Pending",
-      leagueName: "Elite League",
-      amountWon: "100000",
-      profit: 50,
-    },
-    {
-      name: "Daily Double",
-      entryAmount: "20000",
-      status: "Failed",
-      leagueName: "Amateur League",
-      amountWon: "0",
-      profit: 0,
-    },
-    {
-      name: "Weekend Blitz",
-      entryAmount: "100000",
-      status: "Completed",
-      leagueName: "Pro League",
-      amountWon: "0",
-      profit: 0,
-    },
-    {
-      name: "Midweek Madness",
-      entryAmount: "30000",
-      status: "Pending",
-      leagueName: "Intermediate League",
-      amountWon: "40000",
-      profit: 10,
-    },
-    {
-      name: "Daily Grind",
-      entryAmount: "10000",
-      status: "Failed",
-      leagueName: "Beginner League",
-      amountWon: "0",
-      profit: 0,
-    },
-    {
-      name: "Weekend Warrior",
-      entryAmount: "80000",
-      status: "Completed",
-      leagueName: "Elite League",
-      amountWon: "150000",
-      profit: 70,
-    },
-    {
-      name: "Midweek Marathon",
-      entryAmount: "40000",
-      status: "Pending",
-      leagueName: "Intermediate League",
-      amountWon: "0",
-      profit: 0,
-    },
-    {
-      name: "Daily Duel",
-      entryAmount: "25000",
-      status: "Failed",
-      leagueName: "Amateur League",
-      amountWon: "0",
-      profit: 0,
-    },
-    {
-      name: "Weekend Showdown",
-      entryAmount: "120000",
-      status: "Completed",
-      leagueName: "Pro League",
-      amountWon: "200000",
-      profit: 80,
-    },
-    {
-      name: "Midweek Melee",
-      entryAmount: "35000",
-      status: "Pending",
-      leagueName: "Intermediate League",
-      amountWon: "0",
-      profit: 0,
-    },
-    {
-      name: "Daily Derby",
-      entryAmount: "15000",
-      status: "Failed",
-      leagueName: "Beginner League",
-      amountWon: "0",
-      profit: 0,
-    },
-    {
-      name: "Weekend Rumble",
-      entryAmount: "90000",
-      status: "Completed",
-      leagueName: "Elite League",
-      amountWon: "180000",
-      profit: 100,
-    },
-    {
-      name: "Midweek Mayhem",
-      entryAmount: "45000",
-      status: "Pending",
-      leagueName: "Intermediate League",
-      amountWon: "0",
-      profit: 0,
-    },
-    {
-      name: "Daily Dash",
-      entryAmount: "20000",
-      status: "Failed",
-      leagueName: "Amateur League",
-      amountWon: "0",
-      profit: 0,
-    },
-    {
-      name: "Weekend Whirlwind",
-      entryAmount: "100000",
-      status: "Completed",
-      leagueName: "Pro League",
-      amountWon: "250000",
-      profit: 150,
-    },
-    {
-      name: "Midweek Madness",
-      entryAmount: "30000",
-      status: "Pending",
-      leagueName: "Intermediate League",
-      amountWon: "0",
-      profit: 0,
-    },
-    {
-      name: "Daily Duel",
-      entryAmount: "25000",
-      status: "Failed",
-      leagueName: "Amateur League",
-      amountWon: "0",
-      profit: 0,
-    },
-    {
-      name: "Weekend Showdown",
-      entryAmount: "120000",
-      status: "Completed",
-      leagueName: "Pro League",
-      amountWon: "200000",
-      profit: 80,
-    },
-    {
-      name: "Midweek Melee",
-      entryAmount: "35000",
-      status: "Pending",
-      leagueName: "Intermediate League",
-      amountWon: "0",
-      profit: 0,
-    },
-    {
-      name: "Daily Derby",
-      entryAmount: "15000",
-      status: "Failed",
-      leagueName: "Beginner League",
-      amountWon: "0",
-      profit: 0,
-    },
-  ];
-
   const columnNames = [
     "Name",
     "Time Entered",
     "Entry amount",
     "League name",
     "Amount won",
-    "Profit",
+    "Lineup",
+    "Status",
   ];
 
   const [contestHistory, setContestHistory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [playerList, setPlayerList] = useState([]);
+  const [playerDialogOpen, setPlayerDialogOpen] = useState(false);
 
   const url = process.env.NEXT_PUBLIC_API_URL;
   const apiUrl = `${url}/contest/contest-history/list/`;
@@ -217,6 +62,8 @@ const Page = () => {
       amountWon: history.won_amount,
       profit: `${history.won_amount - history.entry_amount}`,
       entryTime: `${formatTimestamp(history.entered_by)}`,
+      status: history.completed ? "Completed" : "Pending",
+      players: history.players,
     }));
   };
 
@@ -247,6 +94,15 @@ const Page = () => {
       });
   }, []);
 
+  const showPlayersDialog = (players) => {
+    setPlayerList(players);
+    setPlayerDialogOpen(true);
+  };
+
+  const closePlayerDialog = () => {
+    setPlayerDialogOpen(false);
+  };
+
   if (loading) {
     return (
       <div className="w-full h-full flex items-center justify-center">
@@ -257,6 +113,41 @@ const Page = () => {
 
   return (
     <section className="p-7">
+      <Dialog open={playerDialogOpen}>
+
+        <DialogContent
+          className="bg-white pt-10"
+          onInteractOutside={closePlayerDialog}
+        >
+          {playerList.map((player) => {
+            return (
+              <div
+                className="w-full flex flex-row items-center gap-3 justify-between"
+                key={player.player_id}
+              >
+                <div className="flex flex-row gap-3 items-center">
+                  <img
+                    src={player.image_url}
+                    alt=""
+                    className="w-[30px] w-[30px] rounded-full"
+                  />
+
+                  <div>
+                    <p className="font-medium text-denary font-poppins">
+                      {player.name}
+                    </p>
+                    <p className="text-sm">{player.position}</p>
+                  </div>
+                </div>
+
+                <p className="text-black font-poppins">
+                  {player.points} points
+                </p>
+              </div>
+            );
+          })}
+        </DialogContent>
+      </Dialog>
       <div className="">
         <h1 className="font-medium text-denary font-poppins text-3xl md:text-4xl xl:text-6xl">
           Fantasy drafts
@@ -275,7 +166,10 @@ const Page = () => {
               <TableRow>
                 {columnNames.map((name) => {
                   return (
-                    <TableHead className="bg-denary text-white py-4 font-poppins" key={`gaga-${name}`}>
+                    <TableHead
+                      className="bg-denary text-white py-4 font-poppins"
+                      key={`gaga-${name}`}
+                    >
                       {name}
                     </TableHead>
                   );
@@ -286,16 +180,48 @@ const Page = () => {
             <TableBody>
               {contestHistory.map((history) => {
                 return (
-                  <TableRow key={`row-${history.name}`} className="font-poppins">
-                    <TableCell className="text-black py-5">{history.name}</TableCell>
-                    <TableCell className="text-black py-5">{history.entryTime}</TableCell>
+                  <TableRow
+                    key={`row-${history.name}`}
+                    className="font-poppins"
+                  >
+                    <TableCell className="text-black py-5">
+                      {history.name}
+                    </TableCell>
+                    <TableCell className="text-black py-5">
+                      {history.entryTime}
+                    </TableCell>
 
-                    <TableCell className="text-black py-5">{history.entryAmount}</TableCell>
+                    <TableCell className="text-black py-5">
+                      {history.entryAmount}
+                    </TableCell>
 
-                    <TableCell className="text-black py-5">{history.leagueName}</TableCell>
+                    <TableCell className="text-black py-5">
+                      {history.leagueName}
+                    </TableCell>
 
-                    <TableCell className="text-black py-5">{history.amountWon}</TableCell>
-                    <TableCell className="text-black py-5">{history.profit}</TableCell>
+                    <TableCell className="text-black py-5">
+                      {history.amountWon}
+                    </TableCell>
+
+                    <TableCell className="text-black py-5">
+                      <p
+                        className="text-denary underline cursor-pointer"
+                        onClick={showPlayersDialog.bind(null, history.players)}
+                      >
+                        View Lineup
+                      </p>
+                    </TableCell>
+                    <TableCell className={`text-black py-5`}>
+                      <p
+                        className={`font-medium rounded-full flex-shrink-0 ${
+                          history.status == "Completed"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-slate-100"
+                        } py-2 px-2  text-center`}
+                      >
+                        {history.status}
+                      </p>
+                    </TableCell>
                   </TableRow>
                 );
               })}

@@ -6,7 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { isAuthenticated } from "@/constants/constants";
+import { deleteAccessToken, isAuthenticated } from "@/constants/constants";
 import LoadingTemplate from "@/components/LoadingTemplate";
 import { getAccessToken } from "@/constants/constants";
 
@@ -24,6 +24,7 @@ const Page = () => {
       router.push("/Auth/login");
     }
 
+
     const fetchData = async () => {
       try {
         const response = await axios.get(apiUrl, {
@@ -31,10 +32,18 @@ const Page = () => {
             Authorization: `Bearer ${getAccessToken()}`,
           },
         });
+
+
         setProfile(response.data);
         setLoading(false);
       } catch (error) {
-        toast.error("Error fetching profile");
+        if (error.response && error.response.status == 401){
+          deleteAccessToken()
+          router.push('/Auth/login')
+        }
+        else{
+          toast.error("Error fetching profile.");
+        }
       }
     };
 

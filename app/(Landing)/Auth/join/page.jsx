@@ -29,6 +29,7 @@ import dayjs from "dayjs"; // Import dayjs for date formatting
 import usePostRequest from "@/Hooks/usepostRequest";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { message } from "antd";
 
 const MuiFormikCheckbox = ({ label, ...props }) => {
   const [field] = useField(props);
@@ -174,7 +175,8 @@ const Page = () => {
       console.error("Error:", error);
       const errorMessage =
         error.response?.data?.email?.[0] || error?.response?.data.error;
-      toast.error(errorMessage);
+      
+      toast.error(errorMessage === ''? 'Fatal: An error occured': errorMessage);
     }
   );
 
@@ -185,7 +187,7 @@ const Page = () => {
       dob: values.dob ? dayjs(values.dob).format("YYYY-MM-DD") : null,
     };
     console.log(formattedValues);
-    mutate(formattedValues);
+    mutate(formattedValues, false);
     // Handle form submission
   };
 
@@ -204,8 +206,8 @@ const Page = () => {
           {({ isSubmitting }) => (
             <Form>
               <div className="text-center my-[1rem]">
-                <h2 className="font-bold text-2xl">Join Balldraft</h2>
-                <p>Please provide the following details</p>
+                <h2 className="font-medium text-2xl font-poppins text-black">Join Balldraft</h2>
+                <p className="font-poppins">Please provide the following details</p>
               </div>
               <Field
                 name="first_name"
@@ -269,12 +271,12 @@ const Page = () => {
               >
                 Proceed <ArrowForwardIcon />
               </Button>
-              <div className="flex gap-4 my-[1.5rem] items-center justify-center">
+              {/* <div className="flex gap-4 my-[1.5rem] items-center justify-center">
                 <aside className="w-2/5 border-[1px] border-[black] h-[2px]"></aside>
                 or
                 <aside className="w-2/5 border-[1px] border-[black] h-[2px]"></aside>
-              </div>
-              <button
+              </div> */}
+              {/* <button
                 type="button"
                 className=" flex items-center justify-center text-[black] border-[2px] border-[#012C51] w-full text-white p-[0.7rem] bg-white hover:bg-white rounded-[30px]"
                 style={{ color: "black" }}
@@ -287,12 +289,12 @@ const Page = () => {
                   className="ml-[0.5rem]"
                   alt=""
                 />
-              </button>
+              </button> */}
 
               <div>
                 <p className="text-center mt-[1rem]">
                   Already have an account?{" "}
-                  <a href="#" className="text-[#012C51] hover:underline">
+                  <a href="/Auth/login" className="text-[#012C51] hover:underline">
                     Sign in
                   </a>
                 </p>

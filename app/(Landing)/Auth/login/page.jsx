@@ -173,7 +173,9 @@ const Page = () => {
           <Form>
             <div className="text-center my-[1rem]">
               <h2 className="font-bold text-2xl text-black">Sign In</h2>
-              <p className="text-black">Welcome back! Please enter your details</p>
+              <p className="text-black">
+                Welcome back! Please enter your details
+              </p>
             </div>
             <Field
               name="email"
@@ -193,7 +195,11 @@ const Page = () => {
               margin="normal"
               icon={<LockIcon />}
             />
-            <MuiFormikCheckbox name="rememberMe" label="Remember me" />
+            <div className="w-full flex flex-row justify-between items-center">
+              <MuiFormikCheckbox name="rememberMe" label="Remember me"/>
+
+              <a href="/Auth/password/request" className="text-black font-medium underline">Forgot password?</a>
+            </div>
             <br />
             <Button
               type="submit"
@@ -201,7 +207,7 @@ const Page = () => {
             >
               Sign in <ArrowForwardIcon />
             </Button>
-            <div className="flex gap-4 my-[1.5rem] items-center justify-center">
+            {/* <div className="flex gap-4 my-[1.5rem] items-center justify-center">
               <aside className="w-2/5 border-[1px] border-[black] h-[2px]"></aside>
               or
               <aside className="w-2/5 border-[1px] border-[black] h-[2px]"></aside>
@@ -213,7 +219,7 @@ const Page = () => {
             >
               Continue with{" "}
               <Image src={google} height={20} className="ml-[0.5rem]" alt="" />
-            </button>
+            </button> */}
 
             <div className="mb-[2rem]">
               <p className="text-center mt-[1rem]">

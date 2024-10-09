@@ -168,7 +168,7 @@ const Page = () => {
         {({ isSubmitting }) => (
           <Form>
             <div className="text-center my-[1rem]">
-              <h2 className="font-medium text-denary text-2xl">
+              <h2 className="font-medium text-denary text-xl">
                 Password reset
               </h2>
               <p className="text-black text-sm">

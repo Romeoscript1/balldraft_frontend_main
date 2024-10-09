@@ -5,8 +5,14 @@ module.exports = {
         {
           protocol: 'https',
           hostname: 'api.balldraft.com',
-          port: '', // Leave empty unless you have a specific port
-          pathname: '/media/**', // Adjust this according to the path pattern of your image URLs
+          port: '',
+          pathname: '/media/**',
+        },
+        {
+          protocol: 'http',
+          hostname: 'api.balldraft.com',
+          port: '',
+          pathname: '/media/**',
         },
       ],
     },

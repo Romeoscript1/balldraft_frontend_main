@@ -22,7 +22,7 @@ const Navbar = () => {
   const isAuthRoute = router.includes("/Auth");
   const url = process.env.NEXT_PUBLIC_API_URL;
   const apiUrl = `${url}/profile`;
-  const { data, isLoading, error } = useFetchDataPlans(apiUrl);
+  // const { data, isLoading, error } = useFetchDataPlans(apiUrl);
 
   const navLinks = [
     {

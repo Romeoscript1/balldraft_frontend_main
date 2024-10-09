@@ -7,14 +7,14 @@ import { getAccessToken } from "@/constants/constants";
 const usePostRequest = () => {
   return (url, onSuccess, onError) => {
     const mutation = useMutation({
-      mutationFn: async (data) => {
+      mutationFn: async (data, authorize=true) => {
         const accessToken = getAccessToken();
 
         const headers = {
           "Content-Type": "application/json",
         };
         
-        if (accessToken) {
+        if (accessToken && authorize) {
           headers.Authorization = `Bearer ${accessToken}`;
         }
     
