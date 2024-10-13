@@ -112,7 +112,7 @@ const Page = () => {
   }
 
   return (
-    <section className="p-7">
+    <section className="p-2 sm:p-7">
       <Dialog open={playerDialogOpen} onOpenChange={setPlayerDialogOpen}>
 
         <DialogContent
@@ -161,7 +161,7 @@ const Page = () => {
         </div>
       ) : (
         <div className="w-full mt-9">
-          <Table>
+          <Table className="min-w-max">
             <TableCaption>A list of all contest you have entered</TableCaption>
             <TableHeader>
               <TableRow>

@@ -59,9 +59,9 @@ const Contextcard = ({ type, contest }) => {
   const contestId = contest.id;
 
   return (
-    <div className="p-[1rem]">
+    <div className="p-[1rem] font-poppins">
       <div
-        className={`lg:flex hidden items-start justify-between text-gray-500 p-[1rem] bg-[#F9F9F9] shadow-md rounded-[10px] border-b-[5px]`}
+        className={`lg:flex hidden font-poppins items-start justify-between text-gray-500 p-[1rem] bg-[#F9F9F9] shadow-md rounded-[10px] border-b-[5px]`}
         style={{ borderColor }}
       >
         {!pathname && (
@@ -108,10 +108,10 @@ const Contextcard = ({ type, contest }) => {
 
       {/* LG AND BELOW */}
       <div
-        className="flex items-start max-s-1:flex-wrap justify-between lg:hidden text-gray-500 p-[1rem] bg-[#F9F9F9] shadow-md rounded-[10px] border-b-[5px]"
+        className="flex font-poppins items-start max-s-1:flex-wrap justify-between lg:hidden text-gray-500 p-[1rem] bg-[#F9F9F9] shadow-md rounded-[10px] border-b-[5px]"
         style={{ borderColor }}
       >
-        <aside className="flex flex-col items-start gap-2 justify-start">
+        <aside className="flex font-poppins flex-col items-start gap-2 justify-start">
           <div>
             <h2 className="font-medium max-s-1:text-sm text-[0.7rem] sm:text-sm text-black">{`${title[0]} Beginner Double Up (${totalToWin})`}</h2>
           </div>

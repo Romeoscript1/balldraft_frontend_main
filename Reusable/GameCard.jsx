@@ -14,7 +14,7 @@ const GameCard = ({
   console.log(time)
   return (
     <a
-      className="rounded-xl shadow-md inline-block mb-10 py-2 px-5  min-w-[200px] bg-red-700"
+      className="rounded-xl shadow-md inline-block mb-10 py-2 px-5  min-w-[200px] bg-white"
       href={detailUrl}
     >
       <div className="flex items-center justify-between gap-3">

@@ -1,16 +1,27 @@
 .ant-tabs-nav-list {
-    display: flex;
-    width: 100%!important;
-    justify-content: space-between;
+  display: flex;
+  /* width: 100%!important; */
+  justify-content: space-between;
+}
+
+.ant-tabs-tab {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 12px !important;
+  justify-content: center;
+}
+.ant-tabs-nav-wrap {
+  display: block;
+}
+
+@media (min-width: 630px) {
+  .ant-tabs-nav-list {
+    width: 100% !important;
   }
-  
-  .ant-tabs-tab {
-    flex-grow: 1;
-    text-align: center;
-    font-size: 20px!important;
-    justify-content: center; 
+
+  .ant-tabs-tab{
+    font-size: 20px !important;
   }
-  .ant-tabs-nav-wrap{
-    display: block;
-  }
-  
+}
+
+

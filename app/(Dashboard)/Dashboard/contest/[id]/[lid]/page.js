@@ -5268,7 +5268,7 @@ const Page = () => {
 
   if (fatalError) {
     return (
-      <div className="w-full h-[40vh] flex items-center justify-center">
+      <div className="w-full h-[40vh] flex items-center justify-center bg-white">
         <p className="text-red-500">
           Fatal: An error occured, please try again.
         </p>
@@ -5277,7 +5277,7 @@ const Page = () => {
   }
 
   return (
-    <div className="p-[5px] sm:p-[1.5rem]">
+    <div className="p-[5px] sm:p-[1.5rem] bg-white">
       <Toaster />
       <div className="flex items-center justify-between w-full mb-10">
         <div>

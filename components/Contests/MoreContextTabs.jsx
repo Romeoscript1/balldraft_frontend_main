@@ -341,25 +341,25 @@ const MoreContext = (props) => {
       label: "Single Game",
       children: <Contests type="top" contests={getH2HGames()} />,
     },
-    // {
-    //     key: '4',
-    //     label: 'Free Entry',
-    //     children: <Contests type='top' contests={contests?.fixtures} />,
-    // },
   ];
 
-  
   return (
     <>
       <h2 className="text-2xl font-bold text-center my-[2rem] text-black">
         More Contests
       </h2>
-      <Tabs defaultActiveKey="1" items={items} onChange={onChange} centered />
+
+      <Tabs
+        defaultActiveKey="1"
+        items={items}
+        onChange={onChange}
+        centered
+      />
 
       <div className="w-full flex items-center justify-center">
         {numberFixtures.length <= fixtures.length && (
           <button
-            className="bg-denary rounded-full px-4 py-3 my-5 cursor-pointer"
+            className="bg-denary rounded-full px-4 py-3 my-5 cursor-pointer text-white"
             onClick={loadMoreHandler}
           >
             Load more
