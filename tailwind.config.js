@@ -55,6 +55,7 @@ module.exports = {
         s5: "689px",
         s6: "675px",
         s7: "1023px",
+        s8: '890px'
       },
       fontFamily:{
         poppins: ['Poppins', 'sans-serif']

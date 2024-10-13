@@ -142,7 +142,7 @@ const Deactivate = () => {
   };
 
   return (
-    <div className="p-6 rounded-lg w-full m-auto">
+    <div className="p-6 max-sm:p-2 rounded-lg w-full m-auto">
       <Toaster />
       {isPending && <Loader />}
       <Formik
@@ -153,8 +153,8 @@ const Deactivate = () => {
         {({ isSubmitting }) => (
           <Form>
             <div className="text-center my-[1rem]">
-              <h2 className="font-bold text-2xl">Deactivate Your Account</h2>
-              <p>
+              <h2 className="font-bold text-2xl text-denary font-poppins max-sm:text-xl">Deactivate Your Account</h2>
+              <p className="max-sm:text-sm font-poppins opacity-60">
                 Please provide the following details to deactivate your account.
               </p>
             </div>

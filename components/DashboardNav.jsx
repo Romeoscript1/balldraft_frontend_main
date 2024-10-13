@@ -18,11 +18,10 @@ import {
 } from "@/components/ui/popover";
 import { useEffect } from "react";
 import { getUserImageOrdefault } from "@/constants/constants";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import { RiSettings3Line } from "react-icons/ri";
+import { FiActivity } from "react-icons/fi";
+import { LuHistory } from "react-icons/lu";
 
 const DashboardNav = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -77,7 +76,7 @@ const DashboardNav = () => {
     setFixturesLoading(true);
 
     const searchDebouncer = setTimeout(() => {
-      console.log('sending request')
+      console.log("sending request");
       fetch(`${microUrl}search-fixtures?keyword=${searchTerm}`, {
         method: "GET",
       })
@@ -277,11 +276,29 @@ const DashboardNav = () => {
                       </div>
                       {/* johndoe@gmaul.com */}
                     </summary>
-                    <ul className="p-2 bg-base-100 rounded-t-none">
+                    <ul className="p-2 bg-[#000000] rounded-t-none z-50">
                       <li>
                         <a href="/Dashboard/account">
                           <FaRegUser className="fill-white" />
                           Profile
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/Dashboard/settings">
+                          <RiSettings3Line className="fill-white" size={16} />
+                          Settings
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/transaction/activity">
+                          <FiActivity className="text-white" size={16} />
+                          Activity
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/transaction/">
+                          <LuHistory className="text-white" size={16} />
+                          History
                         </a>
                       </li>
                       <li>
@@ -387,7 +404,15 @@ const DashboardNav = () => {
             <DrawerContent className="bg-white py-10">
               <div className="flex w-full flex-col items-center justify-center gap-5">
                 {navLinks.map((item) => {
-                  return <a key={`dash-${item.title}`} className="text-slate-900 font-poppins underline" href={item.route}>{item.title}</a>;
+                  return (
+                    <a
+                      key={`dash-${item.title}`}
+                      className="text-slate-900 font-poppins underline"
+                      href={item.route}
+                    >
+                      {item.title}
+                    </a>
+                  );
                 })}
               </div>
             </DrawerContent>

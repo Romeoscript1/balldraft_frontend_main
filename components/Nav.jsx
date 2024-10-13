@@ -6,6 +6,10 @@ import useAuthentication from "@/Hooks/useAuthentication";
 import { IoPower } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
 import { getUserImageOrdefault } from "@/constants/constants";
+import { RiSettings3Line } from "react-icons/ri";
+import { FiActivity } from "react-icons/fi";
+import { LuHistory } from "react-icons/lu";
+
 
 const Nav = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -23,7 +27,10 @@ const Nav = () => {
         </aside>
 
         <aside className="flex items-center gap-8">
-          <a className="lg:flex items-center gap-3 hidden" href="/transaction/rewards/">
+          <a
+            className="lg:flex items-center gap-3 hidden"
+            href="/transaction/rewards/"
+          >
             {" "}
             <svg
               width="24"
@@ -74,7 +81,10 @@ const Nav = () => {
             </svg>
             Rewards
           </a>
-          <a className="lg:flex items-center gap-3 hidden" href="/transaction/activity/">
+          <a
+            className="lg:flex items-center gap-3 hidden"
+            href="/transaction/activity/"
+          >
             <svg
               width="34"
               height="34"
@@ -159,7 +169,7 @@ const Nav = () => {
                       </div>
                       {/* johndoe@gmaul.com */}
                     </summary>
-                    <ul className="p-2 bg-base-100 rounded-t-none">
+                    <ul className="p-2 bg-[#000000] rounded-t-none z-50">
                       <li>
                         <a href="/Dashboard/account">
                           <FaRegUser className="fill-white" />
@@ -167,7 +177,25 @@ const Nav = () => {
                         </a>
                       </li>
                       <li>
-                        <a>
+                        <a href="/Dashboard/settings">
+                          <RiSettings3Line className="fill-white" size={16} />
+                          Settings
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/transaction/activity">
+                          <FiActivity className="text-white" size={16} />
+                          Activity
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/transaction/">
+                          <LuHistory className="text-white" size={16} />
+                          History
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/Auth/logout/">
                           <IoPower className="fill-red-600" />
                           Logout
                         </a>

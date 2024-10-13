@@ -1,17 +1,20 @@
 "use client";
 import Icon from "@/Reusable/Icons/Icons";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MobileModal from "./MobileModal";
 import AddressModal from "./AddressModal";
 import { useFetchDataPlans } from "@/Hooks/useFetch";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "@/components/Loader";
+import { TbEdit } from "react-icons/tb";
 import { getAccessToken, getUserImageOrdefault } from "@/constants/constants";
+import { useRouter } from "next/navigation";
 
 const ProfileForm = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
   const apiUrl = `${url}/profile`;
+  const router = useRouter();
 
   const { data, isLoading, error } = useFetchDataPlans(apiUrl);
   const [formData, setFormData] = useState({
@@ -26,6 +29,10 @@ const ProfileForm = () => {
   });
   const [originalData, setOriginalData] = useState({});
   const [changes, setChanges] = useState({});
+  const fileePickerRef = useRef(null);
+
+  const [picUplaoding, setPicUploading] = useState(false);
+  const [imageSrc, setImageSrc] = useState(null);
 
   useEffect(() => {
     if (data) {
@@ -38,6 +45,7 @@ const ProfileForm = () => {
         bank: data.bank || "",
         account_number: data.account_number || "",
         account_name: data.account_name || "",
+        image: data.image || null,
       });
       setOriginalData({
         username: data.username || "",
@@ -48,6 +56,7 @@ const ProfileForm = () => {
         bank: data.bank || "",
         account_number: data.account_number || "",
         account_name: data.account_name || "",
+        image: data.image || null,
       });
     }
   }, [data]);
@@ -65,6 +74,41 @@ const ProfileForm = () => {
     }
   };
 
+  const updateProfilePicture = async (event) => {
+    const file = event.target.files[0];
+
+    if (!file) {
+      toast.error("Please choose a file");
+      return;
+    }
+    console.log(file);
+    setPicUploading(true);
+    try {
+      await axios.patch(
+        `${apiUrl}/`,
+        {
+          image: file,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${getAccessToken()}`,
+          },
+        }
+      );
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImageSrc(reader.result);
+      };
+      reader.readAsDataURL(file);
+      toast.success("Profile image updated successfully");
+    } catch (error) {
+      console.log("Error updating proflile image", error);
+      toast.error("Error updating profile image");
+    }
+    setPicUploading(false);
+  };
   const handleUpdate = async (field) => {
     try {
       await axios.patch(
@@ -97,13 +141,36 @@ const ProfileForm = () => {
   }
 
   return (
-    <div className="p-6 rounded-lg m-auto w-full">
+    <div className="p-6 rounded-lg m-auto w-full bg-white">
       <Toaster />
+
+
+      {picUplaoding && <Loader />}
       <div className="flex flex-col items-center gap-4 text-[#012C51] my-[2rem]">
-        <img
-          className=" w-20 h-20 rounded-full object-cover"
-          src={getUserImageOrdefault(formData.image)}
-          alt="Avatar"
+        <div className="relative w-max h-max">
+          <img
+            className=" w-20 h-20 rounded-full object-cover"
+            src={imageSrc || getUserImageOrdefault(formData.image)}
+            alt="Avatar"
+          />
+
+          <div
+            onClick={() => {
+              fileePickerRef.current.click();
+            }}
+            className="absolute bottom-0 right-0 z-10 bg-denary w-[30px] h-[30px] rounded-full flex items-center justify-center text-white cursor-pointer"
+          >
+            <TbEdit />
+          </div>
+        </div>
+        <input
+          type="file"
+          name=""
+          id=""
+          ref={fileePickerRef}
+          className="hidden"
+          onChange={updateProfilePicture}
+          accept="image/png, image/jpeg"
         />
         Edit Profile
       </div>
@@ -134,7 +201,7 @@ const ProfileForm = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col items-start">
+        {/* <div className="flex flex-col items-start">
           <label className="w-32 font-medium">Email Address:</label>
           <div className="flex items-center w-full border rounded-full">
             <input
@@ -157,7 +224,7 @@ const ProfileForm = () => {
               </p>
             </button>
           </div>
-        </div>
+        </div> */}
         <div className="flex flex-col items-start">
           <label className="w-32 font-medium">Date of Birth:</label>
           <div className="flex items-center w-full border rounded-lg">

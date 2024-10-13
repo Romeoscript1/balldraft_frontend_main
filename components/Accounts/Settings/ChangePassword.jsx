@@ -139,7 +139,7 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="p-6 rounded-lg w-full m-auto">
+    <div className="p-6 max-sm:p-2 rounded-lg w-full m-auto">
       <Toaster />
       <Formik
         initialValues={initialValues}
@@ -149,8 +149,8 @@ const ChangePassword = () => {
         {({ isSubmitting }) => (
           <Form>
             <div className="text-center my-[1rem]">
-              <h2 className="font-bold text-2xl">Change Your Password</h2>
-              <p>
+              <h2 className="font-bold text-2xl text-denary font-poppins max-sm:text-xl">Change Your Password</h2>
+              <p className="max-sm:text-sm font-poppins">
                 To enhance your security, please update your password below.
               </p>
             </div>

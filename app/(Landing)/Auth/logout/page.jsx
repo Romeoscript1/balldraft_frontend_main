@@ -15,23 +15,23 @@ const Page = () => {
   const router = useRouter();
 
   useEffect(() => {
-    deleteAccessToken()
-    router.push('/Auth/login')
-    // postData(
-    //   `${url}/auth/logout/`,
-    //   {
-    //     refresh_token: getRefreshToken(),
-    //     access_token: getAccessToken(),
-    //   },
-    //   (data) => {
-    //     router.push("/Auth/login/");
-    //   },
-    //   (error) => {
-    //     // router.back();
-    //     console.log(error);
-    //     toast.error(error);
-    //   }
-    // );
+    postData(
+      `${url}/auth/logout/`,
+      {
+        refresh_token: getRefreshToken(),
+        access_token: getAccessToken(),
+      },
+      (data) => {
+        console.log('from logout sucess', data)
+        deleteAccessToken();
+        router.push("/Auth/login");
+      },
+      (error) => {
+        console.log('from logout error', error)
+        deleteAccessToken();
+        router.push("/Auth/login");
+      }
+    );
   }, []);
 
   if (loading) {
@@ -45,9 +45,9 @@ const Page = () => {
 
   return (
     <div>
-      <Loader/>
+      <Loader />
       <Toaster />
-      
+
       {/* <div className="w-full h-[100vh] flex items-center justify-center">
         <div className="flex flex-col">
           <p className="text-xl">Logging you out, please wait...</p>

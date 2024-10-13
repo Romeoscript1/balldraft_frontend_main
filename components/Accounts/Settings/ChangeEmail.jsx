@@ -104,7 +104,7 @@ const ChangeEmail = () => {
   };
 
   return (
-    <div className="p-6 rounded-lg m-auto w-full">
+    <div className="p-6 max-sm:p-2 rounded-lg m-auto w-full">
       <Toaster />
       <Formik
         initialValues={initialValues}
@@ -114,8 +114,8 @@ const ChangeEmail = () => {
         {({ isSubmitting }) => (
           <Form>
             <div className="text-center my-[1rem]">
-              <h2 className="font-bold text-2xl">Change Email Address</h2>
-              <p>
+              <h2 className="font-bold text-2xl font-poppins text-denary max-sm:text-xl">Change Email Address</h2>
+              <p className="text-black font-poppins opacity-60 sm:text-sm">
                 By changing your Email address, you can make sure that all your
                 account information is up to date
               </p>
