@@ -6,11 +6,10 @@ import { ReactQueryProvider } from "../ReactQueryprovider";
 import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
-// export const metadata = {
-//   title: "BallDraft",
-//   description: "The Most Trusted Fantasy Sports Platform",
-  
-// };
+export const metadata = {
+  title: "BallDraft",
+  description: "The Most Trusted Fantasy Sports Platform",
+};
 
 export default function RootLayout({ children }) {
 

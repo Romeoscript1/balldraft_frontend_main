@@ -20,12 +20,7 @@ import { useEffect } from "react";
 import { getUserImageOrdefault } from "@/constants/constants";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
@@ -348,13 +343,13 @@ const DashboardNav = () => {
           </a>
 
           <div className="flex flex-col">
-            {/* <SearchGamesModal> */}
-              <label className="input input-bordered lg:flex items-center gap-2 bg-white rounded-full hidden">
+            <SearchGamesModal>
+              <label className="input input-bordered lg:flex items-center gap-2 bg-white rounded-full hidden cursor-pointer">
                 <input
                   type="text"
-                  className="grow rounded-full"
+                  className="grow rounded-full cursor-pointer"
                   placeholder="Search for games"
-                  onChange={searchChangeHandler}
+                  // onChange={searchChangeHandler}
                 />
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -369,7 +364,7 @@ const DashboardNav = () => {
                   />
                 </svg>
               </label>
-            {/* </SearchGamesModal> */}
+            </SearchGamesModal>
 
             <Popover open={popoverOpen}>
               <PopoverTrigger className="flex"></PopoverTrigger>
@@ -385,7 +380,7 @@ const DashboardNav = () => {
           </div>
 
           <Drawer>
-            <DrawerTrigger>
+            <DrawerTrigger className="lg:hidden">
               <IoMdMenu className="text-5xl text-gray-500 border rounded-2 lg:hidden flex" />
             </DrawerTrigger>
 

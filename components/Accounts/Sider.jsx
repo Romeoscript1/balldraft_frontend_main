@@ -6,7 +6,6 @@ import { LuHistory } from "react-icons/lu";
 import { IoIosLogOut } from "react-icons/io";
 import { LuSettings } from "react-icons/lu";
 
-
 const Sider = (props) => {
   return (
     <div
@@ -21,7 +20,7 @@ const Sider = (props) => {
           </li> */}
           <li className="flex items-center gap-3 text-[#012C51] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
             <a href="/transaction/activity" className="flex gap-3">
-              <FiActivity/>
+              <FiActivity />
               Activity Log
             </a>
           </li>
@@ -32,14 +31,14 @@ const Sider = (props) => {
           <li className="flex items-center text-[#012C51] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
             <a href="/transaction/" className="flex gap-3 items-center">
               {/* <Icon type="history" /> */}
-              <LuHistory size={20}/>
+              <LuHistory size={20} />
               Transaction History
             </a>
           </li>
           <li className="flex items-center text-[#012C51] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
             <a href="/Dashboard/settings" className="flex gap-3 items-center">
               {/* <Icon type="history" /> */}
-              <LuSettings  size={20}/>
+              <LuSettings size={20} />
               Account settings
             </a>
           </li>
@@ -48,14 +47,15 @@ const Sider = (props) => {
             Taxing & Forms
           </li> */}
           <li className="flex items-center gap-3 text-[#ff0000] py-3 px-2 hover:text-white hover:bg-[#012c51] rounded-md">
-            <IoIosLogOut />
-            {/* <Icon type="logout" /> */}
-            Sign Out
+            <a href="/Auth/logout" className="flex gap-3 items-center">
+              <IoIosLogOut />
+              {/* <Icon type="logout" /> */}
+              Sign Out
+            </a>
           </li>
         </ul>
       </div>
 
-      
       {/* <a
         className="flex items-center gap-4 text-[#012C51]"
         href="/Dashboard/settings"

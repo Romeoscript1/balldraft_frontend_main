@@ -7,7 +7,7 @@ import { useFetchDataPlans } from "@/Hooks/useFetch";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "@/components/Loader";
-import { getAccessToken } from "@/constants/constants";
+import { getAccessToken, getUserImageOrdefault } from "@/constants/constants";
 
 const ProfileForm = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
@@ -102,7 +102,7 @@ const ProfileForm = () => {
       <div className="flex flex-col items-center gap-4 text-[#012C51] my-[2rem]">
         <img
           className=" w-20 h-20 rounded-full object-cover"
-          src="https://via.placeholder.com/80"
+          src={getUserImageOrdefault(formData.image)}
           alt="Avatar"
         />
         Edit Profile

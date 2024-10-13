@@ -24,7 +24,6 @@ const Page = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
 
 
-  //TODO: implement a central place for loading profile
   const profileUrl = `${url}/profile`;
   useEffect(() => {
     if (typeof window !== "undefined" && !userAuth) {
@@ -39,6 +38,10 @@ const Page = () => {
         });
         setProfile(response.data);
       } catch (error) {
+        if (error?.response && error?.response?.status == 401){
+          deleteAccessToken()
+          router.push('/Auth/login')
+        }
         toast.error("Error fetching profile");
       }
     };
@@ -65,9 +68,13 @@ const Page = () => {
       return;
     }
     const apiUrl = `${url}/profile/payments/create/`;
+    const requestBody = {
+      ngn_amount: ngnAmmount
+    }
+    console.log(requestBody)
     postData(
       apiUrl,
-      { ngn_amount: ngnAmmount },
+      requestBody,
       (data) => {
         openPopupWindow(data.payment_url);
       },

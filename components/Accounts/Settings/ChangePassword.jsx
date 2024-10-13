@@ -119,8 +119,8 @@ const ChangePassword = () => {
         {
           password: values.newPassword,
           confirm_password: values.confirmPassword,
-            token: getAccessToken(),
-          //   uidb64: 1
+          // token: getAccessToken(),
+          // uidb64: 1
         },
         {
           headers: {
@@ -129,7 +129,6 @@ const ChangePassword = () => {
           },
         }
       );
-      console.log('THE RERSPON', response)
       toast.success("Password updated successfully");
     } catch (error) {
       console.error("Error updating password:", error);

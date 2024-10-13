@@ -127,7 +127,7 @@ const Page = () => {
   const url = process.env.NEXT_PUBLIC_API_URL;
 
   const { mutate, isPending, isSuccess, isError, error } = postRequest(
-    `${url}/auth/password-reset/`,
+    `${url}/auth/request-password-reset-email/`,
     (response) => {
       toast.success(
         "Password reset link has been sent to your email!. please follow the instructions in your email to reset your password",

@@ -5,6 +5,7 @@ import ghostball from "@/public/images/ghostball.svg";
 import ufc from "@/public/images/UFC.svg";
 import { useFetchDataPlans } from "@/Hooks/useFetch";
 import LoadingTemplate from "./LoadingTemplate";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const SportsBook = (props) => {
   const leagues = {
@@ -6742,22 +6743,44 @@ const SportsBook = (props) => {
     ],
   };
 
-  const url = process.env.NEXT_PUBLIC_MICROSERVICE_URL;
-  const apiUrl = `${url}get-leagues/`;
-
-  // const { data: contests } = useFetchDataPlans(apiUrl);
-  // console.log(contests, 'nawa oo')
-  // console.log('the leagues', contests.leagues)
-
   const [filter, setFilter] = useState("all");
 
-  const urlLeagues = props.leagues;
+  const urlLeagues = props.leagues || [];
   const loading = props.loading;
 
   if (loading) {
-    return <LoadingTemplate />;
+    return (
+      <div className="w-full flex flex-col">
+        <div className="flex lg:gap-4 gap-2 p-[1rem] my-[1rem] border-b-[2px]  overflow-x-scroll no-scrollbar">
+          {[1, 2, 3].map((item) => (
+            <Skeleton
+              className={"w-[80px] h-[45px] rounded-full bg-[#ededef]"}
+              key={`round-skeleton-${item}`}
+            />
+          ))}
+        </div>
+        <div className="grid lg:grid-cols-3 grid-cols-1 gap-4 lg:p-[1rem] p-[0.7rem] items-center w-full">
+          {[1, 2, 3].map((item) => {
+            return (
+              <Skeleton
+                key={item}
+                className="rounded-[20px] p-[1rem] w-full relative h-[300px] bg-[#ededef]"
+              />
+            );
+          })}
+        </div>
+      </div>
+    );
+    // return <LoadingTemplate />;
   }
 
+  if (urlLeagues.length == 0) {
+    return (
+      <div className="w-full min-h-[40vh] flex flex-col items-center justify-center">
+        <p>No leagues found</p>
+      </div>
+    );
+  }
   const sportsCards =
     urlLeagues.leagues?.map((league) => {
       return {

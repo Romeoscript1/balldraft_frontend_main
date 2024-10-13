@@ -32,6 +32,7 @@ const usePostData = () => {
       const data = await response.json();
       onSuccess(data);
     } catch (error) {
+      console.log(error)
       onError(error.message);
     } finally {
       setLoading(false);

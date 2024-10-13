@@ -3,62 +3,109 @@ import { useState, useEffect } from "react";
 import { FcEmptyFilter } from "react-icons/fc";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { CiSearch } from "react-icons/ci";
+import LoadingTemplate from "./LoadingTemplate";
 
 const SearchGamesModal = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchFixtures, setSearchFixtures] = useState([]);
-  const [searchCount, setSearchCount] = useState(0)
+  const [searchCount, setSearchCount] = useState(0);
 
   //TODO: utilizet this to inticate loading
-  const [fixturesLoading, setFixturesLoading] = useState(true);
+  const [fixturesLoading, setFixturesLoading] = useState(false);
+
+  const microUrl = process.env.NEXT_PUBLIC_MICROSERVICE_URL;
 
 
-  const contructSetSearchFixtures = (data)=>{
-      setSearchFixtures(data?.fixtures || []);
-  }
+  const contructSetSearchFixtures = (data) => {
+    setSearchFixtures(data?.fixtures || []);
+    // setSearchCount(data?.fixtures?.length )
+    console.log("constructing", data);
+  };
 
-  useEffect(() => {
-    // setFixturesLoading(true);
-    console.log('searching')
-    const microUrl = process.env.NEXT_PUBLIC_MICROSERVICE_URL;
-    const searchDebouncer = setTimeout(() => {
-      // fetch(`${microUrl}search-fixtures?keyword=${searchTerm}&limit=1000000000`, {
-      //   method: "GET",
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     console.log(data);
-      //     contructSetSearchFixtures(data);
-      //     setSearchCount(data?.total_fixtures || 0);
-      //   })
-      //   .catch((error)=>{
-      //     setSearchFixtures([])
+  const preformSearch = (keyword) => {
+    setFixturesLoading(true)
+    fetch(`${microUrl}search-fixtures?keyword=${keyword}&limit=100`, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        contructSetSearchFixtures(data);
+        // setSearchCount(data?.total_fixtures || 0);
+      })
+      .catch((error) => {
+        setSearchFixtures([])
+      })
+      .finally(() => {
+        setFixturesLoading(false);
+      });
+  };
 
-      //   })
-      //   .finally(() => {
-      //     // setFixturesLoading(false);
-      //   });
-    }, 500);
+  // useEffect(() => {
+  //   // setFixturesLoading(true);
+  //   const searchDebouncer = setTimeout(() => {
+  //     fetch(
+  //       `${microUrl}search-fixtures?keyword=${searchTerm}&limit=1000000000`,
+  //       {
+  //         method: "GET",
+  //       }
+  //     )
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         contructSetSearchFixtures(data);
+  //         // setSearchCount(data?.total_fixtures || 0);
+  //       })
+  //       .catch((error) => {
+  //         // setSearchFixtures([])
+  //       })
+  //       .finally(() => {
+  //         // setFixturesLoading(false);
+  //       });
+  //   }, 1000);
 
-    return () => {
-      clearTimeout(searchDebouncer);
-    };
-  }, [searchTerm]);
+  //   return () => {
+  //     clearTimeout(searchDebouncer);
+  //   };
+  // }, []);
 
   const searchChangeHandler = (event) => {
     const value = event.target.value;
     setSearchTerm(value);
   };
 
+  const searchSubmitHandler = (event) =>{
+    event.preventDefault()
+
+    const formData = new FormData(event.target)
+    const searchTerm = formData.get('searchTerm')
+    preformSearch(searchTerm)
+  }
+
   return (
     <div className={`${props.className}`}>
       <Dialog>
         <DialogTrigger>{props.children}</DialogTrigger>
         <DialogContent className="bg-white rounded-lg flex flex-col ">
-          <label className="input input-bordered flex items-center gap-2 bg-white rounded-full mt-4">
+          <form className="mt-4 relative" onSubmit={searchSubmitHandler}>
             <input
               type="text"
-              className="grow rounded-full"
+              className="w-full px-5 py-3 rounded-full border bg-white outline-none"
+              placeholder="Search for games"
+              name="searchTerm"
+            />
+
+            <button type="submit" className="px-4 py-3 bg-denary text-white rounded-full absolute right-0 text-sm mt-[2px] disabled:opacity-20 disabled:cursor-not-allowed" disabled={fixturesLoading}>
+              Search
+            </button>
+          </form>
+
+          {/* 
+          <label className="input grow input-bordered flex items-center justify-between bg-white rounded-full mt-4 pr-0">
+            <input
+              type="text"
+              className="rounded-full "
               placeholder="Search for games"
               onChange={searchChangeHandler}
             />
@@ -74,13 +121,16 @@ const SearchGamesModal = (props) => {
                 clipRule="evenodd"
               />
             </svg>
-          </label>
-
-          <div><p className="font-poppins mx-3">{searchCount} Results</p> </div>
 
 
-          <div className="w-full max-h-[500px] overflow-y-scroll flex flex-col">
-            {searchCount == 0 ? (
+          </label> */}
+
+          <div>
+            <p className="font-poppins mx-3">{searchFixtures.length} Results</p>{" "}
+          </div>
+
+          <div className="w-full max-h-[500px] overflow-y-scroll flex flex-col no-scrollbar">
+            {fixturesLoading? <LoadingTemplate/>: searchFixtures.length == 0 ? (
               <div className="w-full h-[100px] flex items-center justify-center">
                 <div className="flex flex-row gap-2 items-center">
                   <FcEmptyFilter size={25} />
@@ -109,6 +159,7 @@ const SearchGamesModal = (props) => {
                 })}
               </div>
             )}
+
           </div>
         </DialogContent>
       </Dialog>
